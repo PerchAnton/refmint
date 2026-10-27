@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.1.0-alpha.1 — initial source version
+## 0.1.0-alpha.1 — 2026-10-27
+
+First GitHub prerelease, distributed as a package archive. The npm registry publication is separate. The API and reference format are experimental.
 
 - Generate public references with Web Crypto and a prefix-bound Bech32m checksum.
 - Choose a payload length from a lifetime collision budget or use a fixed length.
@@ -16,4 +18,4 @@
 - Return HTTP 400 for malformed demo URLs without stopping the local server; test the asset allowlist and subsequent requests.
 - Check all 912 supported prefix/payload length combinations and 1,766 count/budget pairs around exact floating-point cutoffs, including unattainable budgets.
 
-This version number identifies the source/package candidate. Publication to npm or a GitHub release is not implied.
+[Release notes and downloads](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1).

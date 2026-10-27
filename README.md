@@ -5,10 +5,11 @@
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Status: alpha](https://img.shields.io/badge/status-alpha-d9822b)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
+[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.1-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1)
 
 RefMint is a small TypeScript library for public ticket, document and order references. It combines a random payload, a type prefix and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
-**Alpha:** the format and API may change. This repository is usable from source; no npm publication is claimed. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
+**Alpha:** the format and API may change. [Download the first GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -16,8 +17,16 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 
 ## Try it
 
+Install the versioned package archive into your application:
+
 ```sh
-git clone https://github.com/PerchAnton/refmint.git
+npm install https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.1/refmint-0.1.0-alpha.1.tgz
+```
+
+The release also includes `SHA256SUMS.txt` and the measured evidence. To run the local browser demo from the tagged source:
+
+```sh
+git clone --branch v0.1.0-alpha.1 https://github.com/PerchAnton/refmint.git
 cd refmint
 # Install pnpm 11.25.0 if it is not available.
 npm install -g pnpm@11.25.0
@@ -29,13 +38,12 @@ pnpm demo
 
 Open **http://127.0.0.1:4173**. The example runs locally, keeps one sample ticket in memory, and demonstrates three outcomes: found, mistyped and valid-but-unknown. It sends no references to a remote service.
 
-For a local package installation, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` in your application with your package manager. There is no `npm install refmint` instruction until an npm release exists.
+To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. The command `npm install refmint` is not available until a separate npm registry publication.
 
 ## One namespace, one storage format
 
 ```ts
-// From the built source checkout; installed packages use 'refmint'.
-import { createReferences } from './dist/index.js'
+import { createReferences } from 'refmint'
 
 const tickets = createReferences({
   prefix: 'ticket',
@@ -102,7 +110,7 @@ pnpm test:browser          # actual form flow in three browser engines
 pnpm pack --pack-destination artifacts
 ```
 
-CI runs the core checks on Node 22, 24 and 26, including Windows and macOS, plus the browser example on Chromium, Firefox and WebKit. The workflow badge reports its current result; the matrix is a test target until that run succeeds. See [SPEC.md](SPEC.md), [CHANGELOG.md](CHANGELOG.md), [security policy](SECURITY.md) and [contribution guide](CONTRIBUTING.md).
+CI runs the core checks on Node 22, 24 and 26, including Windows and macOS, plus the browser example on Chromium, Firefox and WebKit. The workflow badge reports its current result; the release notes link the checks for the released commit. See [SPEC.md](SPEC.md), [CHANGELOG.md](CHANGELOG.md), [security policy](SECURITY.md) and [contribution guide](CONTRIBUTING.md).
 
 The package check first plants an obsolete build file and verifies that a clean build removes it. It then installs into a separate consumer with an empty dependency store and network access disabled for installation, checking the archive contents, exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. Future npm alpha publications default to the `alpha` tag; that setting does not publish a package.
 
