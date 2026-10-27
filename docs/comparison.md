@@ -1,6 +1,6 @@
 # RefMint and a Bech32m application adapter
 
-Build current source, run `pnpm compare`, then `pnpm demo` and open **http://127.0.0.1:4173/comparison/**. These existing-ID APIs and examples are not in the published alpha.1 archive.
+Build the alpha.2 tagged source, run `pnpm compare`, then `pnpm demo` and open **http://127.0.0.1:4173/comparison/**. The alpha.2 package archive includes the existing-ID APIs and recorded evidence; run the form and measurement scripts from the source checkout. The alpha.1 archive contains only the original random-reference API.
 
 The form is a return lookup using an existing numeric key or UUID. It restores that original value before looking up one in-memory record. No second alias is generated, stored or indexed. This example does not replace an application's authorization or demonstrate real database savings.
 

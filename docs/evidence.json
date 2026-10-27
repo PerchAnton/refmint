@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T12:56:35.202Z",
-  "version": "0.1.0-alpha.1",
+  "generated_at": "2026-10-27T13:21:13.955Z",
+  "version": "0.1.0-alpha.2",
   "environment": {
     "node": "v24.19.0",
     "platform": "darwin",
@@ -61,30 +61,30 @@
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        733108,
-        800598,
-        811470,
-        799993,
-        834236,
-        815998,
-        804139
+        746307,
+        811310,
+        810544,
+        814124,
+        812458,
+        815989,
+        811019
       ],
-      "median_ops_per_second": 804139
+      "median_ops_per_second": 811310
     },
     "parse_displayed": {
       "iterations": 20000,
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        1330558,
-        1440745,
-        1445735,
-        1444065,
-        1441571,
-        1459916,
-        1464218
+        1356461,
+        1421212,
+        1462340,
+        1435415,
+        1461307,
+        1399894,
+        1402971
       ],
-      "median_ops_per_second": 1444065
+      "median_ops_per_second": 1421212
     }
   },
   "collision_model": [

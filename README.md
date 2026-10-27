@@ -5,13 +5,13 @@
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Status: alpha](https://img.shields.io/badge/status-alpha-d9822b)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
-[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.1-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1)
+[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.2-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2)
 
-RefMint is a small TypeScript library for public ticket, document and order references. It combines a random payload, a type prefix and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
+RefMint is a small TypeScript library for public ticket, document and order references. It can generate random references or encode existing uint64/UUID values with a namespace and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
-**New in source, not yet released:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and compare a complete form with an independent Bech32m adapter. The published alpha.1 archive below contains the original random-reference API. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
+**New in alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
 
-**Alpha:** the format and API may change. [Download the first GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
+**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. [Download the current GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -22,15 +22,15 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 Install the versioned package archive into your application:
 
 ```sh
-npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.1/refmint-0.1.0-alpha.1.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.2/refmint-0.1.0-alpha.2.tgz
 ```
 
-npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.1.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.2.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
-The release also includes `SHA256SUMS.txt` and the measured evidence. To run the local browser demo from the tagged source:
+The release also includes `SHA256SUMS.txt`, verification metadata and all three measured-evidence reports. To run the local browser demo from the tagged source:
 
 ```sh
-git clone --branch v0.1.0-alpha.1 https://github.com/PerchAnton/refmint.git
+git clone --branch v0.1.0-alpha.2 https://github.com/PerchAnton/refmint.git
 cd refmint
 # Install pnpm 11.25.0 if it is not available.
 npm install -g pnpm@11.25.0
@@ -90,7 +90,7 @@ TypeScript also distinguishes `Reference<'ticket'>` from `Reference<'doc'>`. A p
 
 ## Keep an existing ID
 
-Build current source for this unreleased API. It does not allocate another random ID or require an alias column:
+Available in alpha.2. It does not allocate another random ID or require an alias column:
 
 ```ts
 import { createReferenceCodec } from 'refmint/codec'
@@ -107,7 +107,7 @@ if (result.ok) {
 
 For UUIDs, use `kind: 'uuid'` with canonical lowercase UUID strings. A numeric codec requires `bigint` and preserves all 64 bits; it does not preserve leading zeros in a text identifier. Encoding is reversible and does not hide sequential numbers. [Full contract, diagnostics and compatibility](docs/format-v1.md).
 
-The `refmint/codec` entry keeps the random generator and collision planner out of existing-ID-only forms. The same codec remains exported from `refmint`; both paths share its implementation and TypeScript brands. Both entry points are available when building current source, not from the alpha.1 archive.
+The `refmint/codec` entry keeps the random generator and collision planner out of existing-ID-only forms. The same codec remains exported from `refmint`; both paths share its implementation and TypeScript brands. Both entry points are included in the alpha.2 archive; alpha.1 retains only the original random-reference API.
 
 `createReferences(...).diagnose(input)` adds the same diagnostics for existing random references. Its `parse`/`parseCanonical` results and accepted formats remain unchanged. The new v1 grammar includes an underscore and version/kind symbols, so neither API mistakes the other format for one of its IDs.
 
