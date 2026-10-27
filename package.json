@@ -42,10 +42,11 @@
     "THIRD_PARTY_NOTICES.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:types": "tsc -p tests/tsconfig.json",
     "test:package": "node scripts/check-package.mjs",
+    "test:demo": "node --test tests/demo/*.test.mjs",
     "check": "pnpm build && pnpm test && pnpm test:types",
     "example": "node examples/ticket-lookup.mjs",
     "evidence": "node scripts/evidence.mjs",

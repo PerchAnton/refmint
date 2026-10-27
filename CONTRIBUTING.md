@@ -2,7 +2,7 @@
 
 Start with a concrete reproduction: what reference was entered, expected behavior, actual behavior, runtime and version. Use synthetic public references; do not post private records or access tokens.
 
-Run `pnpm install --frozen-lockfile --ignore-scripts` and `pnpm check`. Run `pnpm test:package` to verify the installed archive's API, types and documents. Changes to parsing or the form also need `pnpm test:browser` after installing Playwright's browser engines. Keep the format specification and examples consistent. Add a regression that demonstrates a real failure, and retain the standard vectors and independent oracle.
+Run `pnpm install --frozen-lockfile --ignore-scripts` and `pnpm check`. Run `pnpm test:package` to verify the installed archive's API, types and documents. Builds replace `dist/`; do not keep hand-written files there. Changes to the demo server need `pnpm test:demo` (uses an ephemeral loopback port). Changes to parsing or the form also need `pnpm test:browser` after installing Playwright's browser engines. Keep the format specification and examples consistent. Add a regression that demonstrates a real failure, and retain the standard vectors and independent oracle.
 
 Use `refmint/<task>` for branches. Keep the runtime dependency-free and the API focused. New formats, frameworks or language ports need a demonstrated consumer need. Evidence must describe the environment and measurement method; no unsupported performance or adoption claims.
 

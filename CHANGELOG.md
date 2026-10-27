@@ -12,5 +12,8 @@
 - Extend finite mutation tests with insertions, deletions, adjacent swaps and 3,000 distinct multiple-substitution samples; exercise Unicode rejection in three browser engines.
 - Verify an offline installation of the packed archive, including public exports, TypeScript brands, documentation links and measured runtime hashes.
 - Include the README graphic and supporting documents in the archive, and default future npm publications to the `alpha` tag.
+- Clean previous build output before compiling, so deleted modules cannot leak into the archive; verify this with a synthetic stale module during package checks.
+- Return HTTP 400 for malformed demo URLs without stopping the local server; test the asset allowlist and subsequent requests.
+- Check all 912 supported prefix/payload length combinations and 1,766 count/budget pairs around exact floating-point cutoffs, including unattainable budgets.
 
 This version number identifies the source/package candidate. Publication to npm or a GitHub release is not implied.

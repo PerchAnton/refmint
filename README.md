@@ -94,6 +94,7 @@ RefMint has six checksum characters of overhead and does not sort by time. It ma
 ```sh
 pnpm check                 # build, standard vectors, independent oracle, mutation + type tests
 pnpm example               # actual lookup example
+pnpm test:demo             # malformed HTTP requests and the demo asset allowlist
 pnpm evidence              # regenerate measured evidence and the SVG above
 pnpm test:package          # offline install of the .tgz, API + types + documentation checks
 pnpm exec playwright install chromium firefox webkit
@@ -103,7 +104,9 @@ pnpm pack --pack-destination artifacts
 
 CI runs the core checks on Node 22, 24 and 26, including Windows and macOS, plus the browser example on Chromium, Firefox and WebKit. The workflow badge reports its current result; the matrix is a test target until that run succeeds. See [SPEC.md](SPEC.md), [CHANGELOG.md](CHANGELOG.md), [security policy](SECURITY.md) and [contribution guide](CONTRIBUTING.md).
 
-The package check installs into a separate consumer with an empty dependency store and network access disabled for installation. It checks the exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. Future npm alpha publications default to the `alpha` tag; that setting does not publish a package.
+The package check first plants an obsolete build file and verifies that a clean build removes it. It then installs into a separate consumer with an empty dependency store and network access disabled for installation, checking the archive contents, exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. Future npm alpha publications default to the `alpha` tag; that setting does not publish a package.
+
+Boundary tests cover all **912** supported prefix/payload length pairs and **1,766** count/budget pairs near floating-point cutoffs. The budget oracle compares exact integer ratios, including subnormal targets and impossible budgets. These checks validate the stated rules; they do not measure human error rates.
 
 ## License
 
