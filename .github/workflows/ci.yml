@@ -39,6 +39,11 @@ jobs:
     name: Chromium / Firefox / WebKit
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Match @playwright/test; browsers and OS dependencies are already installed.
+    # Avoid downloading apt packages from the runner's mirror on every run.
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea
+      options: --init --ipc=host
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
@@ -48,5 +53,4 @@ jobs:
       - run: npm install -g pnpm@11.25.0
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm build
-      - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm test:browser
