@@ -20,8 +20,10 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 Install the versioned package archive into your application:
 
 ```sh
-npm install https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.1/refmint-0.1.0-alpha.1.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.1/refmint-0.1.0-alpha.1.tgz
 ```
+
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.1.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
 The release also includes `SHA256SUMS.txt` and the measured evidence. To run the local browser demo from the tagged source:
 
