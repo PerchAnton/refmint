@@ -11,6 +11,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const manager = process.env.npm_execpath;
 assert.ok(manager, 'Run this check with pnpm test:package');
 const temp = await mkdtemp(join(tmpdir(), 'refmint-package-'));
+let stale;
 function run(script, args, cwd) {
   const result = spawnSync(process.execPath, [script, ...args], { cwd, encoding: 'utf8', env: process.env, timeout: 120000 });
   if (result.status !== 0) throw new Error(`${script} failed:\n${result.stdout}\n${result.stderr}\n${result.error ?? ''}`);
@@ -19,7 +20,12 @@ try {
   const source = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
   const packs = join(temp, 'packs');
   await mkdir(packs);
+  // A previous build may have emitted a module that has since been deleted.
+  await mkdir(join(root, 'dist'), { recursive: true });
+  stale = await mkdtemp(join(root, 'dist', 'refmint-stale-'));
+  await writeFile(join(stale, 'removed-module.js'), '// Synthetic old build output.\n');
   run(manager, ['pack', '--pack-destination', packs], root);
+  await assert.rejects(readFile(join(stale, 'removed-module.js')), { code: 'ENOENT' });
   const archives = (await readdir(packs)).filter(file => file.endsWith('.tgz'));
   assert.equal(archives.length, 1);
   const consumer = join(temp, 'consumer');
@@ -36,6 +42,8 @@ try {
   assert.equal(packaged.publishConfig.tag, 'alpha');
   assert.deepEqual(packaged.dependencies ?? {}, {});
   const files = await readdir(installed, { recursive: true });
+  assert.deepEqual((await readdir(join(installed, 'dist'))).sort(),
+    ['bech32m.d.ts', 'bech32m.js', 'index.d.ts', 'index.js'], 'Unexpected build output in the archive');
   assert.ok(!files.some(file => /(^|[/\\])(src|tests|scripts|\.github|node_modules)([/\\]|$)/.test(file)));
   for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/bech32m.js', 'SPEC.md', 'LICENSE-MIT', 'LICENSE-APACHE', 'THIRD_PARTY_NOTICES.md']) {
     assert.ok((await readFile(join(installed, name))).length > 0, name);
@@ -83,5 +91,6 @@ if (result.ok) docs.format(result.id);
   run(join(root, 'node_modules/typescript/bin/tsc'), ['--noEmit', '--strict', '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', 'types.mts'], consumer);
   console.log(`PASS: ${source.name}@${source.version} archive installs offline; ESM, types, documentation and licenses are intact.`);
 } finally {
+  if (stale) await rm(stale, { recursive: true, force: true });
   await rm(temp, { recursive: true, force: true });
 }
