@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:25:12.121Z",
+  "generated_at": "2026-10-27T12:51:08.100Z",
   "environment": {
     "node": "v24.19.0",
     "platform": "darwin",
@@ -12,7 +12,7 @@
       "file": "examples/comparison/refmint-adapter.mjs",
       "code_lines": 4,
       "bytes": 170,
-      "sha256": "b9a7d4a9d9aad05e2b44ab53d7633a515fd8dba6c515fe33364d8eea7b1dda02"
+      "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
     },
     "bech32": {
       "file": "examples/comparison/bech32-adapter.mjs",
@@ -26,37 +26,67 @@
       "files": [
         {
           "file": "dist/bech32m.js",
-          "bytes": 2358,
-          "gzip_bytes": 1133,
-          "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+          "bytes": 2143,
+          "gzip_bytes": 853,
+          "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
         },
         {
           "file": "dist/codec.js",
-          "bytes": 4699,
-          "gzip_bytes": 1647,
-          "sha256": "daf48d1f55c60fb0add428612f2f31d9dd3ee217cac8c0180427b8ae119ab17a"
+          "bytes": 4593,
+          "gzip_bytes": 1582,
+          "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
         },
         {
           "file": "dist/index.js",
-          "bytes": 6046,
-          "gzip_bytes": 2071,
-          "sha256": "29c2c02934f48e4a82961bd1d69488f30fb143eca2809695711e1664d5b7f579"
+          "bytes": 5374,
+          "gzip_bytes": 1730,
+          "sha256": "d805035cce7678ab09540d73cc7c898d9976593c794b4e5013f0ac9df6bfbbb6"
         },
         {
           "file": "dist/presentation.js",
-          "bytes": 1982,
-          "gzip_bytes": 797,
-          "sha256": "7e1169ce664c1b649c800e8494341d0a36dd478b8edcd077a37d35b2bed2e1af"
+          "bytes": 1867,
+          "gzip_bytes": 776,
+          "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
         },
         {
           "file": "examples/comparison/refmint-adapter.mjs",
           "bytes": 170,
-          "gzip_bytes": 143,
-          "sha256": "b9a7d4a9d9aad05e2b44ab53d7633a515fd8dba6c515fe33364d8eea7b1dda02"
+          "gzip_bytes": 142,
+          "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
         }
       ],
-      "bytes": 15255,
-      "summed_gzip_bytes": 5791
+      "bytes": 14147,
+      "summed_gzip_bytes": 5083
+    },
+    "refmint_codec": {
+      "files": [
+        {
+          "file": "dist/bech32m.js",
+          "bytes": 2143,
+          "gzip_bytes": 853,
+          "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
+        },
+        {
+          "file": "dist/codec.js",
+          "bytes": 4593,
+          "gzip_bytes": 1582,
+          "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
+        },
+        {
+          "file": "dist/presentation.js",
+          "bytes": 1867,
+          "gzip_bytes": 776,
+          "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
+        },
+        {
+          "file": "examples/comparison/refmint-adapter.mjs",
+          "bytes": 170,
+          "gzip_bytes": 142,
+          "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
+        }
+      ],
+      "bytes": 8773,
+      "summed_gzip_bytes": 3353
     },
     "bech32": {
       "files": [
@@ -328,33 +358,33 @@
     "method": "Seven alternating-order rounds, 200 warmup passes, 1000 passes per round through the same 28 cases. Diagnostic parsing only; no database, rendering or network.",
     "refmint": {
       "ops_per_second": [
-        555487,
-        574067,
-        576487,
-        580053,
-        583826,
-        580445,
-        578664
+        1557351,
+        1673294,
+        1745341,
+        1750688,
+        1751893,
+        1766664,
+        1786251
       ],
-      "median_ops_per_second": 578664
+      "median_ops_per_second": 1750688
     },
     "bech32": {
       "ops_per_second": [
-        733599,
-        778208,
-        848072,
-        832620,
-        847467,
-        854689,
-        848021
+        720805,
+        759435,
+        847729,
+        849267,
+        853292,
+        845110,
+        864805
       ],
-      "median_ops_per_second": 847467
+      "median_ops_per_second": 847729
     }
   },
   "limits": [
     "This compares two implementations of the RefMint v1 contract, not every alternative ID scheme.",
     "Adapter lines exclude blank/comment lines, shared UI, fixtures and lookup; RefMint moves contract logic into its library. Line count alone is not a maintainability measure.",
-    "Loaded code counts all emitted JS plus each adapter before minification/tree shaking; excludes shared UI and browser-only CJS wrapper. gzip files are compressed separately and summed.",
+    "refmint counts all emitted JS plus its adapter; refmint_codec follows the actual codec-only imports used by the form. No minification/tree shaking. RefMint JS omits implementation comments; source and declaration comments are preserved. Bech32 uses its shipped JS unchanged. Shared UI and browser-only CJS wrapper are excluded. gzip files are compressed separately and summed.",
     "Both use the same standard checksum and produce the same codes. Both reject the tested mutations.",
     "Lookup counts describe an in-memory example, not measured production database savings.",
     "No human study, adoption evidence or general speed advantage. Timing is machine-specific and input-mix-dependent.",

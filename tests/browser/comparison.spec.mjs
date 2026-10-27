@@ -2,7 +2,9 @@ import { test, expect } from '@playwright/test';
 
 test('both existing-ID forms find the same record and stop invalid input before lookup', async ({ page }) => {
   const errors = [];
+  const scripts = [];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('request', request => { if (request.resourceType() === 'script') scripts.push(new URL(request.url()).pathname); });
   await page.goto('/comparison/');
   for (const kind of ['uint64', 'uuid']) {
     await page.getByLabel('Existing ID type').selectOption(kind);
@@ -27,6 +29,8 @@ test('both existing-ID forms find the same record and stop invalid input before 
     await expect(page.locator('#matrix tr')).toHaveCount(14);
   }
   expect(errors).toEqual([]);
+  expect(scripts).toContain('/dist/codec.js');
+  expect(scripts).not.toContain('/dist/index.js');
 });
 
 test('comparison accepts manual input, reports raw positions and fits a phone viewport', async ({ page }) => {

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Optimize checksum evaluation and parsing without changing formats or diagnostics; use exact 50-bit chunks for bigint decoding. Add an optional `refmint/codec` import and strip implementation comments from shipped JS while preserving source/type documentation. Record full-root and codec-only sizes, a same-process comparison against the previous build, and differential behavior checks.
 - Encode existing uint64 and UUID values with an explicit v1 contract, without allocating a second random ID. Preserve integer precision through bigint and reject overflow/noncanonical encodings.
 - Keep alpha.1 random references unchanged and structurally separate from the new format; add frozen compatibility vectors and namespace/kind TypeScript brands.
 - Add opt-in `diagnose` results with raw-input invalid-character positions and explicit length/namespace details. Existing parse result shapes remain unchanged; checksum errors never autocorrect a code.

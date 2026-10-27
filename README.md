@@ -93,7 +93,7 @@ TypeScript also distinguishes `Reference<'ticket'>` from `Reference<'doc'>`. A p
 Build current source for this unreleased API. It does not allocate another random ID or require an alias column:
 
 ```ts
-import { createReferenceCodec } from 'refmint'
+import { createReferenceCodec } from 'refmint/codec'
 
 const returns = createReferenceCodec({ prefix: 'rma', kind: 'uint64', version: 1 })
 const printed = returns.format(returns.encode(123456n))
@@ -107,9 +107,15 @@ if (result.ok) {
 
 For UUIDs, use `kind: 'uuid'` with canonical lowercase UUID strings. A numeric codec requires `bigint` and preserves all 64 bits; it does not preserve leading zeros in a text identifier. Encoding is reversible and does not hide sequential numbers. [Full contract, diagnostics and compatibility](docs/format-v1.md).
 
+The `refmint/codec` entry keeps the random generator and collision planner out of existing-ID-only forms. The same codec remains exported from `refmint`; both paths share its implementation and TypeScript brands. Both entry points are available when building current source, not from the alpha.1 archive.
+
 `createReferences(...).diagnose(input)` adds the same diagnostics for existing random references. Its `parse`/`parseCanonical` results and accepted formats remain unchanged. The new v1 grammar includes an underscore and version/kind symbols, so neither API mistakes the other format for one of its IDs.
 
 Run `pnpm compare && pnpm demo`, then open **http://127.0.0.1:4173/comparison/**. Both forms use the same checksum and accept the same cases. The comparison records adapter code, total loaded JavaScript, reference lengths and local timings—including costs that favor the plain Bech32m solution. [Methods, source and limitations](docs/comparison.md). The extra checking does not make codes shorter; no human-entry advantage is established.
+
+After optimization, the form loads **8,773 bytes** of RefMint JS plus adapter, versus **9,327 bytes** for Bech32m plus adapter. Summed per-file gzip still favors Bech32m: **3,353 vs 3,160 bytes**. The full RefMint root import is **14,147 bytes**, down from 15,255. These are unminified module totals, not bundle or install-archive sizes; RefMint's build now removes JS implementation comments while keeping source and declaration documentation.
+
+A same-process Node 24 / Apple M3 run of the same 28 scenarios measured **1.78 million checks/s** after optimization, **0.56 million** before, and **0.82 million** for Bech32m plus adapter. This is a local diagnostic workload, not a general speed guarantee. All **123,146 differential comparisons** against the previous implementation matched. [Raw samples, source hashes and reproduction](docs/comparison.md#before-and-after-optimization).
 
 ## Scope and trade-offs
 
@@ -122,7 +128,7 @@ Use RefMint when **people enter a public reference** and your application needs 
 | A human-oriented alphabet and check digit across languages | [HardGuard25](https://github.com/snapsynapse/hardguard25) |
 | A public-reference workflow with a declared collision budget and strict storage parsing | RefMint |
 
-RefMint has six checksum characters of overhead and does not sort by time. It makes no speed advantage, adoption, reduced support cost or human-error-rate claim. Readable formatting and checksums already exist in other projects; this package's contribution is the focused API and tested workflow. Runtime code is independent of Nano ID. The checksum follows [BIP-173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki) / [BIP-350](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki), with attribution in [third-party notices](THIRD_PARTY_NOTICES.md).
+RefMint has six checksum characters of overhead and does not sort by time. It makes no general speed advantage, adoption, reduced support cost or human-error-rate claim. Readable formatting and checksums already exist in other projects; this package's contribution is the focused API and tested workflow. Runtime code is independent of Nano ID. The checksum follows [BIP-173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki) / [BIP-350](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki), with attribution in [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Verify and measure
 

@@ -27,6 +27,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./codec": {
+      "types": "./dist/codec.d.ts",
+      "import": "./dist/codec.js"
     }
   },
   "files": [
@@ -51,6 +55,7 @@
     "example": "node examples/ticket-lookup.mjs",
     "evidence": "node scripts/evidence.mjs",
     "compare": "node scripts/compare.mjs",
+    "compare:previous": "node scripts/compare-previous.mjs",
     "demo": "node scripts/serve.mjs",
     "test:browser": "playwright test",
     "test:comparison": "node scripts/compare.mjs --check",

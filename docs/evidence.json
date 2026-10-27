@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:30:29.024Z",
+  "generated_at": "2026-10-27T12:56:35.202Z",
   "version": "0.1.0-alpha.1",
   "environment": {
     "node": "v24.19.0",
@@ -24,35 +24,35 @@
     "rejected": 4216
   },
   "size": {
-    "method": "Emitted JavaScript, not minified. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
+    "method": "All emitted JavaScript, implementation comments removed but not minified; source and declaration documentation retained. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
     "files": [
       {
         "file": "dist/bech32m.js",
-        "bytes": 2358,
-        "gzip_bytes": 1133,
-        "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+        "bytes": 2143,
+        "gzip_bytes": 853,
+        "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
       },
       {
         "file": "dist/codec.js",
-        "bytes": 4699,
-        "gzip_bytes": 1647,
-        "sha256": "daf48d1f55c60fb0add428612f2f31d9dd3ee217cac8c0180427b8ae119ab17a"
+        "bytes": 4593,
+        "gzip_bytes": 1582,
+        "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
       },
       {
         "file": "dist/index.js",
-        "bytes": 6046,
-        "gzip_bytes": 2071,
-        "sha256": "29c2c02934f48e4a82961bd1d69488f30fb143eca2809695711e1664d5b7f579"
+        "bytes": 5374,
+        "gzip_bytes": 1730,
+        "sha256": "d805035cce7678ab09540d73cc7c898d9976593c794b4e5013f0ac9df6bfbbb6"
       },
       {
         "file": "dist/presentation.js",
-        "bytes": 1982,
-        "gzip_bytes": 797,
-        "sha256": "7e1169ce664c1b649c800e8494341d0a36dd478b8edcd077a37d35b2bed2e1af"
+        "bytes": 1867,
+        "gzip_bytes": 776,
+        "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
       }
     ],
-    "total_bytes": 15085,
-    "summed_gzip_bytes": 5648
+    "total_bytes": 13977,
+    "summed_gzip_bytes": 4941
   },
   "timings": {
     "method": "Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.",
@@ -61,30 +61,30 @@
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        381655,
-        426559,
-        422598,
-        420968,
-        427805,
-        420406,
-        427933
+        733108,
+        800598,
+        811470,
+        799993,
+        834236,
+        815998,
+        804139
       ],
-      "median_ops_per_second": 422598
+      "median_ops_per_second": 804139
     },
     "parse_displayed": {
       "iterations": 20000,
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        509405,
-        511542,
-        515129,
-        514670,
-        522442,
-        512447,
-        523998
+        1330558,
+        1440745,
+        1445735,
+        1444065,
+        1441571,
+        1459916,
+        1464218
       ],
-      "median_ops_per_second": 514670
+      "median_ops_per_second": 1444065
     }
   },
   "collision_model": [

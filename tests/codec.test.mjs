@@ -55,6 +55,29 @@ test('encoding never truncates, rounds a number, changes UUID case or needs rand
   assert.equal(uint.decode(uint.encode(9007199254740993n)).value, 9007199254740993n);
 });
 
+test('UUID conversion is exact across every bit boundary, including 50-bit chunks', () => {
+  for (let bit = 1n; bit < 128n; bit++) for (const n of [(1n << bit) - 1n, 1n << bit, (1n << bit) + 1n]) {
+    const value = n.toString(16).padStart(32, '0').replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, '$1-$2-$3-$4-$5');
+    const id = uuid.encode(value);
+    assert.equal(uuid.decode(id).value, value);
+    assert.equal(bech32m.decode(id).words.slice(2).reduce((v, word) => v * 32n + BigInt(word), 0n), n);
+  }
+});
+
+test('all ASCII substitutions retain diagnostics and input-error precedence', () => {
+  for (const kind of ['uint64', 'uuid']) {
+    const a = createReferenceCodec({ prefix: 'rma', kind });
+    const b = createBech32Adapter(bech32m, { prefix: 'rma', kind });
+    const id = a.encode(kind === 'uint64' ? 123456n : 'ffffffff-ffff-ffff-ffff-ffffffffffff');
+    for (const text of [id, a.format(id), ' \t' + a.format(id).toUpperCase() + '\r\n']) {
+      for (let at = 0; at < text.length; at++) for (let code = 0; code < 128; code++) {
+        const input = text.slice(0, at) + String.fromCharCode(code) + text.slice(at + 1);
+        assert.deepEqual(a.diagnose(input), b.diagnose(input), JSON.stringify(input));
+      }
+    }
+  }
+});
+
 test('valid checksums cannot bypass version, kind, length, range or canonicality', () => {
   const wrap = data => bech32m.encode('rma_', data);
   const cases = [

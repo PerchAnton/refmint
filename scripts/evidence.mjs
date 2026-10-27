@@ -46,7 +46,7 @@ const evidence = {
   runtime_dependencies: Object.keys(pkg.dependencies ?? {}).length,
   plan: refs.plan,
   mutations: { method: 'All 31 alternative alphabet characters at every payload/checksum position of four fixed fixtures; prefix ticket, payload lengths 8/14/26/64. Normalization changes excluded.', tested: mutations, rejected: mutations },
-  size: { method: 'Emitted JavaScript, not minified. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.', files: sizes, total_bytes: sizes.reduce((n, s) => n + s.bytes, 0), summed_gzip_bytes: sizes.reduce((n, s) => n + s.gzip_bytes, 0) },
+  size: { method: 'All emitted JavaScript, implementation comments removed but not minified; source and declaration documentation retained. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.', files: sizes, total_bytes: sizes.reduce((n, s) => n + s.bytes, 0), summed_gzip_bytes: sizes.reduce((n, s) => n + s.gzip_bytes, 0) },
   timings: { method: 'Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.', generate: measure(() => refs.generate()), parse_displayed: measure(() => refs.parse(displayed)) },
   collision_model: [8, 14, 26].map(length => ({ random_length: length, count: 1_000_000, birthday_approximation: collisionProbability(length, 1_000_000) })),
   limits: ['Finite mutation fixtures are not a proof of every checksum property.', 'No user study, adoption claim or measured reduction in support time.', 'Timing results are machine-specific; generation and parse do different work.', 'Collision calculations assume uniform independent sampling; enforce uniqueness in storage.']

@@ -48,6 +48,7 @@ try {
   for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/bech32m.js', 'SPEC.md', 'LICENSE-MIT', 'LICENSE-APACHE', 'THIRD_PARTY_NOTICES.md']) {
     assert.ok((await readFile(join(installed, name))).length > 0, name);
   }
+  assert.match(await readFile(join(installed, 'dist/index.d.ts'), 'utf8'), /A validated canonical reference/, 'Retain declaration documentation');
   const evidence = JSON.parse(await readFile(join(installed, 'docs/evidence.json'), 'utf8'));
   assert.equal(evidence.version, source.version, 'Refresh evidence for this version');
   assert.deepEqual(evidence.size.files.map(file => file.file).sort(), (await readdir(join(installed, 'dist'))).filter(file => file.endsWith('.js')).map(file => 'dist/' + file).sort());
@@ -68,6 +69,8 @@ try {
   await writeFile(join(consumer, 'smoke.mjs'), `
 import assert from 'node:assert/strict';
 import { createReferences, createReferenceCodec, planReferences, collisionProbability } from 'refmint';
+import { createReferenceCodec as standalone } from 'refmint/codec';
+assert.equal(standalone, createReferenceCodec);
 const refs = createReferences({prefix:'ticket', expectedCount:1000000, maxCollisionProbability:1e-9});
 const id = refs.generate();
 assert.equal(refs.parse(refs.format(id).toUpperCase()).id, id);
@@ -85,6 +88,9 @@ await assert.rejects(import('refmint/dist/bech32m.js'), {code:'ERR_PACKAGE_PATH_
   run(join(consumer, 'smoke.mjs'), [], consumer);
   await writeFile(join(consumer, 'types.mts'), `
 import { createReferences, createReferenceCodec, type Reference } from 'refmint';
+import { createReferenceCodec as standalone, type EncodedReference } from 'refmint/codec';
+const standaloneId: EncodedReference<'rma', 'uint64'> = standalone({prefix:'rma',kind:'uint64'}).encode(42n);
+createReferenceCodec({prefix:'rma',kind:'uint64'}).format(standaloneId);
 const docs = createReferences({prefix:'doc'});
 const ticket: Reference<'ticket'> = createReferences({prefix:'ticket'}).generate();
 // @ts-expect-error The installed declarations must retain namespace branding.

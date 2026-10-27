@@ -52,6 +52,7 @@ export function createReferenceCodec<const P extends string, const K extends Ref
   if (version !== 1) throw new RangeError('Only format version 1 is supported');
   const kindWord = kind === 'uint64' ? 0 : 1;
   const bits = kind === 'uint64' ? 64n : 128n;
+  const limit = 1n << bits;
   // The underscore is forbidden by the alpha.1 random-reference grammar.
   const wirePrefix = prefix + '_';
 
@@ -66,17 +67,23 @@ export function createReferenceCodec<const P extends string, const K extends Ref
     if (words.length < 2) return failure('length', { expected: 'at least 2', actual: words.length, unit: 'data_symbols' });
     if (words[0] !== 1) return failure('version', { expected: 1, actual: words[0]! });
     if (words[1] !== kindWord) return failure('kind', { expected: kind, actual: words[1] === 0 ? 'uint64' : words[1] === 1 ? 'uuid' : words[1]! });
-    const payload = words.slice(2);
-    if (kind === 'uuid' ? payload.length !== 26 : payload.length < 1 || payload.length > 13) {
-      return failure('length', { expected: kind === 'uuid' ? 26 : '1–13', actual: payload.length, unit: 'payload_symbols' });
+    const length = words.length - 2;
+    if (kind === 'uuid' ? length !== 26 : length < 1 || length > 13) {
+      return failure('length', { expected: kind === 'uuid' ? 26 : '1–13', actual: length, unit: 'payload_symbols' });
     }
     let value = 0n;
-    for (const word of payload) value = (value << 5n) | BigInt(word);
-    if (value >= (1n << bits)) return failure('overflow');
-    if (kind === 'uint64' && payload.length > 1 && payload[0] === 0) return failure('non_canonical');
+    // Ten symbols fit exactly in a JS number (50 bits). Convert chunks, not
+    // every symbol, to BigInt; the full uint64/UUID never passes through Number.
+    for (let i = 2; i < words.length;) {
+      const end = Math.min(i + 10, words.length), width = BigInt((end - i) * 5);
+      let chunk = 0;
+      while (i < end) chunk = chunk * 32 + words[i++]!;
+      value = (value << width) | BigInt(chunk);
+    }
+    if (value >= limit) return failure('overflow');
+    if (kind === 'uint64' && length > 1 && words[2] === 0) return failure('non_canonical');
     if (strict && canonical !== input) return failure('non_canonical');
-    const hex = value.toString(16).padStart(32, '0');
-    const original = kind === 'uint64' ? value : hex.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, '$1-$2-$3-$4-$5');
+    const original = kind === 'uint64' ? value : value.toString(16).padStart(32, '0').replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, '$1-$2-$3-$4-$5');
     return { ok: true, id: canonical as EncodedReference<P, K>, value: original as ReferenceValue<K>, normalized: canonical !== input };
   }
   function parse(input: unknown, strict: boolean): DecodeResult<P, K> {
@@ -94,9 +101,8 @@ export function createReferenceCodec<const P extends string, const K extends Ref
         if (typeof input !== 'bigint') throw new TypeError('uint64 requires bigint; numbers can lose precision');
         value = input;
       }
-      if (value < 0n || value >= (1n << bits)) throw new RangeError('Value is outside the codec range');
-      const length = kind === 'uuid' ? 26 : Math.max(1, Math.ceil(value.toString(2).length / 5));
-      const words = Array.from({ length }, (_, i) => Number((value >> BigInt(5 * (length - i - 1))) & 31n));
+      if (value < 0n || value >= limit) throw new RangeError('Value is outside the codec range');
+      const words = Array.from(value.toString(32).padStart(kind === 'uuid' ? 26 : 1, '0'), c => parseInt(c, 32));
       return encode(wirePrefix, [1, kindWord, ...words]) as EncodedReference<P, K>;
     },
     decode: (input: unknown) => parse(input, false),

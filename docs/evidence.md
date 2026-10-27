@@ -20,7 +20,7 @@ The existing-ID suite adds frozen format vectors, uint64 bit/precision boundarie
 
 ## Size and speed
 
-Runtime dependency count comes from package.json. Emitted JavaScript bytes are measured without minification. gzip bytes are recorded for each module separately and summed; that sum is not a minified bundle benchmark. Source maps, declarations and documentation are not part of the JavaScript-only figure; the install archive is larger.
+Runtime dependency count comes from package.json. Emitted JavaScript bytes are measured without minification; the build removes JS implementation comments while retaining source and declaration documentation. gzip bytes are recorded for each module separately and summed; that sum is not a minified bundle benchmark. Source maps, declarations and documentation are not part of the JavaScript-only figure; the install archive is larger. The README lifecycle graphic counts all runtime modules; the codec-only form's separate import graph is reported in [comparison methods](comparison.md#before-and-after-optimization).
 
 Timings use 2,000 warmup calls and seven rounds of 20,000 calls per operation in one Node process. The median and all raw samples are recorded. Generation includes Web Crypto and checksumming; parsing includes display normalization and validation. These are different operations, not comparable speed competitors. Hardware load, runtime and JIT affect results. There is no claim of being faster or smaller than Nano ID, UUID or another library.
 
