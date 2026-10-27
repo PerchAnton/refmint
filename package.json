@@ -1,7 +1,7 @@
 {
   "name": "refmint",
-  "version": "0.1.0-alpha.1",
-  "description": "Generate, format and validate public reference codes with a collision budget and Bech32m checksum.",
+  "version": "0.1.0-alpha.2",
+  "description": "Generate public references or encode existing IDs with strict input diagnostics and a Bech32m checksum.",
   "type": "module",
   "license": "MIT OR Apache-2.0",
   "author": "PerchAnton",
@@ -27,6 +27,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./codec": {
+      "types": "./dist/codec.d.ts",
+      "import": "./dist/codec.js"
     }
   },
   "files": [
@@ -50,8 +54,11 @@
     "check": "pnpm build && pnpm test && pnpm test:types",
     "example": "node examples/ticket-lookup.mjs",
     "evidence": "node scripts/evidence.mjs",
+    "compare": "node scripts/compare.mjs",
+    "compare:previous": "node scripts/compare-previous.mjs",
     "demo": "node scripts/serve.mjs",
     "test:browser": "playwright test",
+    "test:comparison": "node scripts/compare.mjs --check",
     "prepack": "pnpm build"
   },
   "packageManager": "pnpm@11.25.0",

@@ -1,0 +1,393 @@
+{
+  "generated_at": "2026-10-27T12:51:08.100Z",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3"
+  },
+  "baseline": "bech32@2.0.0, Bech32m variant, independently implemented application adapter",
+  "adapters": {
+    "refmint": {
+      "file": "examples/comparison/refmint-adapter.mjs",
+      "code_lines": 4,
+      "bytes": 170,
+      "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
+    },
+    "bech32": {
+      "file": "examples/comparison/bech32-adapter.mjs",
+      "code_lines": 61,
+      "bytes": 4096,
+      "sha256": "f6049af2f2bd715db101ea927960c6b1bf4aa73f4f6ffa1ea22006e6de12997e"
+    }
+  },
+  "loaded_code": {
+    "refmint": {
+      "files": [
+        {
+          "file": "dist/bech32m.js",
+          "bytes": 2143,
+          "gzip_bytes": 853,
+          "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
+        },
+        {
+          "file": "dist/codec.js",
+          "bytes": 4593,
+          "gzip_bytes": 1582,
+          "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
+        },
+        {
+          "file": "dist/index.js",
+          "bytes": 5374,
+          "gzip_bytes": 1730,
+          "sha256": "d805035cce7678ab09540d73cc7c898d9976593c794b4e5013f0ac9df6bfbbb6"
+        },
+        {
+          "file": "dist/presentation.js",
+          "bytes": 1867,
+          "gzip_bytes": 776,
+          "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
+        },
+        {
+          "file": "examples/comparison/refmint-adapter.mjs",
+          "bytes": 170,
+          "gzip_bytes": 142,
+          "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
+        }
+      ],
+      "bytes": 14147,
+      "summed_gzip_bytes": 5083
+    },
+    "refmint_codec": {
+      "files": [
+        {
+          "file": "dist/bech32m.js",
+          "bytes": 2143,
+          "gzip_bytes": 853,
+          "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
+        },
+        {
+          "file": "dist/codec.js",
+          "bytes": 4593,
+          "gzip_bytes": 1582,
+          "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
+        },
+        {
+          "file": "dist/presentation.js",
+          "bytes": 1867,
+          "gzip_bytes": 776,
+          "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
+        },
+        {
+          "file": "examples/comparison/refmint-adapter.mjs",
+          "bytes": 170,
+          "gzip_bytes": 142,
+          "sha256": "8764e831e7faaebfd2c7fb0e5029cc90d6578877464b07553d2a2d4572d8b950"
+        }
+      ],
+      "bytes": 8773,
+      "summed_gzip_bytes": 3353
+    },
+    "bech32": {
+      "files": [
+        {
+          "file": "node_modules/bech32/dist/index.js",
+          "bytes": 5231,
+          "gzip_bytes": 1553,
+          "sha256": "7e389c4495ce1fc3a0024485d1554494a959735c68caf8e677951275b15ea3cc"
+        },
+        {
+          "file": "examples/comparison/bech32-adapter.mjs",
+          "bytes": 4096,
+          "gzip_bytes": 1607,
+          "sha256": "f6049af2f2bd715db101ea927960c6b1bf4aa73f4f6ffa1ea22006e6de12997e"
+        }
+      ],
+      "bytes": 9327,
+      "summed_gzip_bytes": 3160
+    }
+  },
+  "lengths": [
+    {
+      "kind": "uint64",
+      "original": 6,
+      "refmint": 17,
+      "bech32": 17,
+      "printed": 19
+    },
+    {
+      "kind": "uuid",
+      "original": 36,
+      "refmint": 39,
+      "bech32": 39,
+      "printed": 47
+    }
+  ],
+  "scenarios": [
+    {
+      "kind": "uint64",
+      "scenario": "Canonical",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Printed uppercase",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Surrounding whitespace",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Changed symbol",
+      "outcome": "invalid",
+      "error": "checksum",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Illegal character",
+      "outcome": "invalid",
+      "error": "character",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Unicode lookalike",
+      "outcome": "invalid",
+      "error": "character",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Mixed case",
+      "outcome": "invalid",
+      "error": "case",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Broken grouping",
+      "outcome": "invalid",
+      "error": "format",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Wrong namespace",
+      "outcome": "invalid",
+      "error": "prefix",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Unknown version",
+      "outcome": "invalid",
+      "error": "version",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Wrong value kind",
+      "outcome": "invalid",
+      "error": "kind",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Missing payload",
+      "outcome": "invalid",
+      "error": "length",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Overflow",
+      "outcome": "invalid",
+      "error": "overflow",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uint64",
+      "scenario": "Valid but unknown",
+      "outcome": "unknown",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Canonical",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Printed uppercase",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Surrounding whitespace",
+      "outcome": "found",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Changed symbol",
+      "outcome": "invalid",
+      "error": "checksum",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Illegal character",
+      "outcome": "invalid",
+      "error": "character",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Unicode lookalike",
+      "outcome": "invalid",
+      "error": "character",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Mixed case",
+      "outcome": "invalid",
+      "error": "case",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Broken grouping",
+      "outcome": "invalid",
+      "error": "format",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Wrong namespace",
+      "outcome": "invalid",
+      "error": "prefix",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Unknown version",
+      "outcome": "invalid",
+      "error": "version",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Wrong value kind",
+      "outcome": "invalid",
+      "error": "kind",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Missing payload",
+      "outcome": "invalid",
+      "error": "length",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Overflow",
+      "outcome": "invalid",
+      "error": "overflow",
+      "refmint_queries": 0,
+      "bech32_queries": 0
+    },
+    {
+      "kind": "uuid",
+      "scenario": "Valid but unknown",
+      "outcome": "unknown",
+      "error": null,
+      "refmint_queries": 1,
+      "bech32_queries": 1
+    }
+  ],
+  "mutations": {
+    "tested_per_adapter": 1576,
+    "rejected_per_adapter": 1576,
+    "method": "All alternative lowercase letters in rma, and all alternative alphabet symbols in data/checksum of two fixed fixtures. Underscore/separator and normalization excluded."
+  },
+  "timing": {
+    "method": "Seven alternating-order rounds, 200 warmup passes, 1000 passes per round through the same 28 cases. Diagnostic parsing only; no database, rendering or network.",
+    "refmint": {
+      "ops_per_second": [
+        1557351,
+        1673294,
+        1745341,
+        1750688,
+        1751893,
+        1766664,
+        1786251
+      ],
+      "median_ops_per_second": 1750688
+    },
+    "bech32": {
+      "ops_per_second": [
+        720805,
+        759435,
+        847729,
+        849267,
+        853292,
+        845110,
+        864805
+      ],
+      "median_ops_per_second": 847729
+    }
+  },
+  "limits": [
+    "This compares two implementations of the RefMint v1 contract, not every alternative ID scheme.",
+    "Adapter lines exclude blank/comment lines, shared UI, fixtures and lookup; RefMint moves contract logic into its library. Line count alone is not a maintainability measure.",
+    "refmint counts all emitted JS plus its adapter; refmint_codec follows the actual codec-only imports used by the form. No minification/tree shaking. RefMint JS omits implementation comments; source and declaration comments are preserved. Bech32 uses its shipped JS unchanged. Shared UI and browser-only CJS wrapper are excluded. gzip files are compressed separately and summed.",
+    "Both use the same standard checksum and produce the same codes. Both reject the tested mutations.",
+    "Lookup counts describe an in-memory example, not measured production database savings.",
+    "No human study, adoption evidence or general speed advantage. Timing is machine-specific and input-mix-dependent.",
+    "Sequential IDs remain recoverable. The checksum does not provide authentication or authorization."
+  ]
+}

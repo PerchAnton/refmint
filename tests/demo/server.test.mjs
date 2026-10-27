@@ -34,7 +34,7 @@ test('malformed URL returns 400 and the next request still succeeds', async () =
 });
 
 test('only demo assets are served, with correct types and no caching', async () => {
-  for (const [path, type] of [['/?example=1', 'text/html'], ['/dist/index.js', 'text/javascript'], ['/dist/bech32m.js', 'text/javascript']]) {
+  for (const [path, type] of [['/?example=1', 'text/html'], ['/dist/index.js', 'text/javascript'], ['/dist/bech32m.js', 'text/javascript'], ['/dist/codec.js', 'text/javascript'], ['/dist/presentation.js', 'text/javascript'], ['/comparison/', 'text/html'], ['/comparison/app.mjs', 'text/javascript'], ['/comparison/style.css', 'text/css'], ['/vendor/bech32.mjs', 'text/javascript'], ['/docs/comparison.json', 'application/json']]) {
     const response = await get(path);
     assert.equal(response.status, 200);
     assert.ok(response.headers['content-type'].startsWith(type));

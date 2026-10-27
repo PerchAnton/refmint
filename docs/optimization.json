@@ -1,0 +1,117 @@
+{
+  "generated_at": "2026-10-27T12:53:09.779Z",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3"
+  },
+  "previous": {
+    "revision": "daaffe813fd0351752bd158314917267acddc1b6",
+    "files": [
+      {
+        "file": "bech32m.js",
+        "bytes": 2358,
+        "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+      },
+      {
+        "file": "codec.js",
+        "bytes": 4699,
+        "sha256": "daf48d1f55c60fb0add428612f2f31d9dd3ee217cac8c0180427b8ae119ab17a"
+      },
+      {
+        "file": "index.js",
+        "bytes": 6046,
+        "sha256": "29c2c02934f48e4a82961bd1d69488f30fb143eca2809695711e1664d5b7f579"
+      },
+      {
+        "file": "presentation.js",
+        "bytes": 1982,
+        "sha256": "7e1169ce664c1b649c800e8494341d0a36dd478b8edcd077a37d35b2bed2e1af"
+      }
+    ]
+  },
+  "current": {
+    "files": [
+      {
+        "file": "bech32m.js",
+        "bytes": 2143,
+        "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
+      },
+      {
+        "file": "codec.js",
+        "bytes": 4593,
+        "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
+      },
+      {
+        "file": "index.js",
+        "bytes": 5374,
+        "sha256": "d805035cce7678ab09540d73cc7c898d9976593c794b4e5013f0ac9df6bfbbb6"
+      },
+      {
+        "file": "presentation.js",
+        "bytes": 1867,
+        "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
+      }
+    ]
+  },
+  "baseline": {
+    "package": "bech32@2.0.0",
+    "adapter_sha256": "f6049af2f2bd715db101ea927960c6b1bf4aa73f4f6ffa1ea22006e6de12997e"
+  },
+  "differential": {
+    "comparisons": 123146,
+    "method": "3000 seeded values per uint64/UUID/legacy factory, generated encodings, formatting, canonical/displayed/mutated/truncated/overlong inputs, all parse modes and raw diagnostics; plus non-string and malformed UTF-16 inputs."
+  },
+  "timing": {
+    "method": "9 rotated-order rounds in one process, 1000 warmup passes per implementation, 10000 passes per round over the same 28 scenarios. Results consumed; no I/O.",
+    "previous": {
+      "ops_per_second": [
+        549753,
+        554969,
+        557097,
+        557648,
+        556352,
+        558002,
+        557269,
+        553766,
+        554677
+      ],
+      "median_ops_per_second": 556352
+    },
+    "current": {
+      "ops_per_second": [
+        1764209,
+        1766824,
+        1792377,
+        1779391,
+        1784077,
+        1779454,
+        1786484,
+        1773945,
+        1762532
+      ],
+      "median_ops_per_second": 1779391
+    },
+    "bech32": {
+      "ops_per_second": [
+        823928,
+        820908,
+        811623,
+        826322,
+        822457,
+        823742,
+        820679,
+        823366,
+        821034
+      ],
+      "median_ops_per_second": 822457
+    },
+    "consumed": 97734000
+  },
+  "limits": [
+    "One machine and one input distribution; not a browser, database or user study.",
+    "The main comparison retains its original shorter two-way timing method; its medians can differ from this three-way run.",
+    "Full-root and codec-only sizes are separate in comparison.json. JS comments were removed from RefMint outputs only; source/declaration docs and all APIs are retained."
+  ]
+}

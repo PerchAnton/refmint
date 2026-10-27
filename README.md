@@ -5,11 +5,13 @@
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Status: alpha](https://img.shields.io/badge/status-alpha-d9822b)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
-[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.1-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1)
+[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.2-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2)
 
-RefMint is a small TypeScript library for public ticket, document and order references. It combines a random payload, a type prefix and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
+RefMint is a small TypeScript library for public ticket, document and order references. It can generate random references or encode existing uint64/UUID values with a namespace and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
-**Alpha:** the format and API may change. [Download the first GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
+**New in alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
+
+**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. [Download the current GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -20,15 +22,15 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 Install the versioned package archive into your application:
 
 ```sh
-npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.1/refmint-0.1.0-alpha.1.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.2/refmint-0.1.0-alpha.2.tgz
 ```
 
-npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.1.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.2.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
-The release also includes `SHA256SUMS.txt` and the measured evidence. To run the local browser demo from the tagged source:
+The release also includes `SHA256SUMS.txt`, verification metadata and all three measured-evidence reports. To run the local browser demo from the tagged source:
 
 ```sh
-git clone --branch v0.1.0-alpha.1 https://github.com/PerchAnton/refmint.git
+git clone --branch v0.1.0-alpha.2 https://github.com/PerchAnton/refmint.git
 cd refmint
 # Install pnpm 11.25.0 if it is not available.
 npm install -g pnpm@11.25.0
@@ -86,6 +88,35 @@ If no budget is supplied, RefMint uses **26 random characters / 130 bits**. Choo
 
 TypeScript also distinguishes `Reference<'ticket'>` from `Reference<'doc'>`. A plain string must pass the parser before it can be used as a branded reference. The brand is a compile-time aid, not an authorization boundary.
 
+## Keep an existing ID
+
+Available in alpha.2. It does not allocate another random ID or require an alias column:
+
+```ts
+import { createReferenceCodec } from 'refmint/codec'
+
+const returns = createReferenceCodec({ prefix: 'rma', kind: 'uint64', version: 1 })
+const printed = returns.format(returns.encode(123456n))
+const result = returns.diagnose(printed.toUpperCase())
+if (result.ok) {
+  console.log(result.value) // 123456n — query the original key, with authorization
+} else {
+  console.log(result.error, result.details) // positions / expected / actual, when known
+}
+```
+
+For UUIDs, use `kind: 'uuid'` with canonical lowercase UUID strings. A numeric codec requires `bigint` and preserves all 64 bits; it does not preserve leading zeros in a text identifier. Encoding is reversible and does not hide sequential numbers. [Full contract, diagnostics and compatibility](docs/format-v1.md).
+
+The `refmint/codec` entry keeps the random generator and collision planner out of existing-ID-only forms. The same codec remains exported from `refmint`; both paths share its implementation and TypeScript brands. Both entry points are included in the alpha.2 archive; alpha.1 retains only the original random-reference API.
+
+`createReferences(...).diagnose(input)` adds the same diagnostics for existing random references. Its `parse`/`parseCanonical` results and accepted formats remain unchanged. The new v1 grammar includes an underscore and version/kind symbols, so neither API mistakes the other format for one of its IDs.
+
+Run `pnpm compare && pnpm demo`, then open **http://127.0.0.1:4173/comparison/**. Both forms use the same checksum and accept the same cases. The comparison records adapter code, total loaded JavaScript, reference lengths and local timings—including costs that favor the plain Bech32m solution. [Methods, source and limitations](docs/comparison.md). The extra checking does not make codes shorter; no human-entry advantage is established.
+
+After optimization, the form loads **8,773 bytes** of RefMint JS plus adapter, versus **9,327 bytes** for Bech32m plus adapter. Summed per-file gzip still favors Bech32m: **3,353 vs 3,160 bytes**. The full RefMint root import is **14,147 bytes**, down from 15,255. These are unminified module totals, not bundle or install-archive sizes; RefMint's build now removes JS implementation comments while keeping source and declaration documentation.
+
+A same-process Node 24 / Apple M3 run of the same 28 scenarios measured **1.78 million checks/s** after optimization, **0.56 million** before, and **0.82 million** for Bech32m plus adapter. This is a local diagnostic workload, not a general speed guarantee. All **123,146 differential comparisons** against the previous implementation matched. [Raw samples, source hashes and reproduction](docs/comparison.md#before-and-after-optimization).
+
 ## Scope and trade-offs
 
 Use RefMint when **people enter a public reference** and your application needs consistent generation, display and validation rules. Keep a **UNIQUE database constraint**, handle collisions with bounded retries, and authorize every lookup. The checksum is public and can be recomputed by anyone: it is not a signature, password, invitation secret or proof of authenticity.
@@ -97,7 +128,7 @@ Use RefMint when **people enter a public reference** and your application needs 
 | A human-oriented alphabet and check digit across languages | [HardGuard25](https://github.com/snapsynapse/hardguard25) |
 | A public-reference workflow with a declared collision budget and strict storage parsing | RefMint |
 
-RefMint has six checksum characters of overhead and does not sort by time. It makes no speed advantage, adoption, reduced support cost or human-error-rate claim. Readable formatting and checksums already exist in other projects; this package's contribution is the focused API and tested workflow. Runtime code is independent of Nano ID. The checksum follows [BIP-173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki) / [BIP-350](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki), with attribution in [third-party notices](THIRD_PARTY_NOTICES.md).
+RefMint has six checksum characters of overhead and does not sort by time. It makes no general speed advantage, adoption, reduced support cost or human-error-rate claim. Readable formatting and checksums already exist in other projects; this package's contribution is the focused API and tested workflow. Runtime code is independent of Nano ID. The checksum follows [BIP-173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki) / [BIP-350](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki), with attribution in [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Verify and measure
 
@@ -106,6 +137,8 @@ pnpm check                 # build, standard vectors, independent oracle, mutati
 pnpm example               # actual lookup example
 pnpm test:demo             # malformed HTTP requests and the demo asset allowlist
 pnpm evidence              # regenerate measured evidence and the SVG above
+pnpm compare               # measure the existing-ID form against a Bech32m adapter
+pnpm test:comparison       # verify the recorded comparison facts and source hashes
 pnpm test:package          # offline install of the .tgz, API + types + documentation checks
 pnpm exec playwright install chromium firefox webkit
 pnpm test:browser          # actual form flow in three browser engines

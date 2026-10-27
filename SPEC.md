@@ -1,6 +1,6 @@
-# RefMint alpha.1 format and API
+# RefMint formats and API
 
-This is a narrow application of generic Bech32m, not a new checksum algorithm or a Bitcoin address implementation. Freeze a deployed namespace's prefix and random length. Alpha formats may change in later versions; no transparent migration is promised.
+This is a narrow application of generic Bech32m, not a new checksum algorithm or a Bitcoin address implementation. The random-reference format below preserves the alpha.1 contract. Freeze a deployed namespace's prefix and random length. The separate [existing-ID format v1](docs/format-v1.md) has an explicit version and a disjoint grammar; it never reinterprets random payloads as database IDs.
 
 ## Canonical representation
 
@@ -12,7 +12,7 @@ This is a narrow application of generic Bech32m, not a new checksum algorithm or
 - Maximum canonical length: 87 ASCII characters, below Bech32m's 90-character limit.
 - Random bytes: `crypto.getRandomValues`, one byte per payload symbol. Mask each byte by 31. Because 256 is divisible by 32, every symbol has eight preimages; this introduces no modulo bias for uniform bytes. No timestamp, counter, machine fingerprint, user-provided seed or insecure fallback.
 
-The public API does not encode arbitrary bytes, accept custom alphabets or expose a general-purpose Bech32m codec. The internal codec is checked against all 21 generic BIP-350 test vectors and the independent `bech32` package in development tests.
+The public API does not encode arbitrary bytes, accept custom alphabets or expose a general-purpose Bech32m codec. `createReferenceCodec` supports the two precisely defined existing-ID kinds in the v1 contract. The internal checksum codec is checked against all 21 generic BIP-350 test vectors and the independent `bech32` package in development tests.
 
 ## Length planning
 
@@ -48,10 +48,13 @@ Errors identify a validation stage, not necessarily the user's exact mistake. A 
 
 ## Public exports
 
-- `createReferences(options)` → immutable `{ prefix, plan, generate, parse, parseCanonical, format }`.
+- `createReferences(options)` → immutable `{ prefix, plan, generate, parse, parseCanonical, diagnose, format }`.
 - `planReferences(options)` → immutable plan without generating an ID or requiring randomness.
 - `collisionProbability(randomLength, count)` → birthday approximation, with the same supported length/count limits.
-- Types: `Reference`, `ReferenceOptions`, `ReferencePlan`, `References`, `ParseError`, `ParseResult`.
+- Types: `Reference`, `ReferenceOptions`, `ReferencePlan`, `References`, `ParseError`, `ParseResult`, `ParseDiagnostic`, `ValidationDetails`.
+- `createReferenceCodec(options)` and its types are defined in [format v1](docs/format-v1.md).
+
+`diagnose(input)` follows the same rules as `parse(input)`, returning the same successful result or `{ ok: false, error, details }`. `parse` and `parseCanonical` retain their original result shapes. Diagnostics identify invalid character positions as zero-based UTF-16 offsets in the raw input, even with whitespace/grouping; non-BMP characters use their first code-unit offset. Length details carry `expected`, `actual` and an explicit `unit`; valid wrong namespaces report their expected/actual names. Checksum errors never guess positions or provide a replacement ID. Diagnostic fields are additional evidence about the failed validation stage, not proof of the user's intended code.
 
 Options: `{ prefix }` for the 26-character default; `{ prefix, randomLength }` for a fixed length; or `{ prefix, expectedCount, maxCollisionProbability }` for planning. The two sizing modes cannot be combined. Unknown options are rejected so a misspelled budget cannot silently select a default. Different prefixes have different TypeScript brands; lengths within one prefix are enforced at runtime.
 

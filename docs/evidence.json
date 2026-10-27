@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T08:56:50.253Z",
-  "version": "0.1.0-alpha.1",
+  "generated_at": "2026-10-27T13:21:13.955Z",
+  "version": "0.1.0-alpha.2",
   "environment": {
     "node": "v24.19.0",
     "platform": "darwin",
@@ -24,23 +24,35 @@
     "rejected": 4216
   },
   "size": {
-    "method": "Emitted JavaScript, not minified. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
+    "method": "All emitted JavaScript, implementation comments removed but not minified; source and declaration documentation retained. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
     "files": [
       {
-        "file": "dist/index.js",
-        "bytes": 6814,
-        "gzip_bytes": 2358,
-        "sha256": "c039862817354759fc4133111e86ccad559540b23d5d2082bd3ad80c825aaf37"
+        "file": "dist/bech32m.js",
+        "bytes": 2143,
+        "gzip_bytes": 853,
+        "sha256": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
       },
       {
-        "file": "dist/bech32m.js",
-        "bytes": 2358,
-        "gzip_bytes": 1133,
-        "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+        "file": "dist/codec.js",
+        "bytes": 4593,
+        "gzip_bytes": 1582,
+        "sha256": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5"
+      },
+      {
+        "file": "dist/index.js",
+        "bytes": 5374,
+        "gzip_bytes": 1730,
+        "sha256": "d805035cce7678ab09540d73cc7c898d9976593c794b4e5013f0ac9df6bfbbb6"
+      },
+      {
+        "file": "dist/presentation.js",
+        "bytes": 1867,
+        "gzip_bytes": 776,
+        "sha256": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25"
       }
     ],
-    "total_bytes": 9172,
-    "summed_gzip_bytes": 3491
+    "total_bytes": 13977,
+    "summed_gzip_bytes": 4941
   },
   "timings": {
     "method": "Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.",
@@ -49,30 +61,30 @@
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        373641,
-        420928,
-        417591,
-        420950,
-        419686,
-        417733,
-        420127
+        746307,
+        811310,
+        810544,
+        814124,
+        812458,
+        815989,
+        811019
       ],
-      "median_ops_per_second": 419686
+      "median_ops_per_second": 811310
     },
     "parse_displayed": {
       "iterations": 20000,
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        485884,
-        521867,
-        522076,
-        524402,
-        523370,
-        525297,
-        521497
+        1356461,
+        1421212,
+        1462340,
+        1435415,
+        1461307,
+        1399894,
+        1402971
       ],
-      "median_ops_per_second": 522076
+      "median_ops_per_second": 1421212
     }
   },
   "collision_model": [

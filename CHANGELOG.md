@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-alpha.2 — 2026-10-27
+
+Second GitHub prerelease, including the existing-ID API, compatibility checks, comparison form and measured optimizations. Distributed as a package archive; not published to the npm registry.
+
+- Optimize checksum evaluation and parsing without changing formats or diagnostics; use exact 50-bit chunks for bigint decoding. Add an optional `refmint/codec` import and strip implementation comments from shipped JS while preserving source/type documentation. Record full-root and codec-only sizes, a same-process comparison against the previous build, and differential behavior checks.
+- Encode existing uint64 and UUID values with an explicit v1 contract, without allocating a second random ID. Preserve integer precision through bigint and reject overflow/noncanonical encodings.
+- Keep alpha.1 random references unchanged and structurally separate from the new format; add frozen compatibility vectors and namespace/kind TypeScript brands.
+- Add opt-in `diagnose` results with raw-input invalid-character positions and explicit length/namespace details. Existing parse result shapes remain unchanged; checksum errors never autocorrect a code.
+- Add a return-lookup form and an independent Bech32m adapter with identical input rules, records and diagnostics. Record shared scenarios, mutation fixtures, adapter/loaded-code sizes, reference lengths and local timings with explicit evidence limits.
+
+[Release notes and downloads](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2).
+
 ## 0.1.0-alpha.1 — 2026-10-27
 
 First GitHub prerelease, distributed as a package archive. The npm registry publication is separate. The API and reference format are experimental.

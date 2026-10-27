@@ -1,4 +1,8 @@
-import { ALPHABET, decode, encode } from './bech32m.js';
+import { decode, encode } from './bech32m.js';
+import { failure, formatBody, readPresentation, type Failure } from './presentation.js';
+export { createReferenceCodec } from './codec.js';
+export type { ReferenceCodecOptions, ReferenceCodec, ReferenceKind, ReferenceValue, EncodedReference, DecodeError, DecodeResult, DecodeDiagnostic } from './codec.js';
+export type { ValidationDetails } from './presentation.js';
 
 declare const referenceBrand: unique symbol;
 /** A validated canonical reference. Branding prevents accidental cross-prefix use. */
@@ -27,6 +31,7 @@ export type ParseError = 'type' | 'too_long' | 'format' | 'case' | 'character' |
 export type ParseResult<P extends string> =
   | { readonly ok: true; readonly id: Reference<P>; readonly normalized: boolean }
   | { readonly ok: false; readonly error: ParseError };
+export type ParseDiagnostic<P extends string> = Extract<ParseResult<P>, { ok: true }> | Failure<ParseError>;
 
 export interface References<P extends string> {
   readonly prefix: P;
@@ -37,6 +42,8 @@ export interface References<P extends string> {
   parse(input: unknown): ParseResult<P>;
   /** Require the exact lowercase, ungrouped storage representation. */
   parseCanonical(input: unknown): ParseResult<P>;
+  /** Same human-input rules, with bounded diagnostics; never suggests a corrected ID. */
+  diagnose(input: unknown): ParseDiagnostic<P>;
   /** Format a validated ID in groups of four after the separator. */
   format(id: Reference<P>): string;
 }
@@ -128,34 +135,20 @@ function configure<P extends string>(options: ReferenceOptions<P>): { prefix: P;
 export function createReferences<const P extends string>(options: ReferenceOptions<P>): References<P> {
   const { prefix, plan } = configure(options);
 
-  function parse(input: unknown, strict: boolean): ParseResult<P> {
-    const fail = (error: ParseError): ParseResult<P> => ({ ok: false, error });
-    if (typeof input !== 'string') return fail('type');
-    // Bound work before trimming, regex matching or allocating character arrays.
-    if (input.length > 128) return fail('too_long');
-    // Unicode case folding can turn K into ASCII k. Reject it before folding.
-    if (/[^\x00-\x7f]/.test(input)) return fail('character');
-    let text = input.replace(/^[ \t\r\n]+|[ \t\r\n]+$/g, '');
-    if (text !== text.toLowerCase() && text !== text.toUpperCase()) return fail('case');
-    text = text.toLowerCase();
-    const separator = text.lastIndexOf('1');
-    if (separator < 1 || !/^[a-z][a-z0-9]{0,15}$/.test(text.slice(0, separator))) return fail('format');
-    let body = text.slice(separator + 1);
-    if (body.includes('-')) {
-      const groups = body.split('-');
-      if (groups.some((group, i) => i < groups.length - 1 ? group.length !== 4 : group.length < 1 || group.length > 4)) {
-        return fail('format');
-      }
-      body = groups.join('');
-    }
-    if (Array.from(body).some(c => !ALPHABET.includes(c))) return fail('character');
-    text = text.slice(0, separator + 1) + body;
+  function inspect(input: unknown, strict: boolean): ParseDiagnostic<P> {
+    const presented = readPresentation(input, /^[a-z][a-z0-9]{0,15}$/);
+    if (!presented.ok) return presented;
+    const text = presented.canonical;
     const decoded = decode(text);
-    if (!decoded) return fail('checksum');
-    if (decoded.prefix !== prefix) return fail('prefix');
-    if (decoded.words.length !== plan.randomLength) return fail('length');
-    if (strict && text !== input) return fail('non_canonical');
+    if (!decoded) return failure('checksum');
+    if (decoded.prefix !== prefix) return failure('prefix', { expected: prefix, actual: decoded.prefix });
+    if (decoded.words.length !== plan.randomLength) return failure('length', { expected: plan.randomLength, actual: decoded.words.length, unit: 'payload_symbols' });
+    if (strict && text !== input) return failure('non_canonical');
     return { ok: true, id: text as Reference<P>, normalized: text !== input };
+  }
+  function parse(input: unknown, strict: boolean): ParseResult<P> {
+    const result = inspect(input, strict);
+    return result.ok ? result : { ok: false, error: result.error };
   }
 
   return Object.freeze({
@@ -170,11 +163,11 @@ export function createReferences<const P extends string>(options: ReferenceOptio
     },
     parse: (input: unknown) => parse(input, false),
     parseCanonical: (input: unknown) => parse(input, true),
+    diagnose: (input: unknown) => inspect(input, false),
     format(id: Reference<P>): string {
       const parsed = parse(id, true);
       if (!parsed.ok) throw new TypeError(`Cannot format reference: ${parsed.error}`);
-      const start = prefix.length + 1;
-      return id.slice(0, start) + id.slice(start).match(/.{1,4}/g)!.join('-');
+      return formatBody(id);
     }
   });
 }
