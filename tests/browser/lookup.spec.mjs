@@ -26,3 +26,12 @@ test('new ticket replaces the old record and narrow viewport has no horizontal o
   await expect(page.locator('#result')).toContainText('no matching ticket');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test('Unicode lookalike cannot resolve to the real ticket', async ({ page }) => {
+  await page.goto('/');
+  const reference = await page.locator('#reference').textContent();
+  await page.getByLabel('Ticket reference', { exact: true }).fill(reference.replace('K', '\u212a'));
+  await page.getByRole('button', { name: 'Find ticket', exact: true }).click();
+  await expect(page.locator('#result')).toHaveAttribute('data-state', 'invalid');
+  await expect(page.locator('#result')).toContainText('character this format does not use');
+});

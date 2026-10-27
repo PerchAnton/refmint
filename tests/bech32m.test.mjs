@@ -55,15 +55,37 @@ test('every single-symbol payload/checksum substitution is detected in boundary 
 });
 test('deterministic samples of two, three and four substitutions are detected', () => {
   let seed = 789;
-  const next = () => (seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0);
+  // Test-only xorshift32 avoids the old LCG's short cycle in its low five bits.
+  const next = () => {
+    seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5;
+    return seed >>> 0;
+  };
   const text = encode('ticket', Array.from({ length: 26 }, (_, i) => i));
   for (const count of [2, 3, 4]) {
-    for (let sample = 0; sample < 1000; sample++) {
+    const seen = new Set();
+    for (let attempts = 0; seen.size < 1000; attempts++) {
+      assert.ok(attempts < 10000, 'mutation sampler must make progress');
       const positions = new Set();
       while (positions.size < count) positions.add(7 + next() % 32);
       const mutated = [...text];
       for (const i of positions) mutated[i] = ALPHABET[(ALPHABET.indexOf(mutated[i]) + 1 + next() % 31) % 32];
-      assert.equal(decode(mutated.join('')), undefined);
+      const changed = mutated.join('');
+      seen.add(changed);
+      assert.equal(decode(changed), undefined);
+    }
+  }
+});
+test('finite insertions, deletions and adjacent transpositions are detected', () => {
+  for (const length of [8, 14, 26, 64]) {
+    const text = encode('ticket', Array.from({ length }, (_, i) => i % 32));
+    for (let i = 7; i < text.length; i++) {
+      assert.equal(decode(text.slice(0, i) + text.slice(i + 1)), undefined, 'deletion');
+      if (i + 1 < text.length && text[i] !== text[i + 1]) {
+        assert.equal(decode(text.slice(0, i) + text[i + 1] + text[i] + text.slice(i + 2)), undefined, 'transposition');
+      }
+    }
+    for (let i = 7; i <= text.length; i++) {
+      for (const c of ALPHABET) assert.equal(decode(text.slice(0, i) + c + text.slice(i)), undefined, 'insertion');
     }
   }
 });

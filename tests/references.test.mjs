@@ -43,6 +43,15 @@ test('reported upper bound never rounds below the exact pair count at large budg
     assert.ok(BigInt(plan.collisionUpperBound * 32 ** plan.randomLength) >= exactPairs);
   }
 });
+test('factory reads a dynamic prefix once and keeps its length plan consistent', () => {
+  let reads = 0;
+  const refs = createReferences({ get prefix() { return ++reads === 1 ? 'ticket' : 'order'; } });
+  assert.equal(reads, 1);
+  const id = refs.generate();
+  assert.equal(refs.prefix, 'ticket');
+  assert.equal(id.length, refs.plan.canonicalLength);
+  assert.equal(refs.parseCanonical(id).id, id);
+});
 test('invalid, incomplete, contradictory or misspelled configuration fails closed', () => {
   for (const options of [null, undefined, {}, { prefix: '' }, { prefix: 'Ticket' }, { prefix: 'doc_1' },
     { prefix: 'a'.repeat(17) }, { prefix: 'док' }, { prefix: 'doc', randomLength: 7 },
@@ -75,12 +84,30 @@ test('input errors are distinguishable without silently correcting a wrong code'
     [null, 'type'], [123, 'type'], ['a'.repeat(129), 'too_long'], ['', 'format'],
     ['T' + id.slice(1), 'case'], [id.slice(0, 7) + 'b' + id.slice(8), 'character'],
     [id.slice(0, 7) + '-' + id.slice(7), 'format'], [id + '-', 'format'],
-    [id.slice(0, 9) + '-' + id.slice(9), 'format'], ['\u00a0' + id, 'format'],
+    [id.slice(0, 9) + '-' + id.slice(9), 'format'], ['\u00a0' + id, 'character'],
     [id.slice(0, -1) + (id.endsWith('q') ? 'p' : 'q'), 'checksum'],
     [fixture('order'), 'prefix'], [fixture('ticket', 15), 'length']
   ];
   for (const [input, error] of cases) assert.deepEqual(tickets.parse(input), { ok: false, error }, String(input));
   assert.throws(() => tickets.format(fixture('order')), /prefix/);
+});
+test('Unicode lookalikes are rejected before any case normalization', () => {
+  const upper = fixture('ticket', 26).toUpperCase();
+  const refs = createReferences({ prefix: 'ticket' });
+  // Kelvin sign folds to ASCII k; a prefix or payload lookalike must not pass.
+  const inputs = [
+    upper.replace('K', '\u212a'),
+    upper.slice(0, 7) + upper.slice(7).replace('K', '\u212a'),
+    upper.replace('T', '\uff34'), // Fullwidth T.
+    upper.replace('E', '\u0415'), // Cyrillic E.
+    upper + '\u200b', '\u00a0' + upper
+  ];
+  for (const input of inputs) {
+    assert.notEqual(input, upper);
+    assert.deepEqual(refs.parse(input), { ok: false, error: 'character' });
+    assert.deepEqual(refs.parseCanonical(input), { ok: false, error: 'character' });
+  }
+  assert.equal(refs.parse(upper).ok, true);
 });
 test('checksum binds prefix; changing a valid prefix invalidates the original checksum', () => {
   assert.equal(tickets.parse(fixture().replace('ticket', 'docket')).error, 'checksum');

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T08:32:02.185Z",
+  "generated_at": "2026-10-27T08:56:50.253Z",
   "version": "0.1.0-alpha.1",
   "environment": {
     "node": "v24.19.0",
@@ -28,9 +28,9 @@
     "files": [
       {
         "file": "dist/index.js",
-        "bytes": 6492,
-        "gzip_bytes": 2225,
-        "sha256": "5477d5db2026f04b8cbe8f85b406a5215ae8eef90c2d9d5ddd6193941184d222"
+        "bytes": 6814,
+        "gzip_bytes": 2358,
+        "sha256": "c039862817354759fc4133111e86ccad559540b23d5d2082bd3ad80c825aaf37"
       },
       {
         "file": "dist/bech32m.js",
@@ -39,8 +39,8 @@
         "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
       }
     ],
-    "total_bytes": 8850,
-    "summed_gzip_bytes": 3358
+    "total_bytes": 9172,
+    "summed_gzip_bytes": 3491
   },
   "timings": {
     "method": "Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.",
@@ -49,30 +49,30 @@
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        370603,
-        423272,
-        421309,
-        435002,
-        432156,
-        426264,
-        423388
+        373641,
+        420928,
+        417591,
+        420950,
+        419686,
+        417733,
+        420127
       ],
-      "median_ops_per_second": 423388
+      "median_ops_per_second": 419686
     },
     "parse_displayed": {
       "iterations": 20000,
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        479645,
-        533661,
-        548733,
-        540627,
-        550019,
-        535113,
-        535506
+        485884,
+        521867,
+        522076,
+        524402,
+        523370,
+        525297,
+        521497
       ],
-      "median_ops_per_second": 535506
+      "median_ops_per_second": 522076
     }
   },
   "collision_model": [
