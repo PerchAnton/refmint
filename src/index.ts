@@ -84,6 +84,11 @@ function collisionUpperBound(length: number, count: number): number {
 
 /** Pick the shortest supported payload satisfying the conservative birthday union bound. */
 export function planReferences<P extends string>(options: ReferenceOptions<P>): ReferencePlan {
+  return configure(options).plan;
+}
+
+/** Read each option once so dynamic getters cannot invalidate a factory's plan. */
+function configure<P extends string>(options: ReferenceOptions<P>): { prefix: P; plan: ReferencePlan } {
   if (options === null || typeof options !== 'object') throw new TypeError('Options must be an object');
   for (const key of Object.keys(options)) {
     if (!['prefix', 'randomLength', 'expectedCount', 'maxCollisionProbability'].includes(key)) {
@@ -109,25 +114,27 @@ export function planReferences<P extends string>(options: ReferenceOptions<P>): 
     if (length > MAX_LENGTH) throw new RangeError('Collision budget needs more than 64 random characters');
   }
   checkLength(length);
-  return Object.freeze({
+  const plan = Object.freeze({
     randomLength: length, randomBits: length * 5, checksumLength: 6,
     canonicalLength: prefix.length + 1 + length + 6,
     expectedCount: expectedCount ?? null, maxCollisionProbability: maxCollisionProbability ?? null,
     collisionUpperBound: budgeted ? collisionUpperBound(length, expectedCount!) : null,
     collisionProbability: budgeted ? collisionProbability(length, expectedCount!) : null
   });
+  return { prefix, plan };
 }
 
 /** Create one fixed reference namespace. Persist its prefix and payload length with your schema. */
 export function createReferences<const P extends string>(options: ReferenceOptions<P>): References<P> {
-  const plan = planReferences(options);
-  const prefix = options.prefix;
+  const { prefix, plan } = configure(options);
 
   function parse(input: unknown, strict: boolean): ParseResult<P> {
     const fail = (error: ParseError): ParseResult<P> => ({ ok: false, error });
     if (typeof input !== 'string') return fail('type');
     // Bound work before trimming, regex matching or allocating character arrays.
     if (input.length > 128) return fail('too_long');
+    // Unicode case folding can turn K into ASCII k. Reject it before folding.
+    if (/[^\x00-\x7f]/.test(input)) return fail('character');
     let text = input.replace(/^[ \t\r\n]+|[ \t\r\n]+$/g, '');
     if (text !== text.toLowerCase() && text !== text.toUpperCase()) return fail('case');
     text = text.toLowerCase();

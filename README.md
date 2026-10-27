@@ -8,7 +8,7 @@
 
 RefMint is a small TypeScript library for public ticket, document and order references. It combines a random payload, a type prefix and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
-**Alpha:** the format and API may change. This repository is usable from source; no npm publication is claimed. Node.js 22+ and browsers with Web Crypto are the targets.
+**Alpha:** the format and API may change. This repository is usable from source; no npm publication is claimed. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -66,6 +66,7 @@ If no budget is supplied, RefMint uses **26 random characters / 130 bits**. Choo
 | Canonical reference | Valid; unchanged storage key |
 | Whole code in uppercase; exact groups of four | Valid; normalized to the same storage key |
 | Mixed case, an unsupported character or broken grouping | Rejected |
+| Unicode lookalikes such as `K` in place of `K` | `character`; never silently converted to ASCII |
 | A payload or prefix change without recomputing the checksum | Rejected when the checksum detects the error |
 | Valid reference generated for another prefix | `prefix` |
 | Valid reference with a different payload length | `length` |
@@ -94,12 +95,15 @@ RefMint has six checksum characters of overhead and does not sort by time. It ma
 pnpm check                 # build, standard vectors, independent oracle, mutation + type tests
 pnpm example               # actual lookup example
 pnpm evidence              # regenerate measured evidence and the SVG above
+pnpm test:package          # offline install of the .tgz, API + types + documentation checks
 pnpm exec playwright install chromium firefox webkit
 pnpm test:browser          # actual form flow in three browser engines
 pnpm pack --pack-destination artifacts
 ```
 
 CI runs the core checks on Node 22, 24 and 26, including Windows and macOS, plus the browser example on Chromium, Firefox and WebKit. The workflow badge reports its current result; the matrix is a test target until that run succeeds. See [SPEC.md](SPEC.md), [CHANGELOG.md](CHANGELOG.md), [security policy](SECURITY.md) and [contribution guide](CONTRIBUTING.md).
+
+The package check installs into a separate consumer with an empty dependency store and network access disabled for installation. It checks the exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. Future npm alpha publications default to the `alpha` tag; that setting does not publish a package.
 
 ## License
 

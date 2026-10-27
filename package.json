@@ -22,6 +22,7 @@
     "node": ">=22"
   },
   "sideEffects": false,
+  "publishConfig": { "access": "public", "tag": "alpha" },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -30,8 +31,12 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
     "SPEC.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
     "LICENSE-MIT",
     "LICENSE-APACHE",
     "THIRD_PARTY_NOTICES.md"
@@ -40,6 +45,7 @@
     "build": "tsc -p tsconfig.json",
     "test": "node --test tests/*.test.mjs",
     "test:types": "tsc -p tests/tsconfig.json",
+    "test:package": "node scripts/check-package.mjs",
     "check": "pnpm build && pnpm test && pnpm test:types",
     "example": "node examples/ticket-lookup.mjs",
     "evidence": "node scripts/evidence.mjs",

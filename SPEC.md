@@ -33,7 +33,7 @@ For one code `n=1`, pairwise collision probability is zero and the planner still
 `parse` accepts unknown input and returns a discriminated result; malformed input does not throw. Configuration errors and unavailable random sources do throw.
 
 1. Non-string → `type`; raw input longer than 128 UTF-16 code units → `too_long` before further work.
-2. Trim surrounding ASCII space, tab, CR and LF. Unicode whitespace is not silently removed.
+2. Any non-ASCII character → `character`, before case folding. This includes Unicode whitespace and lookalikes such as `K`; they cannot normalize to an ASCII code. Trim surrounding ASCII space, tab, CR and LF.
 3. Mixed upper/lowercase letters → `case`. Uniform uppercase is normalized to lowercase.
 4. Find the last `1` and validate prefix syntax; malformed prefix/separator → `format`.
 5. Ungrouped body is accepted. If hyphens occur, every group except the last must contain exactly four characters; last group must contain 1–4. Only these hyphens are removed; malformed groups → `format`.
@@ -54,6 +54,8 @@ Errors identify a validation stage, not necessarily the user's exact mistake. A 
 - Types: `Reference`, `ReferenceOptions`, `ReferencePlan`, `References`, `ParseError`, `ParseResult`.
 
 Options: `{ prefix }` for the 26-character default; `{ prefix, randomLength }` for a fixed length; or `{ prefix, expectedCount, maxCollisionProbability }` for planning. The two sizing modes cannot be combined. Unknown options are rejected so a misspelled budget cannot silently select a default. Different prefixes have different TypeScript brands; lengths within one prefix are enforced at runtime.
+
+The factory reads each option once during construction. Its namespace and immutable plan use that same snapshot, even when an option is supplied by a getter. Later changes to the options object do not reconfigure an existing factory.
 
 ## Evidence limits
 

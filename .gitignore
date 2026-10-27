@@ -3,4 +3,5 @@ dist/
 *.tgz
 playwright-report/
 test-results/
+artifacts/
 .DS_Store
