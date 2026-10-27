@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Encode existing uint64 and UUID values with an explicit v1 contract, without allocating a second random ID. Preserve integer precision through bigint and reject overflow/noncanonical encodings.
+- Keep alpha.1 random references unchanged and structurally separate from the new format; add frozen compatibility vectors and namespace/kind TypeScript brands.
+- Add opt-in `diagnose` results with raw-input invalid-character positions and explicit length/namespace details. Existing parse result shapes remain unchanged; checksum errors never autocorrect a code.
+- Add a return-lookup form and an independent Bech32m adapter with identical input rules, records and diagnostics. Record shared scenarios, mutation fixtures, adapter/loaded-code sizes, reference lengths and local timings with explicit evidence limits.
+
 ## 0.1.0-alpha.1 — 2026-10-27
 
 First GitHub prerelease, distributed as a package archive. The npm registry publication is separate. The API and reference format are experimental.

@@ -9,6 +9,8 @@
 
 RefMint is a small TypeScript library for public ticket, document and order references. It combines a random payload, a type prefix and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
+**New in source, not yet released:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and compare a complete form with an independent Bech32m adapter. The published alpha.1 archive below contains the original random-reference API. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
+
 **Alpha:** the format and API may change. [Download the first GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.1) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
@@ -86,6 +88,29 @@ If no budget is supplied, RefMint uses **26 random characters / 130 bits**. Choo
 
 TypeScript also distinguishes `Reference<'ticket'>` from `Reference<'doc'>`. A plain string must pass the parser before it can be used as a branded reference. The brand is a compile-time aid, not an authorization boundary.
 
+## Keep an existing ID
+
+Build current source for this unreleased API. It does not allocate another random ID or require an alias column:
+
+```ts
+import { createReferenceCodec } from 'refmint'
+
+const returns = createReferenceCodec({ prefix: 'rma', kind: 'uint64', version: 1 })
+const printed = returns.format(returns.encode(123456n))
+const result = returns.diagnose(printed.toUpperCase())
+if (result.ok) {
+  console.log(result.value) // 123456n — query the original key, with authorization
+} else {
+  console.log(result.error, result.details) // positions / expected / actual, when known
+}
+```
+
+For UUIDs, use `kind: 'uuid'` with canonical lowercase UUID strings. A numeric codec requires `bigint` and preserves all 64 bits; it does not preserve leading zeros in a text identifier. Encoding is reversible and does not hide sequential numbers. [Full contract, diagnostics and compatibility](docs/format-v1.md).
+
+`createReferences(...).diagnose(input)` adds the same diagnostics for existing random references. Its `parse`/`parseCanonical` results and accepted formats remain unchanged. The new v1 grammar includes an underscore and version/kind symbols, so neither API mistakes the other format for one of its IDs.
+
+Run `pnpm compare && pnpm demo`, then open **http://127.0.0.1:4173/comparison/**. Both forms use the same checksum and accept the same cases. The comparison records adapter code, total loaded JavaScript, reference lengths and local timings—including costs that favor the plain Bech32m solution. [Methods, source and limitations](docs/comparison.md). The extra checking does not make codes shorter; no human-entry advantage is established.
+
 ## Scope and trade-offs
 
 Use RefMint when **people enter a public reference** and your application needs consistent generation, display and validation rules. Keep a **UNIQUE database constraint**, handle collisions with bounded retries, and authorize every lookup. The checksum is public and can be recomputed by anyone: it is not a signature, password, invitation secret or proof of authenticity.
@@ -106,6 +131,8 @@ pnpm check                 # build, standard vectors, independent oracle, mutati
 pnpm example               # actual lookup example
 pnpm test:demo             # malformed HTTP requests and the demo asset allowlist
 pnpm evidence              # regenerate measured evidence and the SVG above
+pnpm compare               # measure the existing-ID form against a Bech32m adapter
+pnpm test:comparison       # verify the recorded comparison facts and source hashes
 pnpm test:package          # offline install of the .tgz, API + types + documentation checks
 pnpm exec playwright install chromium firefox webkit
 pnpm test:browser          # actual form flow in three browser engines

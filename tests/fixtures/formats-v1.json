@@ -1,0 +1,142 @@
+{
+  "description": "Frozen compatibility fixtures. Generated once using independent bech32@2.0.0 and radix-32 conversion; never regenerate to make an incompatible change pass.",
+  "codec": [
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "0",
+      "reference": "rma_1pqqgmlxhp"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "1",
+      "reference": "rma_1pqp4dtn2n"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "31",
+      "reference": "rma_1pqlzhyza2"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "32",
+      "reference": "rma_1pqpqy80r4r"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "123456",
+      "reference": "rma_1pqrcjqv62em2"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "9007199254740993",
+      "reference": "rma_1pqgqqqqqqqqqp0tg526"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uint64",
+      "value": "18446744073709551615",
+      "reference": "rma_1pq0lllllllllllllkzhy6"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uuid",
+      "value": "00000000-0000-0000-0000-000000000000",
+      "reference": "rma_1ppqqqqqqqqqqqqqqqqqqqqqqqqqql4xtwn"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uuid",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "reference": "rma_1ppz4p6zqpc5mg822w9jyve25gqqqrmjq9w"
+    },
+    {
+      "prefix": "rma",
+      "kind": "uuid",
+      "value": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+      "reference": "rma_1pp8lllllllllllllllllllllllll2x7m4j"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "0",
+      "reference": "v11_1pqqzjhzk2"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "1",
+      "reference": "v11_1pqplyrhtc"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "31",
+      "reference": "v11_1pqlg7vxup"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "32",
+      "reference": "v11_1pqpqq7wdnn"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "123456",
+      "reference": "v11_1pqrcjqwcpmgw"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "9007199254740993",
+      "reference": "v11_1pqgqqqqqqqqqpmhdqhv"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uint64",
+      "value": "18446744073709551615",
+      "reference": "v11_1pq0lllllllllllld8z73d"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uuid",
+      "value": "00000000-0000-0000-0000-000000000000",
+      "reference": "v11_1ppqqqqqqqqqqqqqqqqqqqqqqqqqq46m0l8"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uuid",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "reference": "v11_1ppz4p6zqpc5mg822w9jyve25gqqqf50y56"
+    },
+    {
+      "prefix": "v11",
+      "kind": "uuid",
+      "value": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+      "reference": "v11_1pp8lllllllllllllllllllllllllqfrlyx"
+    }
+  ],
+  "legacy": [
+    {
+      "prefix": "ticket",
+      "randomLength": 14,
+      "reference": "ticket1qpzry9x8gf2tvdr5gua6"
+    },
+    {
+      "prefix": "rma",
+      "randomLength": 8,
+      "reference": "rma1qpzry9x8lrz9yy"
+    },
+    {
+      "prefix": "v11",
+      "randomLength": 64,
+      "reference": "v111qpzry9x8gf2tvdw0s3jn54khce6mua7lqpzry9x8gf2tvdw0s3jn54khce6mua7lzm44gz"
+    }
+  ]
+}

@@ -43,13 +43,14 @@ try {
   assert.deepEqual(packaged.dependencies ?? {}, {});
   const files = await readdir(installed, { recursive: true });
   assert.deepEqual((await readdir(join(installed, 'dist'))).sort(),
-    ['bech32m.d.ts', 'bech32m.js', 'index.d.ts', 'index.js'], 'Unexpected build output in the archive');
+    ['bech32m.d.ts', 'bech32m.js', 'codec.d.ts', 'codec.js', 'index.d.ts', 'index.js', 'presentation.d.ts', 'presentation.js'], 'Unexpected build output in the archive');
   assert.ok(!files.some(file => /(^|[/\\])(src|tests|scripts|\.github|node_modules)([/\\]|$)/.test(file)));
   for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/bech32m.js', 'SPEC.md', 'LICENSE-MIT', 'LICENSE-APACHE', 'THIRD_PARTY_NOTICES.md']) {
     assert.ok((await readFile(join(installed, name))).length > 0, name);
   }
   const evidence = JSON.parse(await readFile(join(installed, 'docs/evidence.json'), 'utf8'));
   assert.equal(evidence.version, source.version, 'Refresh evidence for this version');
+  assert.deepEqual(evidence.size.files.map(file => file.file).sort(), (await readdir(join(installed, 'dist'))).filter(file => file.endsWith('.js')).map(file => 'dist/' + file).sort());
   for (const file of evidence.size.files) {
     const bytes = await readFile(join(installed, file.file));
     assert.equal(createHash('sha256').update(bytes).digest('hex'), file.sha256, 'Runtime changed: regenerate evidence');
@@ -66,7 +67,7 @@ try {
   }
   await writeFile(join(consumer, 'smoke.mjs'), `
 import assert from 'node:assert/strict';
-import { createReferences, planReferences, collisionProbability } from 'refmint';
+import { createReferences, createReferenceCodec, planReferences, collisionProbability } from 'refmint';
 const refs = createReferences({prefix:'ticket', expectedCount:1000000, maxCollisionProbability:1e-9});
 const id = refs.generate();
 assert.equal(refs.parse(refs.format(id).toUpperCase()).id, id);
@@ -74,11 +75,16 @@ assert.equal(refs.parseCanonical(refs.format(id)).error, 'non_canonical');
 assert.equal(refs.parse(id.toUpperCase().replace('K', '\\u212a')).error, 'character');
 assert.equal(planReferences({prefix:'ticket'}).randomBits, 130);
 assert.ok(collisionProbability(14, 1000000) < 1e-9);
+const codec = createReferenceCodec({prefix:'rma',kind:'uint64',version:1});
+const encoded = codec.encode(9007199254740993n);
+assert.equal(codec.decode(codec.format(encoded).toUpperCase()).value, 9007199254740993n);
+assert.equal(codec.diagnose(encoded.replace('r', '\\uff52')).details.positions[0], 0);
+assert.equal(refs.parse(encoded).ok, false);
 await assert.rejects(import('refmint/dist/bech32m.js'), {code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});
 `);
   run(join(consumer, 'smoke.mjs'), [], consumer);
   await writeFile(join(consumer, 'types.mts'), `
-import { createReferences, type Reference } from 'refmint';
+import { createReferences, createReferenceCodec, type Reference } from 'refmint';
 const docs = createReferences({prefix:'doc'});
 const ticket: Reference<'ticket'> = createReferences({prefix:'ticket'}).generate();
 // @ts-expect-error The installed declarations must retain namespace branding.
@@ -87,6 +93,15 @@ docs.format(ticket);
 docs.format('anything');
 const result = docs.parse('anything');
 if (result.ok) docs.format(result.id);
+const numbers = createReferenceCodec({prefix:'rma',kind:'uint64'});
+const uuid = createReferenceCodec({prefix:'rma',kind:'uuid'});
+const n = numbers.encode(1n);
+// @ts-expect-error Codec kinds must not be mixed in the installed declarations.
+uuid.format(n);
+// @ts-expect-error uint64 never accepts a floating-point number.
+numbers.encode(1);
+const decoded = numbers.decode(n);
+if (decoded.ok) { const original: bigint = decoded.value; void original; }
 `);
   run(join(root, 'node_modules/typescript/bin/tsc'), ['--noEmit', '--strict', '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', 'types.mts'], consumer);
   console.log(`PASS: ${source.name}@${source.version} archive installs offline; ESM, types, documentation and licenses are intact.`);

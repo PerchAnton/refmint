@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T08:56:50.253Z",
+  "generated_at": "2026-10-27T12:30:29.024Z",
   "version": "0.1.0-alpha.1",
   "environment": {
     "node": "v24.19.0",
@@ -27,20 +27,32 @@
     "method": "Emitted JavaScript, not minified. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
     "files": [
       {
-        "file": "dist/index.js",
-        "bytes": 6814,
-        "gzip_bytes": 2358,
-        "sha256": "c039862817354759fc4133111e86ccad559540b23d5d2082bd3ad80c825aaf37"
-      },
-      {
         "file": "dist/bech32m.js",
         "bytes": 2358,
         "gzip_bytes": 1133,
         "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+      },
+      {
+        "file": "dist/codec.js",
+        "bytes": 4699,
+        "gzip_bytes": 1647,
+        "sha256": "daf48d1f55c60fb0add428612f2f31d9dd3ee217cac8c0180427b8ae119ab17a"
+      },
+      {
+        "file": "dist/index.js",
+        "bytes": 6046,
+        "gzip_bytes": 2071,
+        "sha256": "29c2c02934f48e4a82961bd1d69488f30fb143eca2809695711e1664d5b7f579"
+      },
+      {
+        "file": "dist/presentation.js",
+        "bytes": 1982,
+        "gzip_bytes": 797,
+        "sha256": "7e1169ce664c1b649c800e8494341d0a36dd478b8edcd077a37d35b2bed2e1af"
       }
     ],
-    "total_bytes": 9172,
-    "summed_gzip_bytes": 3491
+    "total_bytes": 15085,
+    "summed_gzip_bytes": 5648
   },
   "timings": {
     "method": "Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.",
@@ -49,30 +61,30 @@
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        373641,
-        420928,
-        417591,
-        420950,
-        419686,
-        417733,
-        420127
+        381655,
+        426559,
+        422598,
+        420968,
+        427805,
+        420406,
+        427933
       ],
-      "median_ops_per_second": 419686
+      "median_ops_per_second": 422598
     },
     "parse_displayed": {
       "iterations": 20000,
       "rounds": 7,
       "warmup": 2000,
       "ops_per_second": [
-        485884,
-        521867,
-        522076,
-        524402,
-        523370,
-        525297,
-        521497
+        509405,
+        511542,
+        515129,
+        514670,
+        522442,
+        512447,
+        523998
       ],
-      "median_ops_per_second": 522076
+      "median_ops_per_second": 514670
     }
   },
   "collision_model": [

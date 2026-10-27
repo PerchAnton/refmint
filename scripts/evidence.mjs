@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import os from 'node:os';
@@ -35,7 +35,7 @@ function measure(operation, iterations = 20000) {
   return { iterations, rounds: 7, warmup: 2000, ops_per_second: samples.map(Math.round), median_ops_per_second: Math.round(sorted[3]) };
 }
 const sizes = [];
-for (const file of ['dist/index.js', 'dist/bech32m.js']) {
+for (const file of (await readdir('dist')).filter(name => name.endsWith('.js')).sort().map(name => 'dist/' + name)) {
   const bytes = await readFile(file);
   sizes.push({ file, bytes: bytes.length, gzip_bytes: gzipSync(bytes).length, sha256: createHash('sha256').update(bytes).digest('hex') });
 }

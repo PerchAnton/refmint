@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RefMint · Existing ID comparison</title>
+<link rel="stylesheet" href="/comparison/style.css">
+<main>
+  <header><a class="brand" href="/">Ref<span>Mint</span></a><span class="badge">Local comparison · format v1</span></header>
+  <h1>Keep the record.<br>Check the reference.</h1>
+  <p class="intro">Compare RefMint with a Bech32m application adapter. Both forms use the same existing ID, printed code, validation rules and sample record.</p>
+  <section class="receipt" aria-labelledby="receipt-heading">
+    <div><p class="eyebrow">Sample return / received</p><h2 id="receipt-heading">A document number you can check</h2>
+      <label for="kind">Existing ID type</label><select id="kind"><option value="uint64">Numeric ID (uint64)</option><option value="uuid">UUID (128 bits)</option></select>
+      <p class="small">Original database key: <code id="original"></code></p></div>
+    <div class="printed"><span class="eyebrow">Printed reference</span><output id="reference"></output><p id="length" class="small"></p></div>
+  </section>
+  <section aria-labelledby="form-heading">
+    <h2 id="form-heading">Try the return lookup</h2>
+    <form id="compare"><label for="input">Return reference</label><div class="input-row"><input id="input" maxlength="128" autocomplete="off" spellcheck="false" autocapitalize="off" aria-describedby="input-help"><button class="primary" type="submit">Check both forms</button></div><p id="input-help" class="small">Uppercase and exact groups of four are accepted. Characters are never silently corrected.</p></form>
+    <div class="actions"><button id="correct">Use printed reference</button><button id="typo">Introduce a typo</button><button id="illegal">Try invalid character</button><button id="unknown">Valid but unknown</button></div>
+    <div class="results">
+      <article aria-labelledby="refmint-heading"><p class="eyebrow">Library contract</p><h3 id="refmint-heading">RefMint</h3><p id="refmint-result" class="result" role="status" aria-live="polite">Ready to check.</p><p id="refmint-queries" class="small">Lookup calls: 0</p><details><summary>Parsed result</summary><pre id="refmint-details">—</pre></details></article>
+      <article aria-labelledby="bech32-heading"><p class="eyebrow">Codec + application rules</p><h3 id="bech32-heading">Bech32m + adapter</h3><p id="bech32-result" class="result" role="status" aria-live="polite">Ready to check.</p><p id="bech32-queries" class="small">Lookup calls: 0</p><details><summary>Parsed result</summary><pre id="bech32-details">—</pre></details></article>
+    </div>
+    <p class="small">Lookup calls count access to the in-memory sample record. Neither form makes a database or network request. Production code must authorize every lookup.</p>
+  </section>
+  <section aria-labelledby="evidence-heading"><div class="section-head"><div><p class="eyebrow">Reproducible checks</p><h2 id="evidence-heading">Compare the whole input contract</h2></div><button id="run">Run all scenarios</button></div>
+    <p id="matrix-status" role="status">Run the shared cases to compare outcomes.</p>
+    <div class="table-scroll"><table><thead><tr><th>Input</th><th>RefMint</th><th>Bech32m + adapter</th><th>Match</th></tr></thead><tbody id="matrix"></tbody></table></div>
+    <details><summary>Integration size and measurement limits</summary><div id="metrics" class="small">Loading recorded measurements…</div><p class="small">The line count measures these adapters implementing this exact contract, not general library quality. Both use the same checksum and have the same reference length. No human typing study or production speed advantage has been established.</p><p><a href="/comparison/refmint-adapter.mjs">RefMint adapter</a> · <a href="/comparison/bech32-adapter.mjs">Bech32m adapter</a> · <a href="/docs/comparison.json">Recorded evidence</a></p></details>
+  </section>
+  <footer><p>Decoding restores the existing key; no second random alias is stored. A checksum does not hide sequential numbers, authenticate a code or prove the record exists.</p><p><a href="/">Random reference demo</a> · <a href="https://github.com/PerchAnton/refmint">Source</a> · <a href="https://github.com/bitcoinjs/bech32">bech32@2.0.0 (MIT)</a></p><p id="fatal" role="alert"></p></footer>
+</main>
+<script type="module" src="/comparison/app.mjs"></script>
+</html>

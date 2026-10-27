@@ -50,8 +50,10 @@
     "check": "pnpm build && pnpm test && pnpm test:types",
     "example": "node examples/ticket-lookup.mjs",
     "evidence": "node scripts/evidence.mjs",
+    "compare": "node scripts/compare.mjs",
     "demo": "node scripts/serve.mjs",
     "test:browser": "playwright test",
+    "test:comparison": "node scripts/compare.mjs --check",
     "prepack": "pnpm build"
   },
   "packageManager": "pnpm@11.25.0",

@@ -33,6 +33,7 @@ jobs:
       - run: pnpm check
       - run: pnpm example
       - run: pnpm test:demo
+      - run: pnpm test:comparison
       - run: pnpm test:package
   browsers:
     name: Chromium / Firefox / WebKit
