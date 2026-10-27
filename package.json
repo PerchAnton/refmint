@@ -1,0 +1,56 @@
+{
+  "name": "refmint",
+  "version": "0.1.0-alpha.1",
+  "description": "Generate, format and validate public reference codes with a collision budget and Bech32m checksum.",
+  "type": "module",
+  "license": "MIT OR Apache-2.0",
+  "author": "PerchAnton",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PerchAnton/refmint.git"
+  },
+  "homepage": "https://github.com/PerchAnton/refmint#readme",
+  "bugs": "https://github.com/PerchAnton/refmint/issues",
+  "keywords": [
+    "id",
+    "reference",
+    "checksum",
+    "bech32m",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "SPEC.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test tests/*.test.mjs",
+    "test:types": "tsc -p tests/tsconfig.json",
+    "check": "pnpm build && pnpm test && pnpm test:types",
+    "example": "node examples/ticket-lookup.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "demo": "node scripts/serve.mjs",
+    "test:browser": "playwright test",
+    "prepack": "pnpm build"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "bech32": "2.0.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-10-27T08:32:02.185Z",
+  "version": "0.1.0-alpha.1",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3"
+  },
+  "runtime_dependencies": 0,
+  "plan": {
+    "randomLength": 14,
+    "randomBits": 70,
+    "checksumLength": 6,
+    "canonicalLength": 27,
+    "expectedCount": 1000000,
+    "maxCollisionProbability": 1e-9,
+    "collisionUpperBound": 4.2351605011067654e-10,
+    "collisionProbability": 4.235160500209936e-10
+  },
+  "mutations": {
+    "method": "All 31 alternative alphabet characters at every payload/checksum position of four fixed fixtures; prefix ticket, payload lengths 8/14/26/64. Normalization changes excluded.",
+    "tested": 4216,
+    "rejected": 4216
+  },
+  "size": {
+    "method": "Emitted JavaScript, not minified. gzip sizes are compressed per file and then summed; not a bundled transfer measurement.",
+    "files": [
+      {
+        "file": "dist/index.js",
+        "bytes": 6492,
+        "gzip_bytes": 2225,
+        "sha256": "5477d5db2026f04b8cbe8f85b406a5215ae8eef90c2d9d5ddd6193941184d222"
+      },
+      {
+        "file": "dist/bech32m.js",
+        "bytes": 2358,
+        "gzip_bytes": 1133,
+        "sha256": "93d78425096f7dfb58c99c008c1256256e0a48d71d8d3b49a6f89a2bed3d62c6"
+      }
+    ],
+    "total_bytes": 8850,
+    "summed_gzip_bytes": 3358
+  },
+  "timings": {
+    "method": "Single process, seven rounds after warmup; no competitor comparison. Generation includes Web Crypto and checksum; parsing includes checksum and normalization.",
+    "generate": {
+      "iterations": 20000,
+      "rounds": 7,
+      "warmup": 2000,
+      "ops_per_second": [
+        370603,
+        423272,
+        421309,
+        435002,
+        432156,
+        426264,
+        423388
+      ],
+      "median_ops_per_second": 423388
+    },
+    "parse_displayed": {
+      "iterations": 20000,
+      "rounds": 7,
+      "warmup": 2000,
+      "ops_per_second": [
+        479645,
+        533661,
+        548733,
+        540627,
+        550019,
+        535113,
+        535506
+      ],
+      "median_ops_per_second": 535506
+    }
+  },
+  "collision_model": [
+    {
+      "random_length": 8,
+      "count": 1000000,
+      "birthday_approximation": 0.36539143049797307
+    },
+    {
+      "random_length": 14,
+      "count": 1000000,
+      "birthday_approximation": 4.235160500209936e-10
+    },
+    {
+      "random_length": 26,
+      "count": 1000000,
+      "birthday_approximation": 3.673416172899802e-28
+    }
+  ],
+  "limits": [
+    "Finite mutation fixtures are not a proof of every checksum property.",
+    "No user study, adoption claim or measured reduction in support time.",
+    "Timing results are machine-specific; generation and parse do different work.",
+    "Collision calculations assume uniform independent sampling; enforce uniqueness in storage."
+  ]
+}
