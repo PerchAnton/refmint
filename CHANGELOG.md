@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Add a local PDF/phone lookup experiment comparing existing identifiers, a simple
+  alias and RefMint. Record 54 synthetic cases, input lengths and logical lookup calls;
+  include costs that favor existing identifiers and aliases. No human-performance claim.
+- Verify identifiers extracted from a deterministic sample PDF against the same lookup
+  model; test the browser form, permitted scope and wrong-record cases.
+- Clarify when RefMint is unnecessary, alpha/API versus frozen v1 format commitments,
+  and why checksums cannot replace authorization or regulated identifiers.
+- Runtime APIs and wire formats are unchanged. No new npm runtime dependencies.
+
 ## 0.1.0-alpha.2 — 2026-10-27
 
 Second prerelease, including the existing-ID API, compatibility checks, comparison form and measured optimizations. Available as a GitHub package archive and on npm under the `alpha` tag. The npm publication updates installation/release documentation only; runtime, declarations, package metadata and measured evidence match the original GitHub archive byte for byte.

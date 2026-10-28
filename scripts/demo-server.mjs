@@ -12,6 +12,9 @@ for (const name of ['index.html', 'app.mjs', 'style.css', 'bech32-adapter.mjs', 
   files.set('/comparison/' + (name === 'index.html' ? '' : name), [`../examples/comparison/${name}`, `${type}; charset=utf-8`]);
 }
 files.set('/docs/comparison.json', ['../docs/comparison.json', 'application/json; charset=utf-8']);
+for (const [name, type] of [['index.html', 'text/html; charset=utf-8'], ['style.css', 'text/css; charset=utf-8'], ['app.mjs', 'text/javascript; charset=utf-8'], ['model.mjs', 'text/javascript; charset=utf-8'], ['sample-invoice.pdf', 'application/pdf']]) {
+  files.set('/workflows/' + (name === 'index.html' ? '' : name), [`../examples/workflows/${name}`, type]);
+}
 
 export function createDemoServer() {
   return createServer(async (req, res) => {

@@ -1,0 +1,640 @@
+{
+  "schema": 1,
+  "recorded": "2026-10-28",
+  "sample": "synthetic local fixtures, not production support cases",
+  "measured": "logical lookup calls and identifier lengths, not latency or human error rates",
+  "sources": {
+    "examples/workflows/model.mjs": "66c23da94a3fbd33ff33aebad4546a263d719bfd01c76d3543305a0a2939b24b",
+    "scripts/workflows.mjs": "0b2b59802c8fcec2bb300efe91c550441e920b8d279a2d62461965966e6c924e",
+    "dist/codec.js": "00fa6a5f15b53f69c421a6a36c9c37bf5125cb7390adced5073b8da8956e9ab5",
+    "dist/presentation.js": "c80609e88d8d10226e105599f2d57c4eeedde979a960d283b49070f765b91e25",
+    "dist/bech32m.js": "8541415a0ca6dafede62789c1471afd39dcf91d034fb5aad897b8a1c1219dff2"
+  },
+  "lengths": [
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "canonical": 8,
+      "printed": 8
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "canonical": 5,
+      "printed": 5
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "canonical": 41,
+      "printed": 49
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "canonical": 15,
+      "printed": 15
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "canonical": 5,
+      "printed": 5
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "canonical": 19,
+      "printed": 21
+    }
+  ],
+  "rows": [
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Exact",
+      "input": "press-07",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Printed / pasted",
+      "input": "  press-07  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "One-symbol change",
+      "input": "press-08",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "label": "press-08"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Truncated",
+      "input": "press-0",
+      "status": "ambiguous",
+      "queries": 1,
+      "matches": 2,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Wrong record type",
+      "input": "INV-2026-000042",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Valid but unknown",
+      "input": "missing-99",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Outside allowed scope",
+      "input": "press-09",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Another valid code",
+      "input": "press-08",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "label": "press-08"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "fleet",
+      "route": "existing",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Exact",
+      "input": "A1042",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Printed / pasted",
+      "input": "  A1042  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "One-symbol change",
+      "input": "A1043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "label": "press-08"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Truncated",
+      "input": "A104",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Wrong record type",
+      "input": "D1042",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Valid but unknown",
+      "input": "Z9999",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Outside allowed scope",
+      "input": "A1044",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Another valid code",
+      "input": "A1043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "label": "press-08"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "fleet",
+      "route": "alias",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Exact",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqq0l8ugf",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Printed / pasted",
+      "input": "  ASSET_1PPZ4-P6ZQ-PC5M-G822-W9JY-VE25-GQQQ-0L8U-GF  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "label": "press-07"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "One-symbol change",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqq0l8ugq",
+      "status": "invalid",
+      "reason": "checksum",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Truncated",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqq0l8ug",
+      "status": "invalid",
+      "reason": "checksum",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Wrong record type",
+      "input": "invoice_1pqp2uywucw",
+      "status": "invalid",
+      "reason": "prefix",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Valid but unknown",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqq0sj5qh3",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Outside allowed scope",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqzu6xlmy",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Another valid code",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqpjfnf4m",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "label": "press-08"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "fleet",
+      "route": "refmint",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Exact",
+      "input": "INV-2026-000042",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Printed / pasted",
+      "input": "  INV-2026-000042  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "One-symbol change",
+      "input": "INV-2026-000043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "43",
+        "label": "INV-2026-000043"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Truncated",
+      "input": "INV-2026-00004",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Wrong record type",
+      "input": "press-07",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Valid but unknown",
+      "input": "missing-99",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Outside allowed scope",
+      "input": "INV-2026-000044",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Another valid code",
+      "input": "INV-2026-000043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "43",
+        "label": "INV-2026-000043"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "invoice",
+      "route": "existing",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Exact",
+      "input": "D1042",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Printed / pasted",
+      "input": "  D1042  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "One-symbol change",
+      "input": "D1043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "43",
+        "label": "INV-2026-000043"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Truncated",
+      "input": "D104",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Wrong record type",
+      "input": "A1042",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Valid but unknown",
+      "input": "Z9999",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Outside allowed scope",
+      "input": "D1044",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Another valid code",
+      "input": "D1043",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "43",
+        "label": "INV-2026-000043"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "invoice",
+      "route": "alias",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Exact",
+      "input": "invoice_1pqp2uywucw",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Printed / pasted",
+      "input": "  INVOICE_1PQP2-UYWU-CW  ",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "42",
+        "label": "INV-2026-000042"
+      },
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "One-symbol change",
+      "input": "invoice_1pqp2uywucq",
+      "status": "invalid",
+      "reason": "checksum",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Truncated",
+      "input": "invoice_1pqp2uywuc",
+      "status": "invalid",
+      "reason": "checksum",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Wrong record type",
+      "input": "asset_1ppz4p6zqpc5mg822w9jyve25gqqq0l8ugf",
+      "status": "invalid",
+      "reason": "prefix",
+      "queries": 0,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Valid but unknown",
+      "input": "invoice_1pqrrp4qcdd",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Outside allowed scope",
+      "input": "invoice_1pqpvqtdeye",
+      "status": "not_found",
+      "queries": 1,
+      "different_record": false
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Another valid code",
+      "input": "invoice_1pqptpj6f9u",
+      "status": "found",
+      "queries": 1,
+      "record": {
+        "id": "43",
+        "label": "INV-2026-000043"
+      },
+      "different_record": true
+    },
+    {
+      "domain": "invoice",
+      "route": "refmint",
+      "case": "Empty",
+      "input": "",
+      "status": "invalid",
+      "reason": "input",
+      "queries": 0,
+      "different_record": false
+    }
+  ]
+}

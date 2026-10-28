@@ -1,0 +1,8 @@
+{
+  "invoice_number": "INV-2026-000042",
+  "database_id": "42",
+  "alias": "D1042",
+  "reference": "INVOICE_1PQP2-UYWU-CW",
+  "lookup_url": "http://127.0.0.1:4173/workflows/",
+  "warning": "DEMONSTRATION ONLY - NOT A TAX INVOICE"
+}

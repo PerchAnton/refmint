@@ -20,13 +20,20 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 
 ## Try it
 
+**Would an extra reference help?** Try the new current-source
+[PDF/phone lookup experiment](docs/workflows.md): existing number or hostname,
+five-character alias, and RefMint on the same records. The sample fleet code is
+49 printed characters versus an 8-character hostname; the invoice code is 21 versus
+a 15-character invoice number. The checksum rejects selected typos, but no human-entry
+advantage has been established. [When RefMint is unnecessary](docs/when-not-to-use.md).
+
 Install the current alpha from npm:
 
 ```sh
 npm install refmint@alpha
 ```
 
-To pin this release, use `npm install --save-exact refmint@0.1.0-alpha.2`. The `alpha` tag is intentional: this is a prerelease, and no stable `latest` release is advertised. Registry installation does not require an npm account or the URL-dependency flag below.
+To pin this release, use `npm install --save-exact refmint@0.1.0-alpha.2`. This is a prerelease even when the `latest` registry tag resolves to it; npm availability does not make its API stable. Registry installation does not require an npm account or the URL-dependency flag below.
 
 The GitHub package archive remains available as an alternative:
 
