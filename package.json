@@ -59,6 +59,8 @@
     "demo": "node scripts/serve.mjs",
     "test:browser": "playwright test",
     "test:comparison": "node scripts/compare.mjs --check",
+    "workflows": "node scripts/workflows.mjs",
+    "test:workflows": "node scripts/workflows.mjs --check",
     "prepack": "pnpm build"
   },
   "packageManager": "pnpm@11.25.0",

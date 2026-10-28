@@ -34,7 +34,27 @@ jobs:
       - run: pnpm example
       - run: pnpm test:demo
       - run: pnpm test:comparison
+      - run: pnpm test:workflows
       - run: pnpm test:package
+  workflow-pdf:
+    name: PDF extraction and lookup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.14'
+      - run: npm install -g pnpm@11.25.0
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm build
+      - run: pnpm test:workflows
+      - run: python -m pip install -r examples/workflows/requirements-pdf.txt
+      - run: python examples/workflows/pdf.py --check
   browsers:
     name: Chromium / Firefox / WebKit
     runs-on: ubuntu-latest

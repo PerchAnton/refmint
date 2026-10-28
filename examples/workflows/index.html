@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do you need another reference? · RefMint</title>
+<link rel="stylesheet" href="/workflows/style.css">
+<main>
+  <header><p class="eyebrow">REFMINT / WORKFLOW LAB</p><h1>Do you need another reference?</h1>
+  <p>Compare an existing identifier, a simple local alias, and a checksummed reference on the same records.</p></header>
+  <aside><strong>Synthetic evaluation, not a production integration.</strong> No customer data or measured human-entry advantage.
+  All data is public demo data; authorization shown here must be enforced on your server in a real application.</aside>
+  <section class="controls"><label for="domain">Workflow</label><select id="domain"><option value="invoice">PDF → invoice lookup</option><option value="fleet">Phone support → asset lookup</option></select>
+  <p id="context"></p><a href="/workflows/sample-invoice.pdf" download>Download sample invoice PDF</a>
+  <p>The PDF includes all three identifiers. Copy one into its field below. The original invoice number remains unchanged.</p></section>
+  <div class="presets"><button type="button" data-case="Exact">Correct input</button><button type="button" data-case="One-symbol change">One-symbol change</button><button type="button" data-case="Truncated">Truncated input</button><button type="button" data-case="Outside allowed scope">Outside allowed scope</button><button type="button" data-case="Another valid code">Another valid code</button></div>
+  <form id="lookup"><div class="cards">
+    <article><h2>Existing identifier</h2><p>Keep the number or hostname people already use.</p><label for="existing">Existing number / hostname</label><input id="existing" autocomplete="off" spellcheck="false"><p class="length" id="existing-length"></p><output id="existing-result" aria-live="polite"></output></article>
+    <article><h2>Simple alias</h2><p>A short label with an application-owned mapping.</p><label for="alias">Local alias</label><input id="alias" autocomplete="off" spellcheck="false"><p class="length" id="alias-length"></p><output id="alias-result" aria-live="polite"></output></article>
+    <article><h2>RefMint</h2><p>Encode a public database ID and validate its checksum.</p><label for="refmint">RefMint reference</label><input id="refmint" autocomplete="off" spellcheck="false"><p class="length" id="refmint-length"></p><output id="refmint-result" aria-live="polite"></output></article>
+  </div><button type="submit" class="primary">Look up all three</button></form>
+  <section><h2>What the result can tell you</h2><ul>
+    <li>A checksum can reject mistyped input before a lookup. It cannot grant access or identify the caller.</li>
+    <li>A different complete valid code still finds a different record. Confirm the record before acting.</li>
+    <li>The short alias needs a mapping and uniqueness rules. RefMint is longer and adds a dependency.</li>
+    <li>Existing hostname search can return useful partial matches; RefMint requires a complete code.</li>
+  </ul><p>“Logical lookups” count calls in this in-memory fixture, not network requests or database latency. No enrollment ID, credential, invoice number or tax identifier is replaced.</p></section>
+  <footer>Alpha API · frozen existing-ID v1 wire contract · no stable release implied by npm availability</footer>
+</main><script type="module" src="/workflows/app.mjs"></script>
+</html>
