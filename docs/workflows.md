@@ -27,7 +27,7 @@ complete valid code. The form supports manual input as well as preset cases.
 [Demo source](https://github.com/PerchAnton/refmint/tree/main/examples/workflows) ·
 [Sample PDF](https://github.com/PerchAnton/refmint/blob/main/examples/workflows/sample-invoice.pdf) ·
 [All recorded outcomes](workflow-results.md) · [Raw evidence and source hashes](workflows.json).
-The example is newer than the alpha.2 source tag and is not part of the npm runtime.
+The example is included in the alpha.3 tagged source and is not part of the npm runtime.
 
 ## What is compared
 

@@ -4,13 +4,18 @@ Run `pnpm check && pnpm evidence` from a clean checkout after installing the loc
 
 ## Correctness
 
+For alpha.3, the timing/size snapshot is carried forward from alpha.2 because all
+runtime JavaScript hashes are identical. `measurement_version` identifies the measured
+version; `version` identifies the package carrying the evidence. Original timestamps,
+environment and samples are retained. This is not a new performance measurement.
+
 Core tests check all 7 valid and 14 invalid generic Bech32m vectors from BIP-350. They compare generated output with a separate implementation (`bech32` 2.0.0) for all payload lengths from 8 through 64 and four prefixes. The planner is checked against exact BigInt pair counts at representative budgets. Type checks demonstrate namespace separation.
 
 The boundary suite extends public-API round trips to all 16 prefix lengths × 57 payload lengths = **912 combinations**, including prefixes containing `1`, display normalization, and the raw-input limits of 128/129 characters. Its independent numeric oracle converts each budget's IEEE-754 value into an exact integer ratio. It checks **1,766 distinct count/budget pairs**, including immediately neighboring floating-point values around length transitions, counts up to the largest safe integer, subnormal targets and unattainable budgets. Selected non-string inputs, including an object with throwing access hooks, must be rejected without inspecting or coercing them.
 
 The evidence script enumerates 31 alternate symbols at every payload and checksum position for four known references. Their payload lengths are 8, 14, 26 and 64, giving `(14 + 20 + 32 + 70) × 31 = 4,216` substitutions. All must be rejected or the script fails. The core suite additionally checks 3,000 distinct deterministic samples with 2–4 substituted positions (1,000 per count), all single-symbol insertions and deletions in those four bodies, and adjacent swaps of unequal symbols. This is finite test evidence; it is not an exhaustive proof of the standard's error-detection properties. ASCII case folding and valid grouping are deliberately accepted and are not counted as detected errors. Non-ASCII input is rejected before case folding.
 
-Browser tests exercise the actual forms in Chromium, Firefox and WebKit: printed uppercase reference, one typo, unknown valid reference, replacing the sample ticket, a narrow viewport and rejection of a Unicode lookalike. Two additional tests per engine compare the existing-ID forms, both value kinds, all 14 shared cases, raw-input offsets and mobile layout: five tests per engine in total. Hosted results are available in the CI workflow. Local results and hosted results must be identified separately.
+Browser tests exercise the actual forms in Chromium, Firefox and WebKit: printed uppercase reference, one typo, unknown valid reference, replacing the sample ticket, a narrow viewport and rejection of a Unicode lookalike. Two tests per engine compare the existing-ID forms, both value kinds, all 14 shared cases, raw-input offsets and mobile layout. Two more cover the PDF/phone workflow form, scope restrictions, another valid code and pasted input: seven tests per engine, 21 in total. Hosted results are available in the CI workflow. Local results and hosted results must be identified separately.
 
 `pnpm test:package` seeds a synthetic obsolete module in `dist/`, verifies that the pack build removes it, and checks the archive's exact build-file inventory. It installs the archive offline into a separate consumer with an empty store and checks runtime imports, TypeScript namespace brands, blocked private-module imports, shipped Markdown links and SHA-256 hashes of the measured JavaScript. The package includes the evidence image and documents; builds force LF line endings so the same source produces the same runtime hashes on the tested operating systems.
 

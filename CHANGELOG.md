@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.3 — 2026-10-28
+
+Workflow examples and documentation; runtime JavaScript, public APIs and the
+existing-ID v1 wire format are unchanged from alpha.2.
 
 - Add a local PDF/phone lookup experiment comparing existing identifiers, a simple
   alias and RefMint. Record 54 synthetic cases, input lengths and logical lookup calls;
