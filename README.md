@@ -6,12 +6,13 @@
 ![Status: alpha](https://img.shields.io/badge/status-alpha-d9822b)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
 [![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.2-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2)
+[![npm alpha](https://img.shields.io/npm/v/refmint/alpha)](https://www.npmjs.com/package/refmint)
 
 RefMint is a small TypeScript library for public ticket, document and order references. It can generate random references or encode existing uint64/UUID values with a namespace and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
 **New in alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
 
-**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. [Download the current GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2) or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets. This release is distributed through GitHub; it is not published to the npm registry.
+**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. Install the [npm alpha](https://www.npmjs.com/package/refmint), [download the GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2), or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -19,7 +20,15 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 
 ## Try it
 
-Install the versioned package archive into your application:
+Install the current alpha from npm:
+
+```sh
+npm install refmint@alpha
+```
+
+To pin this release, use `npm install --save-exact refmint@0.1.0-alpha.2`. The `alpha` tag is intentional: this is a prerelease, and no stable `latest` release is advertised. Registry installation does not require an npm account or the URL-dependency flag below.
+
+The GitHub package archive remains available as an alternative:
 
 ```sh
 npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.2/refmint-0.1.0-alpha.2.tgz
@@ -42,7 +51,7 @@ pnpm demo
 
 Open **http://127.0.0.1:4173**. The example runs locally, keeps one sample ticket in memory, and demonstrates three outcomes: found, mistyped and valid-but-unknown. It sends no references to a remote service.
 
-To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. The command `npm install refmint` is not available until a separate npm registry publication.
+To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. The npm alpha.2 package updates installation and release documentation; its runtime, TypeScript declarations, package metadata and measured-evidence files are identical to the original GitHub alpha.2 archive. The archives have different checksums because those documentation files differ.
 
 ## One namespace, one storage format
 
@@ -147,7 +156,7 @@ pnpm pack --pack-destination artifacts
 
 CI runs the core checks on Node 22, 24 and 26, including Windows and macOS, plus the browser example on Chromium, Firefox and WebKit. The workflow badge reports its current result; the release notes link the checks for the released commit. See [SPEC.md](SPEC.md), [CHANGELOG.md](CHANGELOG.md), [security policy](SECURITY.md) and [contribution guide](CONTRIBUTING.md).
 
-The package check first plants an obsolete build file and verifies that a clean build removes it. It then installs into a separate consumer with an empty dependency store and network access disabled for installation, checking the archive contents, exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. Future npm alpha publications default to the `alpha` tag; that setting does not publish a package.
+The package check first plants an obsolete build file and verifies that a clean build removes it. It then installs into a separate consumer with an empty dependency store and network access disabled for installation, checking the archive contents, exported API, namespace types, shipped documentation links and runtime hashes against the recorded evidence. npm prereleases use the `alpha` tag. See the [publication checklist](CONTRIBUTING.md#publishing-an-alpha) for release verification.
 
 Boundary tests cover all **912** supported prefix/payload length pairs and **1,766** count/budget pairs near floating-point cutoffs. The budget oracle compares exact integer ratios, including subnormal targets and impossible budgets. These checks validate the stated rules; they do not measure human error rates.
 

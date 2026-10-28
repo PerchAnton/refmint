@@ -2,7 +2,7 @@
 
 ## 0.1.0-alpha.2 — 2026-10-27
 
-Second GitHub prerelease, including the existing-ID API, compatibility checks, comparison form and measured optimizations. Distributed as a package archive; not published to the npm registry.
+Second prerelease, including the existing-ID API, compatibility checks, comparison form and measured optimizations. Available as a GitHub package archive and on npm under the `alpha` tag. The npm publication updates installation/release documentation only; runtime, declarations, package metadata and measured evidence match the original GitHub archive byte for byte.
 
 - Optimize checksum evaluation and parsing without changing formats or diagnostics; use exact 50-bit chunks for bigint decoding. Add an optional `refmint/codec` import and strip implementation comments from shipped JS while preserving source/type documentation. Record full-root and codec-only sizes, a same-process comparison against the previous build, and differential behavior checks.
 - Encode existing uint64 and UUID values with an explicit v1 contract, without allocating a second random ID. Preserve integer precision through bigint and reject overflow/noncanonical encodings.
