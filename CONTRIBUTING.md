@@ -16,7 +16,7 @@ The build keeps JSDoc in declarations and removes comments only from emitted JS.
 
 Use a clean, reviewed commit and verify that its CI passed. Keep the version, changelog and evidence version in sync. A published npm name/version cannot be reused. For a prerelease, keep both `publishConfig.tag` and the explicit publication tag set to `alpha`.
 
-1. Run `pnpm check`, `pnpm test:demo`, `pnpm test:comparison` and `pnpm test:package`; the matching CI must also cover browsers and the supported Node/OS matrix.
+1. Run `pnpm check`, `pnpm test:demo`, `pnpm test:comparison`, `pnpm test:workflows` and `pnpm test:package`; the matching CI must also cover browsers, PDF extraction/lookup and the supported Node/OS matrix.
 2. Pack with `pnpm pack --pack-destination artifacts`. Record the commit, package SHA-256 and npm SHA-512 integrity. Inspect the file inventory and install this exact archive into an isolated consumer before publication.
 3. Authenticate to `https://registry.npmjs.org` with `npm login --auth-type=web`. Enter passwords and second-factor challenges only in npm's login flow. Never commit credentials or put them in an issue/PR. Direct publication requires account 2FA or another authentication method supported by npm; prefer the interactive account flow for the first release.
 4. Run `npm publish ./artifacts/refmint-VERSION.tgz --dry-run --ignore-scripts --tag alpha --access public --registry=https://registry.npmjs.org`, substituting the actual version. Inspect the name, version, files and integrity. Then publish the same archive by removing only `--dry-run`.

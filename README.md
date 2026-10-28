@@ -5,14 +5,16 @@
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Status: alpha](https://img.shields.io/badge/status-alpha-d9822b)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
-[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.2-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2)
+[![GitHub prerelease](https://img.shields.io/badge/release-0.1.0--alpha.3-087d5d)](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.3)
 [![npm alpha](https://img.shields.io/npm/v/refmint/alpha)](https://www.npmjs.com/package/refmint)
 
 RefMint is a small TypeScript library for public ticket, document and order references. It can generate random references or encode existing uint64/UUID values with a namespace and a standard Bech32m checksum. A form can distinguish a mistyped code from a valid reference for a different record type, before querying a database.
 
-**New in alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
+**New in alpha.3:** a PDF/phone lookup experiment comparing existing identifiers, a simple alias and RefMint; 54 selected fixture cases and guidance on when another reference is unnecessary. Runtime JavaScript and the frozen v1 format are unchanged from alpha.2. [Workflow demo](docs/workflows.md) · [When not to use RefMint](docs/when-not-to-use.md).
 
-**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. Install the [npm alpha](https://www.npmjs.com/package/refmint), [download the GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.2), or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
+**Retained from alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
+
+**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. Install the [npm alpha](https://www.npmjs.com/package/refmint), [download the GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.3), or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 
@@ -20,7 +22,7 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 
 ## Try it
 
-**Would an extra reference help?** Try the new current-source
+**Would an extra reference help?** Try the
 [PDF/phone lookup experiment](docs/workflows.md): existing number or hostname,
 five-character alias, and RefMint on the same records. The sample fleet code is
 49 printed characters versus an 8-character hostname; the invoice code is 21 versus
@@ -33,20 +35,20 @@ Install the current alpha from npm:
 npm install refmint@alpha
 ```
 
-To pin this release, use `npm install --save-exact refmint@0.1.0-alpha.2`. This is a prerelease even when the `latest` registry tag resolves to it; npm availability does not make its API stable. Registry installation does not require an npm account or the URL-dependency flag below.
+To pin this release, use `npm install --save-exact refmint@0.1.0-alpha.3`. This is a prerelease even when the `latest` registry tag resolves to it; npm availability does not make its API stable. Registry installation does not require an npm account or the URL-dependency flag below.
 
 The GitHub package archive remains available as an alternative:
 
 ```sh
-npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.2/refmint-0.1.0-alpha.2.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-alpha.3/refmint-0.1.0-alpha.3.tgz
 ```
 
-npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.2.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-alpha.3.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
 The release also includes `SHA256SUMS.txt`, verification metadata and all three measured-evidence reports. To run the local browser demo from the tagged source:
 
 ```sh
-git clone --branch v0.1.0-alpha.2 https://github.com/PerchAnton/refmint.git
+git clone --branch v0.1.0-alpha.3 https://github.com/PerchAnton/refmint.git
 cd refmint
 # Install pnpm 11.25.0 if it is not available.
 npm install -g pnpm@11.25.0
@@ -58,7 +60,7 @@ pnpm demo
 
 Open **http://127.0.0.1:4173**. The example runs locally, keeps one sample ticket in memory, and demonstrates three outcomes: found, mistyped and valid-but-unknown. It sends no references to a remote service.
 
-To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. The npm alpha.2 package updates installation and release documentation; its runtime, TypeScript declarations, package metadata and measured-evidence files are identical to the original GitHub alpha.2 archive. The archives have different checksums because those documentation files differ.
+To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. Alpha.3 uses the same verified package archive for npm and GitHub; registry and release pages confirm publication status. Previous alpha.2 archives remain unchanged. Timing results below were measured for alpha.2 and are retained because runtime hashes are identical; this release makes no new performance claim.
 
 ## One namespace, one storage format
 

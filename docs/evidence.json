@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-27T13:21:13.955Z",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "environment": {
     "node": "v24.19.0",
     "platform": "darwin",
@@ -14,7 +14,7 @@
     "checksumLength": 6,
     "canonicalLength": 27,
     "expectedCount": 1000000,
-    "maxCollisionProbability": 1e-9,
+    "maxCollisionProbability": 1e-09,
     "collisionUpperBound": 4.2351605011067654e-10,
     "collisionProbability": 4.235160500209936e-10
   },
@@ -109,5 +109,10 @@
     "No user study, adoption claim or measured reduction in support time.",
     "Timing results are machine-specific; generation and parse do different work.",
     "Collision calculations assume uniform independent sampling; enforce uniqueness in storage."
-  ]
+  ],
+  "measurement_version": "0.1.0-alpha.2",
+  "carried_forward": {
+    "reason": "Runtime JavaScript bytes are unchanged; original alpha.2 measurement timestamps, environment and samples are retained.",
+    "verified_date": "2026-10-28"
+  }
 }
