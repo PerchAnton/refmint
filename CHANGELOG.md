@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Document adoption decisions for existing ObjectId/search workflows, additional
+  alias and mapping costs, alpha versus wire compatibility, stable-release gates
+  and a human-entry study protocol. Runtime, formats and published packages are
+  unchanged; no human-entry advantage is claimed.
+
 ## 0.1.0-alpha.3 — 2026-10-28
 
 Workflow examples and documentation; runtime JavaScript, public APIs and the

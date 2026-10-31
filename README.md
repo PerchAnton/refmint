@@ -22,6 +22,26 @@ The image is generated from [recorded evidence](docs/evidence.json). See [measur
 
 ## Try it
 
+**Already have an ObjectId, invoice number or working search? Keep it unless an
+observed manual-entry problem justifies another representation.** RefMint does
+not make database lookup faster or authorize access. The built-in existing-ID
+codecs support uint64 and UUID, **not MongoDB ObjectId**. A separate random alias
+for ObjectId needs a stored field or mapping, a unique index, collision handling,
+backfill and lifecycle maintenance. The uint64/UUID codecs can avoid that mapping,
+but still add UI, dependency and compatibility work.
+[Adoption decision and costs](docs/adoption.md).
+
+**No human-entry advantage is established.** Selected typo mutations and codec
+timings cannot show that people are faster or make fewer errors. Compare the
+existing workflow, a simple alias and RefMint with real participants before making
+that claim; retain failures and report manual entry separately from copy/paste.
+[Measurement protocol](docs/manual-entry-study.md).
+
+The package remains alpha. Frozen v1 wire encoding is narrower than stable APIs,
+support or application readiness. [Criteria for a stable release](docs/stability.md)
+are separate from the decision to adopt: a stable release alone would not create
+a need for integration.
+
 **Would an extra reference help?** Try the
 [PDF/phone lookup experiment](docs/workflows.md): existing number or hostname,
 five-character alias, and RefMint on the same records. The sample fleet code is
