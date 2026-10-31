@@ -2,6 +2,10 @@
 
 Start with the identifier and search workflow users already know.
 
+See the [adoption and cost guide](adoption.md), [stability criteria](stability.md)
+and [human comparison protocol](manual-entry-study.md). ObjectId has no built-in
+RefMint codec; working ObjectId search does not by itself call for a new alias.
+
 | Situation | Prefer |
 | --- | --- |
 | Existing invoice/quote numbers or hostnames are short and lookup works | Keep them; a second identifier creates training and maintenance cost |
