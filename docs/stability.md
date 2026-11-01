@@ -1,16 +1,13 @@
-# Alpha scope and stability criteria
+# Beta scope and stability criteria
 
-The checkout now prepares a [beta.1 compatibility contract](beta-contract.md).
-It is not yet published. The alpha history and stable-release gates below still
-apply; beta does not supply human-benefit evidence or promise stable 1.0 support.
-
-RefMint 0.1.0-alpha.3 is a prerelease. npm publication and successful CI do not
-change that status. Pin the exact reviewed version for an evaluation and keep the
-existing identifier/search path available. There is no stable-release date promised.
+The [published beta](https://www.npmjs.com/package/refmint/v/0.1.0-beta.1) defines
+a [compatibility contract](beta-contract.md). Pin the exact version for a trial
+and keep the existing identifier and search path available. The criteria below
+govern a future stable release.
 
 The [existing-ID v1 wire contract](format-v1.md) freezes its layout, canonical
 encoding and accepted presentation forms. Incompatible wire changes require a new
-version and reader. This is not a promise that the alpha API, error diagnostics,
+version and reader. This is not a promise that the API, error diagnostics,
 supported environments or support policy will never change. Applications must
 retain the readers needed for references they have already issued.
 

@@ -1,9 +1,8 @@
 # Beta API and format contract
 
-This checkout prepares **0.1.0-beta.1**, not yet published. The registry's current
-alpha is **0.1.0-alpha.3**. Beta adds an explicit compatibility boundary and checks
-the frozen identifiers through the installed archive. Runtime JavaScript is
-unchanged: there is no new speed, size, usability or adoption claim.
+[RefMint 0.1.0-beta.1 on npm](https://www.npmjs.com/package/refmint/v/0.1.0-beta.1)
+adds a compatibility contract and checks frozen identifiers through the installed
+archive. The runtime JavaScript matches alpha.3.
 
 ## What stays compatible
 
@@ -26,8 +25,7 @@ database migration, search endpoint or regulated invoice-number replacement occu
 
 ## Upgrade checks
 
-Once published, pin `refmint@0.1.0-beta.1`; publish under **beta**, keeping `alpha`
-and `latest` unchanged. Existing alpha.2/alpha.3 callers and identifiers need no
+Pin `refmint@0.1.0-beta.1` to evaluate this release. Existing alpha.2/alpha.3 callers and identifiers need no
 API or data migration. Keep the prior reader during application rollout and rerun
 the application's native lookup/permission tests on the exact installed archive.
 
