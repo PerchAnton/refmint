@@ -1,5 +1,9 @@
 # RefMint
 
+**Beta candidate:** this checkout prepares `0.1.0-beta.1`; it is not published.
+Installation links below still point to the published alpha.3. Read the
+[beta API/format contract](docs/beta-contract.md) before upgrading.
+
 **Reference codes you can generate, print and check.**
 
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
@@ -14,7 +18,7 @@ RefMint is a small TypeScript library for public ticket, document and order refe
 
 **Retained from alpha.2:** preserve an existing uint64 or UUID with `createReferenceCodec`, inspect invalid input with `diagnose`, and load only the codec with `refmint/codec`. The release includes the optimized implementation and comparison evidence; the tagged source includes the complete comparison form. [Format v1](docs/format-v1.md) · [Comparison and measured trade-offs](docs/comparison.md).
 
-**Alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. Install the [npm alpha](https://www.npmjs.com/package/refmint), [download the GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.3), or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
+**Published alpha:** APIs may evolve. The existing-ID v1 wire contract is frozen; incompatible formats require a new version. Install the [npm alpha](https://www.npmjs.com/package/refmint), [download the GitHub prerelease](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-alpha.3), or build from source. The package uses ES modules and includes TypeScript declarations. Node.js 22+ and browsers with Web Crypto are the targets.
 
 ![Measured checks and the reference lifecycle](docs/assets/evidence.svg)
 

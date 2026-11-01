@@ -39,7 +39,7 @@ try {
   const installed = join(consumer, 'node_modules', 'refmint');
   const packaged = JSON.parse(await readFile(join(installed, 'package.json'), 'utf8'));
   assert.equal(packaged.version, source.version);
-  assert.equal(packaged.publishConfig.tag, 'alpha');
+  assert.equal(packaged.publishConfig.tag, 'beta');
   assert.deepEqual(packaged.dependencies ?? {}, {});
   const files = await readdir(installed, { recursive: true });
   assert.deepEqual((await readdir(join(installed, 'dist'))).sort(),
@@ -66,8 +66,10 @@ try {
       assert.ok((await readFile(path)).length > 0, `${file} -> ${target}`);
     }
   }
+  await writeFile(join(consumer, 'formats-v1.json'), await readFile(join(root, 'tests/fixtures/formats-v1.json')));
   await writeFile(join(consumer, 'smoke.mjs'), `
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { createReferences, createReferenceCodec, planReferences, collisionProbability } from 'refmint';
 import { createReferenceCodec as standalone } from 'refmint/codec';
 assert.equal(standalone, createReferenceCodec);
@@ -83,6 +85,25 @@ const encoded = codec.encode(9007199254740993n);
 assert.equal(codec.decode(codec.format(encoded).toUpperCase()).value, 9007199254740993n);
 assert.equal(codec.diagnose(encoded.replace('r', '\\uff52')).details.positions[0], 0);
 assert.equal(refs.parse(encoded).ok, false);
+// Read the old vectors with the installed archive, not the checkout's build.
+const frozen = JSON.parse(await readFile(new URL('./formats-v1.json', import.meta.url), 'utf8'));
+for (const fixture of frozen.codec) {
+  const reader = createReferenceCodec({prefix:fixture.prefix,kind:fixture.kind,version:1});
+  const value = fixture.kind === 'uint64' ? BigInt(fixture.value) : fixture.value;
+  assert.equal(reader.encode(value), fixture.reference);
+  assert.deepEqual(reader.decodeCanonical(fixture.reference),
+    {ok:true,id:fixture.reference,value,normalized:false});
+  assert.deepEqual(reader.decode(reader.format(fixture.reference).toUpperCase()),
+    {ok:true,id:fixture.reference,value,normalized:true});
+  assert.equal(createReferences({prefix:fixture.prefix}).parse(fixture.reference).ok, false);
+}
+for (const fixture of frozen.legacy) {
+  const reader = createReferences({prefix:fixture.prefix,randomLength:fixture.randomLength});
+  assert.deepEqual(reader.parseCanonical(fixture.reference),
+    {ok:true,id:fixture.reference,normalized:false});
+  assert.equal(reader.parse(reader.format(fixture.reference).toUpperCase()).id, fixture.reference);
+  assert.equal(createReferenceCodec({prefix:fixture.prefix,kind:'uint64'}).decode(fixture.reference).ok, false);
+}
 await assert.rejects(import('refmint/dist/bech32m.js'), {code:'ERR_PACKAGE_PATH_NOT_EXPORTED'});
 `);
   run(join(consumer, 'smoke.mjs'), [], consumer);

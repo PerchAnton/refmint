@@ -1,6 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-beta.1 (candidate, not published)
+
+- Define the beta API and unchanged wire-format contract, migration checks and dependency approval boundaries.
+- Read all 23 frozen existing-ID/legacy vectors through the installed archive, including exact re-encoding, canonical results and namespace isolation.
+- Set the candidate publication tag to `beta`; do not move the existing `alpha` or `latest` tags. Runtime JavaScript and measured hashes remain unchanged; historical evidence is carried forward without new timings or human-performance claims.
+
 
 - Document adoption decisions for existing ObjectId/search workflows, additional
   alias and mapping costs, alpha versus wire compatibility, stable-release gates
