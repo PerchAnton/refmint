@@ -1,5 +1,9 @@
 # RefMint
 
+**Beta candidate:** this checkout prepares `0.1.0-beta.1`; it is not published.
+Installation links below still point to the published alpha.3. Read the
+[beta API/format contract](docs/beta-contract.md) before upgrading.
+
 **Reference codes you can generate, print and check.**
 
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)

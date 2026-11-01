@@ -1,5 +1,9 @@
 # Alpha scope and stability criteria
 
+The checkout now prepares a [beta.1 compatibility contract](beta-contract.md).
+It is not yet published. The alpha history and stable-release gates below still
+apply; beta does not supply human-benefit evidence or promise stable 1.0 support.
+
 RefMint 0.1.0-alpha.3 is a prerelease. npm publication and successful CI do not
 change that status. Pin the exact reviewed version for an evaluation and keep the
 existing identifier/search path available. There is no stable-release date promised.

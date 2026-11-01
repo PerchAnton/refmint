@@ -14,13 +14,13 @@ The build keeps JSDoc in declarations and removes comments only from emitted JS.
 
 ## Publishing an alpha
 
-Use a clean, reviewed commit and verify that its CI passed. Keep the version, changelog and evidence version in sync. A published npm name/version cannot be reused. For a prerelease, keep both `publishConfig.tag` and the explicit publication tag set to `alpha`.
+Use a clean, reviewed commit and verify that its CI passed. Keep the version, changelog and evidence version in sync. A published npm name/version cannot be reused. For the beta candidate, keep both `publishConfig.tag` and the explicit publication tag set to `beta`. Do not move the existing `alpha` or `latest` tags.
 
 1. Run `pnpm check`, `pnpm test:demo`, `pnpm test:comparison`, `pnpm test:workflows` and `pnpm test:package`; the matching CI must also cover browsers, PDF extraction/lookup and the supported Node/OS matrix.
 2. Pack with `pnpm pack --pack-destination artifacts`. Record the commit, package SHA-256 and npm SHA-512 integrity. Inspect the file inventory and install this exact archive into an isolated consumer before publication.
 3. Authenticate to `https://registry.npmjs.org` with `npm login --auth-type=web`. Enter passwords and second-factor challenges only in npm's login flow. Never commit credentials or put them in an issue/PR. Direct publication requires account 2FA or another authentication method supported by npm; prefer the interactive account flow for the first release.
-4. Run `npm publish ./artifacts/refmint-VERSION.tgz --dry-run --ignore-scripts --tag alpha --access public --registry=https://registry.npmjs.org`, substituting the actual version. Inspect the name, version, files and integrity. Then publish the same archive by removing only `--dry-run`.
-5. Read the public registry metadata back. Check the version, `alpha` tag and tarball integrity, then install `refmint@alpha` in a fresh consumer and exercise both `refmint` and `refmint/codec`. Download the registry tarball and compare it with the published archive. Keep the proof with the release record.
+4. Run `npm publish ./artifacts/refmint-VERSION.tgz --dry-run --ignore-scripts --tag beta --access public --registry=https://registry.npmjs.org`, substituting the actual version. Inspect the name, version, files and integrity. Then publish the same archive by removing only `--dry-run`.
+5. Read the public registry metadata back. Check the version, `beta` tag and tarball integrity, then install `refmint@beta` in a fresh consumer and exercise both `refmint` and `refmint/codec`. Download the registry tarball and compare it with the published archive. Keep the proof with the release record.
 
 The first npm alpha.2 archive has updated README, changelog and contributor documentation. All other files match the original GitHub alpha.2 archive; the original tag, download and checksums remain intact. Future releases should prepare registry instructions before creating either archive.
 
