@@ -1,0 +1,28 @@
+{
+  "package": "refmint",
+  "version": "0.1.0-beta.2",
+  "releaseCommit": "c7e67271dadcba8aaeaa154f3e0a5adf2724fc7a",
+  "verifiedAt": "2026-11-05T01:21:58.430618+02:00",
+  "registry": "npm",
+  "registryURL": "https://www.npmjs.com/package/refmint/v/0.1.0-beta.2",
+  "verifiedAssets": {
+    "refmint-0.1.0-beta.2.tgz": {
+      "sha256": "d9e8c4b8c1577032da7b735953926637d3526274774ba322e2e874b642d8913a",
+      "bytes": 49442
+    }
+  },
+  "checks": {
+    "freshNpmInstall": "refmint@beta",
+    "resolvedVersion": "0.1.0-beta.2",
+    "integrityMatchesTestedArchive": true,
+    "checks": [
+      "public imports",
+      "uint64 round trip",
+      "checksum rejection",
+      "generated reference"
+    ],
+    "frozenVectors": 23,
+    "runtimeByteHashesVerified": true
+  },
+  "npmIntegrity": "sha512-1+pJjyXr2bjw0B3F3xdShUKOsO1RXMbAunCYDxE3+WbsjX1fnJ48MbkTHcat594Ps8gIAUgH4SdxxEtaOZc36Q=="
+}

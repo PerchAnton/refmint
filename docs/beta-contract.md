@@ -4,6 +4,10 @@
 adds a compatibility contract and checks frozen identifiers through the installed
 archive. The runtime JavaScript matches alpha.3.
 
+## Beta.2 distribution
+
+Published on 5 November 2026 (Europe/Kyiv). [Package on npm](https://www.npmjs.com/package/refmint/v/0.1.0-beta.2) · [GitHub prerelease and checksums](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.2) · [Installation checks](evidence/release-beta2.json).
+
 ## What stays compatible
 
 | Surface | Commitment for beta |

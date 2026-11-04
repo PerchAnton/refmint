@@ -13,7 +13,7 @@ npm install --save-exact refmint@0.1.0-beta.2
 ```
 
 [Beta release and checksum](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.2) ·
-[API compatibility and frozen v1 format](docs/beta-contract.md).
+[API compatibility and frozen v1 format](docs/beta-contract.md) · [Verified npm installation](docs/evidence/release-beta2.json).
 
 **Try an invoice lookup.** The [sample PDF](https://github.com/PerchAnton/refmint/blob/v0.1.0-beta.2/examples/workflows/sample-invoice.pdf)
 shows `INV-2026-000042`, the short alias `D1042` and the 21-character printed
