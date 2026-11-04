@@ -25,8 +25,7 @@ a confirmed need in Octofleet/Invoice Builder.
 
 ## npm availability and compatibility are separate
 
-The current prerelease is **0.1.0-beta.1**, available through `refmint@beta` or its
-exact version. As checked on 4 November 2026, npm `latest` intentionally still points
+Pin **0.1.0-beta.2** for this release, or select the current beta with `refmint@beta`. As checked on 4 November 2026, npm `latest` intentionally still points
 to **0.1.0-alpha.2**, so plain `npm install refmint` selects that older alpha.
 Registry tags are distribution pointers; they do not certify stability. Pin the
 reviewed version and check your organization's policy before adopting it.
