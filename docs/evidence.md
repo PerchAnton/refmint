@@ -4,7 +4,7 @@ Run `pnpm check && pnpm evidence` from a clean checkout after installing the loc
 
 ## Correctness
 
-For alpha.3 and the beta.1 candidate, the timing/size snapshot is carried forward from alpha.2 because all
+For alpha.3, beta.1 and beta.2, the timing/size snapshot is carried forward from alpha.2 because all
 runtime JavaScript hashes are identical. `measurement_version` identifies the measured
 version; `version` identifies the package carrying the evidence. Original timestamps,
 environment and samples are retained. This is not a new performance measurement.

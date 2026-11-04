@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.2
+
+- Record the twelve measured tasks from the single-participant manual-entry pilot. In this pilot the participant entered both the existing number and the short alias faster than RefMint.
+- Explain the beta API, frozen v1 identifiers and npm distribution tags separately. See [when to use an existing identifier](docs/when-not-to-use.md) and the [pilot results](docs/manual-entry-pilot.md).
+
 ## [0.1.0-beta.1](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.1)
 
 - Define the beta API and unchanged wire-format contract, migration checks and dependency approval boundaries.

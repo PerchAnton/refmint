@@ -1,5 +1,9 @@
 # Measure manual-entry value before claiming it
 
+A [first exploratory pilot](manual-entry-pilot.md) is now recorded. Its four practice
+tasks are excluded and its twelve measured tasks do not establish a practical
+advantage. The protocol below remains the basis for a broader study.
+
 **Status: no human-entry benefit is established by this repository's evidence.**
 The current [workflow results](workflow-results.md) are synthetic selected cases.
 Codec throughput, mutation detection and automated browser actions are not human

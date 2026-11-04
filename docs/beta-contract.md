@@ -25,7 +25,7 @@ database migration, search endpoint or regulated invoice-number replacement occu
 
 ## Upgrade checks
 
-Pin `refmint@0.1.0-beta.1` to evaluate this release. Existing alpha.2/alpha.3 callers and identifiers need no
+Pin `refmint@0.1.0-beta.2` to evaluate this release. Existing alpha.2/alpha.3 callers and identifiers need no
 API or data migration. Keep the prior reader during application rollout and rerun
 the application's native lookup/permission tests on the exact installed archive.
 

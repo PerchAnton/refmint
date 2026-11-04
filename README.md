@@ -6,16 +6,16 @@ generate random references. It works in Node.js 22+ and browsers with Web Crypto
 
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
-[![npm beta](https://img.shields.io/npm/v/refmint/beta)](https://www.npmjs.com/package/refmint/v/0.1.0-beta.1)
+[![npm beta](https://img.shields.io/npm/v/refmint/beta)](https://www.npmjs.com/package/refmint/v/0.1.0-beta.2)
 
 ```sh
-npm install --save-exact refmint@0.1.0-beta.1
+npm install --save-exact refmint@0.1.0-beta.2
 ```
 
-[Beta release and checksum](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.1) ·
+[Beta release and checksum](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.2) ·
 [API compatibility and frozen v1 format](docs/beta-contract.md).
 
-**Try an invoice lookup.** The [sample PDF](https://github.com/PerchAnton/refmint/blob/v0.1.0-beta.1/examples/workflows/sample-invoice.pdf)
+**Try an invoice lookup.** The [sample PDF](https://github.com/PerchAnton/refmint/blob/v0.1.0-beta.2/examples/workflows/sample-invoice.pdf)
 shows `INV-2026-000042`, the short alias `D1042` and the 21-character printed
 reference `INVOICE_1PQP2-UYWU-CW` for the same record. In the
 [lookup demo](docs/workflows.md#try-the-workflow), compare the one-symbol change
@@ -56,15 +56,15 @@ If people already find records reliably with your current search, keep it.
 The GitHub package archive remains available as an alternative:
 
 ```sh
-npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-beta.1/refmint-0.1.0-beta.1.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-beta.2/refmint-0.1.0-beta.2.tgz
 ```
 
-npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-beta.1.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-beta.2.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
 The release also includes `SHA256SUMS`, package verification and a registry consumer check. To run the tagged browser demo with Node.js 22+ and pnpm 11.25.0:
 
 ```sh
-git clone --branch v0.1.0-beta.1 https://github.com/PerchAnton/refmint.git
+git clone --branch v0.1.0-beta.2 https://github.com/PerchAnton/refmint.git
 cd refmint
 pnpm install --frozen-lockfile --ignore-scripts
 pnpm check
