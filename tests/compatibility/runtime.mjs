@@ -26,6 +26,10 @@ const grouped = id => {
   const start = id.lastIndexOf('1') + 1;
   return id.slice(0, start) + id.slice(start).match(/.{1,4}/g).join('-');
 };
+const presentations = id => [
+  id, id.toUpperCase(), grouped(id), grouped(id).toUpperCase(),
+  ' ' + id, id + ' ', '\t' + id + '\r\n', ' \t' + grouped(id).toUpperCase() + '\r\n'
+];
 
 for (const { name, path, api, codec } of releases) {
   test(`${name}: public entry points and factory contracts`, async () => {
@@ -42,14 +46,39 @@ for (const { name, path, api, codec } of releases) {
     assert.equal(c.version, 1);
     assert.ok(Object.isFrozen(c));
     assert.deepEqual(Object.keys(c).sort(), ['decode', 'decodeCanonical', 'diagnose', 'encode', 'format', 'kind', 'prefix', 'version']);
-    for (const bad of [42, '42', -1n, 1n << 64n, null]) assert.throws(() => c.encode(bad));
-    for (const bad of [null, {}, { prefix: 'btk', kind: 'number' }, { prefix: 'btk', kind: 'uint64', version: 2 },
-      { prefix: 'btk', kind: 'uint64', extra: true }]) assert.throws(() => codec(bad));
     assert.throws(() => c.format(c.encode(42n).toUpperCase()), TypeError);
     const uuid = codec({ prefix: 'btk', kind: 'uuid' });
     assert.throws(() => uuid.encode('550E8400-e29b-41d4-a716-446655440000'), TypeError);
     assert.throws(() => uuid.format(c.encode(42n)), TypeError);
     assert.equal(c.format(c.encode(42n)), 'btk_1pqp2-cy59-jf');
+  });
+
+  test(`${name}: documented exception classes remain distinguishable`, t => {
+    const c = codec({ prefix: 'btk', kind: 'uint64' });
+    for (const bad of [42, '42', null, undefined, {}, NaN]) assert.throws(() => c.encode(bad), TypeError);
+    for (const bad of [-1n, 1n << 64n]) assert.throws(() => c.encode(bad), RangeError);
+    for (const [options, ErrorClass] of [
+      [null, TypeError], [undefined, TypeError], [{}, RangeError],
+      [{ prefix: 'btk', kind: 'uint64', extra: true }, TypeError],
+      [{ prefix: 'BTK', kind: 'uint64' }, RangeError],
+      [{ prefix: 'btk', kind: 'number' }, RangeError],
+      [{ prefix: 'btk', kind: 'uint64', version: 2 }, RangeError]
+    ]) assert.throws(() => codec(options), ErrorClass);
+    for (const [options, ErrorClass] of [
+      [null, TypeError], [undefined, TypeError], [{}, RangeError],
+      [{ prefix: 'ticket', unexpected: 1 }, TypeError],
+      [{ prefix: 'ticket', randomLength: 14, expectedCount: 100, maxCollisionProbability: 1e-9 }, TypeError],
+      [{ prefix: 'Ticket' }, RangeError], [{ prefix: 'ticket', randomLength: 7 }, RangeError],
+      [{ prefix: 'ticket', expectedCount: 1 }, RangeError]
+    ]) {
+      assert.throws(() => api.createReferences(options), ErrorClass);
+      assert.throws(() => api.planReferences(options), ErrorClass);
+    }
+    assert.throws(() => api.collisionProbability(7, 100), RangeError);
+    assert.throws(() => api.collisionProbability(14, 0), RangeError);
+    t.mock.getter(globalThis, 'crypto', () => undefined);
+    assert.throws(() => api.createReferences({ prefix: 'ticket' }).generate(), Error);
+    assert.equal(c.decode(c.encode(42n)).value, 42n); // Existing-ID codecs do not need an RNG.
   });
 
   test(`${name}: input rejection, error precedence and raw diagnostic positions`, () => {
@@ -98,11 +127,6 @@ for (const { name, path, api, codec } of releases) {
     assert.ok(budget.collisionUpperBound <= 1e-9);
     assert.ok(api.collisionProbability(14, 1000000) <= budget.collisionUpperBound);
     for (const input of [null, {}, 42, []]) assert.deepEqual(r.parse(input), { ok: false, error: 'type' });
-    for (const options of [{ prefix: 'ticket', randomLength: 7 }, { prefix: 'ticket', expectedCount: 1 },
-      { prefix: 'ticket', randomLength: 14, expectedCount: 100, maxCollisionProbability: 1e-9 },
-      { prefix: 'ticket', unexpected: 1 }]) assert.throws(() => api.createReferences(options));
-    assert.throws(() => api.collisionProbability(7, 100), RangeError);
-    assert.throws(() => api.collisionProbability(14, 0), RangeError);
     assert.throws(() => r.format('ticket1invalid'), TypeError);
     for (const v of frozen.legacy) {
       const reader = api.createReferences({ prefix: v.prefix, randomLength: v.randomLength });
@@ -122,22 +146,29 @@ for (const writer of releases) for (const reader of releases) {
       const id = w.encode(value);
       assert.equal(id, v.reference);
       assert.equal(w.format(id), grouped(v.reference));
-      assert.deepEqual(r.decodeCanonical(id), { ok: true, id, value, normalized: false });
-      assert.deepEqual(r.diagnose(id), { ok: true, id, value, normalized: false });
-      for (const input of [id, id.toUpperCase(), grouped(id), ' \t' + grouped(id).toUpperCase() + '\r\n']) {
-        assert.deepEqual(r.decode(input), { ok: true, id, value, normalized: input !== id });
+      for (const input of presentations(id)) {
+        const success = { ok: true, id, value, normalized: input !== id };
+        assert.deepEqual(r.decode(input), success);
+        assert.deepEqual(r.diagnose(input), success);
+        assert.deepEqual(r.decodeCanonical(input), input === id ? success : { ok: false, error: 'non_canonical' });
+        if (input !== id) assert.throws(() => r.format(input), TypeError);
         assert.equal(r.encode(r.decode(input).value), id);
       }
-      assert.equal(r.decodeCanonical(grouped(id)).error, 'non_canonical');
       assert.equal(reader.api.createReferences({ prefix: v.prefix }).parse(id).ok, false);
     }
     for (const v of frozen.legacy) {
       const options = { prefix: v.prefix, randomLength: v.randomLength };
       const w = writer.api.createReferences(options), r = reader.api.createReferences(options);
-      const id = w.generate();
-      assert.deepEqual(r.parseCanonical(id), { ok: true, id, normalized: false });
-      assert.equal(r.parse(w.format(id).toUpperCase()).id, id);
-      assert.equal(r.parseCanonical(v.reference).id, v.reference);
+      for (const id of [w.generate(), v.reference]) {
+        assert.equal(w.format(id), grouped(id));
+        for (const input of presentations(id)) {
+          const success = { ok: true, id, normalized: input !== id };
+          assert.deepEqual(r.parse(input), success);
+          assert.deepEqual(r.diagnose(input), success);
+          assert.deepEqual(r.parseCanonical(input), input === id ? success : { ok: false, error: 'non_canonical' });
+          if (input !== id) assert.throws(() => r.format(input), TypeError);
+        }
+      }
     }
   });
 }

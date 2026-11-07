@@ -77,8 +77,21 @@ units remain `input_code_units`, `data_symbols` or `payload_symbols`. A checksum
 failure supplies no guessed character position or replacement identifier.
 
 Malformed human input returns an error result, without invoking object coercion
-hooks. Invalid configuration/encoding/formatting throws the documented
-TypeError or RangeError; unavailable secure randomness throws an Error.
+hooks. Encoding and configuration errors use these exception classes, so callers
+can distinguish a wrong value type from a value outside the supported range:
+
+| Invalid operation | Exception |
+| --- | --- |
+| Non-object options, unknown option keys, or combining fixed length with a collision budget | `TypeError` |
+| Invalid/missing prefix or codec kind; unsupported explicitly supplied version | `RangeError` |
+| Invalid length, count or probability; incomplete or unattainable collision budget | `RangeError` |
+| uint64 input other than bigint; noncanonical or non-string UUID input | `TypeError` |
+| uint64 bigint below zero or above 2^64−1 | `RangeError` |
+| `format` given an invalid, foreign or noncanonical code | `TypeError` |
+| Random generation without secure Web Crypto | `Error` |
+
+If multiple configuration fields are invalid, validation may fail at an earlier
+field; these categories describe an invalid field with the other options valid.
 Exceptions raised by a caller's own option getter or host crypto provider are
 not suppressed. Human-readable exception prose and ordering of optional
 information are not machine protocols. Adding optional diagnostics must preserve
@@ -123,6 +136,10 @@ alpha.3 and beta.2 archives, and installs all three outside the checkout. It che
 all nine writer/reader pairs, 20 existing-ID and three legacy frozen vectors,
 five historical synthetic Billetsys codes, negative cases, entry points and the
 same strict TypeScript consumer against each package.
+Every accepted presentation is also checked against the canonical reader:
+uppercase, surrounding ASCII whitespace and grouping must be rejected there,
+while human-input readers return the canonical ID and correct `normalized` flag.
+Exception checks assert the documented classes, not just that something throws.
 
 `pnpm test:package` also runs this matrix on **its exact archive** on every core
 CI platform. It retains its offline-install, inventory, documentation and runtime
