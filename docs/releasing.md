@@ -1,8 +1,9 @@
 # Release channels and exact-archive qualification
 
-This branch prepares **1.0.0**. It does not publish it, move registry tags, or
-approve a consumer dependency update. Use the published beta until a stable
-release is explicitly announced. Package versions and wire v1 are independent.
+**1.0.0 is released on GitHub; npm publication is pending.**
+Use the attached verified archive or the published beta until registry readback
+confirms 1.0.0. No consumer dependency update is approved by this release.
+Package versions and wire v1 are independent.
 
 ## Channels
 

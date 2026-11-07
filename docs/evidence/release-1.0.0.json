@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-11-07T21:49:06.506701+02:00",
+  "version": "1.0.0",
+  "commit": "447545781ed89bfbc69f77673eb194c0e560037b",
+  "qualified_source": "9ec884403a97e00074716d15a359b687ed7dd884",
+  "merge_tree_matches_qualified_source": true,
+  "sha256": "a46948a31e08a57b09c217c5352b85ca7a47810cd3e1da2166a811bbeeb6567c",
+  "core_tests": 42,
+  "compatibility_tests": 21,
+  "writer_reader_pairs": 9,
+  "ci": "7/7 success",
+  "npm_published": false,
+  "npm_next_step": "Owner deferred CLI authentication to another computer; publish this exact archive with latest and verify registry bytes.",
+  "wire_v1_changed": false,
+  "github_release": "https://github.com/PerchAnton/refmint/releases/tag/v1.0.0"
+}
