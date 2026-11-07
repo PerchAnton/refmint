@@ -1,0 +1,36 @@
+{
+  "description": "Frozen synthetic ticket IDs encoded once by the integrity-pinned npm alpha.3 archive; checked independently with bech32@2.0.0. Never regenerate to accept a changed v1 encoding.",
+  "source": "refmint@0.1.0-alpha.3; see historical-releases.json",
+  "codec": [
+    {
+      "prefix": "btk",
+      "kind": "uint64",
+      "value": "1",
+      "reference": "btk_1pqp3nn09k"
+    },
+    {
+      "prefix": "btk",
+      "kind": "uint64",
+      "value": "42",
+      "reference": "btk_1pqp2cy59jf"
+    },
+    {
+      "prefix": "btk",
+      "kind": "uint64",
+      "value": "9007199254740991",
+      "reference": "btk_1pq8llllllllllwsnyua"
+    },
+    {
+      "prefix": "btk",
+      "kind": "uint64",
+      "value": "9007199254740993",
+      "reference": "btk_1pqgqqqqqqqqqpyhukta"
+    },
+    {
+      "prefix": "btk",
+      "kind": "uint64",
+      "value": "9223372036854775807",
+      "reference": "btk_1pq8llllllllllllcfp0mh"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "description": "Published npm archives, pinned independently of mutable dist-tags. Do not replace old digests or regenerate frozen identifiers to accept an incompatible candidate.",
+  "formatsV1Sha256": "2fcf8a2ae8a9932b2060c5fc355fe8debfa0d47c2c0c763b9c3b89f8e7fe4a68",
+  "releases": [
+    {
+      "alias": "refmint-alpha3",
+      "version": "0.1.0-alpha.3",
+      "tarball": "https://registry.npmjs.org/refmint/-/refmint-0.1.0-alpha.3.tgz",
+      "integrity": "sha512-PPmQ026pZkFzgt2eTt4L+ppsbcpXxeqonOKWoSVoZZKO9dVEm+jUwHZjJteRmfC3+G80fp9EhcQzpfSTaSExjQ=="
+    },
+    {
+      "alias": "refmint-beta2",
+      "version": "0.1.0-beta.2",
+      "tarball": "https://registry.npmjs.org/refmint/-/refmint-0.1.0-beta.2.tgz",
+      "integrity": "sha512-1+pJjyXr2bjw0B3F3xdShUKOsO1RXMbAunCYDxE3+WbsjX1fnJ48MbkTHcat594Ps8gIAUgH4SdxxEtaOZc36Q=="
+    }
+  ]
+}

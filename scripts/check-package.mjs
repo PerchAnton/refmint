@@ -15,6 +15,7 @@ let stale;
 function run(script, args, cwd) {
   const result = spawnSync(process.execPath, [script, ...args], { cwd, encoding: 'utf8', env: process.env, timeout: 120000 });
   if (result.status !== 0) throw new Error(`${script} failed:\n${result.stdout}\n${result.stderr}\n${result.error ?? ''}`);
+  return result.stdout;
 }
 try {
   const source = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
@@ -131,6 +132,8 @@ const decoded = numbers.decode(n);
 if (decoded.ok) { const original: bigint = decoded.value; void original; }
 `);
   run(join(root, 'node_modules/typescript/bin/tsc'), ['--noEmit', '--strict', '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', 'types.mts'], consumer);
+  // Reuse this exact archive for the historical-release matrix on every core CI platform.
+  console.log(run(join(root, 'scripts/check-compatibility.mjs'), [join(packs, archives[0])], root));
   console.log(`PASS: ${source.name}@${source.version} archive installs offline; ESM, types, documentation and licenses are intact.`);
 } finally {
   if (stale) await rm(stale, { recursive: true, force: true });
