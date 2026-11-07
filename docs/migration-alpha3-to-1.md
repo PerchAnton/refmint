@@ -1,14 +1,14 @@
-# Preparing an alpha.3 → 1.0 upgrade
+# Reviewing an alpha.3 → 1.0 upgrade
 
-There is no published 1.0 in this change. This guide describes the prepared
+[RefMint 1.0.0 is published](evidence/npm-1.0.0.json). This guide describes its
 [API contract](stable-contract.md) and the checks required before upgrading.
-Keep the consumer's current exact pin until the stable archive and integration
-change have been reviewed. Installing a prerelease does not satisfy a stable-1.0
+Keep the consumer's current exact pin until the integration change has been
+reviewed and tested. Installing a prerelease does not satisfy a stable-1.0
 requirement, and npm dist-tags must not be used as compatibility evidence.
 
 ## Preferred path: keep v1 and the same API
 
-The alpha.3 and beta.2 APIs are unchanged in this preparation. Callers continue
+The alpha.3 and beta.2 APIs are preserved in 1.0.0. Callers continue
 to use the same imports, factory configuration and result checks:
 
 ```ts

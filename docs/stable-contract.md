@@ -1,10 +1,10 @@
-# Public API contract for 1.0 preparation
+# Public API contract for 1.x
 
-This contract fixes the public surface being prepared for RefMint 1.0. The
-repository builds an unpublished 1.0.0 candidate;
-this document does not publish 1.0, move npm tags, or authorize a consumer upgrade.
-Changes under preparation must preserve this contract and the historical-release
-checks. Release and support readiness remain separate [gates](stability.md).
+This contract fixes the public surface of the published RefMint 1.0.0 release.
+[Registry verification](evidence/npm-1.0.0.json) records the exact archive and
+compatibility checks. Consumer upgrades require their own review. Future 1.x
+changes must preserve this contract and the historical-release checks.
+Release and support readiness remain separate [gates](stability.md).
 
 ## Imports and environments
 
@@ -113,7 +113,7 @@ still expected to work, even across a future package-major upgrade.
 
 ## Change policy
 
-For the prepared 1.x contract, removals or incompatible changes to signatures,
+For the 1.x contract, removals or incompatible changes to signatures,
 brands, result fields, error behavior, accepted values, defaults or minimum
 platform requirements require a new package major and migration notes. Changes
 to exported unions (including error codes) need special review: adding a case can

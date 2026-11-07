@@ -1,9 +1,10 @@
 # Changelog
 
-## 1.0.0 — unpublished candidate
+## [1.0.0](https://github.com/PerchAnton/refmint/releases/tag/v1.0.0) — 2026-11-07
 
-- Prepare stable/latest and preview channel checks, exact-archive qualification and a best-effort support policy. Runtime and wire v1 remain unchanged; npm publication is a separate step.
-- Fix the public API contract for 1.0 preparation and document alpha.3 upgrade/rollback without changing wire v1. No stable version is published by this change.
+- Publish the exact qualified archive to npm under `latest`; retain `alpha` and `beta`. Registry bytes, integrity, clean installation and all nine writer/reader pairs are verified in the [publication receipt](docs/evidence/npm-1.0.0.json).
+- Define stable/latest and preview channel checks, exact-archive qualification and a best-effort support policy. Runtime and wire v1 remain unchanged.
+- Freeze the public API contract for 1.x and document alpha.3 upgrade/rollback without changing wire v1.
 - Check the exact candidate archive against integrity-pinned npm alpha.3 and beta.2: all nine writer/reader pairs, historical and Billetsys vectors, errors, exports and strict TypeScript consumers.
 - Reject canonical-reader regressions for case/whitespace as well as grouping, and verify the documented exception classes across all three packages.
 

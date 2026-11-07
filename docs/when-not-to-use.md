@@ -13,7 +13,7 @@ RefMint codec; working ObjectId search does not by itself call for a new alias.
 | A five-character local alias handles the support case | A small unique alias mapping, if its lifecycle is manageable |
 | You need compact general-purpose random IDs | An established ID generator; checksum overhead may not help |
 | A regulated number or a string with leading zeros must be preserved | Keep its exact string; the uint64 codec is not a numbering-system replacement |
-| Your dependency policy excludes prereleases | Wait or use a supported stable alternative |
+| Your dependency policy excludes prereleases | Review stable 1.0 and its support policy; availability alone is not a reason to integrate |
 | You need a credential, signature, unguessable access link or encrypted ID | An appropriate security design; never a public checksum |
 
 RefMint is worth evaluating when people repeatedly enter a **public** reference and
@@ -25,15 +25,18 @@ a confirmed need in Octofleet/Invoice Builder.
 
 ## npm availability and compatibility are separate
 
-Pin **0.1.0-beta.2** for this release, or select the current beta with `refmint@beta`. As checked on 4 November 2026, npm `latest` intentionally still points
-to **0.1.0-alpha.2**, so plain `npm install refmint` selects that older alpha.
+As verified on 7 November 2026, npm `latest` points to **1.0.0**; plain
+`npm install refmint` selects the stable release. Pin `refmint@1.0.0` for a reviewed
+upgrade. `alpha` remains 0.1.0-alpha.3 and `beta` remains 0.1.0-beta.2.
+[Publication and installation receipt](evidence/npm-1.0.0.json).
 Registry tags are distribution pointers; they do not certify stability. Pin the
 reviewed version and check your organization's policy before adopting it.
 
 The existing-ID **v1 wire contract is already frozen**: canonical encoding and accepted
 presentation forms must remain compatible; incompatible formats require a new version
 and reader. That commitment is described in [format-v1.md](format-v1.md) and checked
-with frozen vectors. It does not promise a stable API beyond the [beta contract](beta-contract.md), operational support, or
+with frozen vectors. The [1.x API contract](stable-contract.md) and
+[best-effort support policy](support.md) are separate commitments; neither means
 that an application can safely remove old readers. Keep version/kind/namespace choices
 with your schema and test migrations. npm publication alone adds no compatibility promise.
 

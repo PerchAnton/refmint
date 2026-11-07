@@ -1,9 +1,9 @@
 # Stability criteria
 
-The [published beta](https://www.npmjs.com/package/refmint/v/0.1.0-beta.1) defines
-a [compatibility contract](beta-contract.md). Pin the exact version for a trial
+[RefMint 1.0.0](https://www.npmjs.com/package/refmint/v/1.0.0) is the first stable
+release, with a [public API contract](stable-contract.md). Pin the reviewed version
 and keep the existing identifier and search path available. The criteria below
-govern a future stable release.
+remain release gates; [the 1.0.0 receipt](evidence/npm-1.0.0.json) records its checks.
 
 The [existing-ID v1 wire contract](format-v1.md) freezes its layout, canonical
 encoding and accepted presentation forms. Incompatible wire changes require a new
@@ -11,15 +11,15 @@ version and reader. This is not a promise that the API, error diagnostics,
 supported environments or support policy will never change. Applications must
 retain the readers needed for references they have already issued.
 
-## API and compatibility preparation
+## API and compatibility verification
 
-The [1.0 API contract](stable-contract.md) fixes the surface being prepared.
+The [1.0 API contract](stable-contract.md) defines the stable surface.
 `pnpm test:package` now compares its exact archive with integrity-pinned alpha.3
 and beta.2 in both directions, including TypeScript consumers and historical
 Billetsys codes. See [upgrade and rollback checks](migration-alpha3-to-1.md).
-The 1.0.0 candidate also defines [support](support.md) and [release channels](releasing.md),
-including qualification of an existing final archive. It is not yet published;
-final acceptance and consumer rollout remain separate.
+The 1.0.0 release also defines [support](support.md) and [release channels](releasing.md),
+including qualification of an existing final archive. Publication is verified;
+consumer acceptance and rollout remain separate.
 
 ## Criteria before a stable release
 
@@ -35,8 +35,8 @@ final acceptance and consumer rollout remain separate.
   and an exit/migration path. Any claim of faster entry or fewer human mistakes
   additionally requires human evidence with its method and limitations published.
 
-These are gates to review, not a statement that all are already met. The current
-synthetic tests and release records cover only their named properties and versions.
+These gates continue to apply to future releases. The synthetic tests and
+release records cover only their named properties, environments and versions.
 A stable API could be useful without a speed advantage; conversely, a faster
 single-person trial would not establish API stability.
 

@@ -14,7 +14,7 @@ The build keeps JSDoc in declarations and removes comments only from emitted JS.
 
 ## API compatibility
 
-Preserve the [1.0 preparation contract](docs/stable-contract.md). Run
+Preserve the [1.x API contract](docs/stable-contract.md). Run
 `pnpm test:compatibility` to compare the packed candidate against SHA-512-pinned
 alpha.3 and beta.2; `pnpm test:package` runs the same matrix on its exact archive.
 The two historical downloads require network access, fail closed on integrity

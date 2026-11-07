@@ -1,14 +1,14 @@
 # Maintenance and support policy
 
-This policy is prepared for the first stable 1.x release. The 1.0.0 candidate is
-not yet published. RefMint is maintained by PerchAnton on a best-effort basis;
+This policy applies to the published stable 1.x line, starting with
+[1.0.0](evidence/npm-1.0.0.json). RefMint is maintained by PerchAnton on a best-effort basis;
 there is no paid support, response-time SLA, promised release date or independent
 security audit. Stable describes a compatibility commitment, not a security or
 human-performance guarantee.
 
 ## Supported lines
 
-- After 1.0 is published, fixes target the latest stable 1.x release. Older 1.x
+- Fixes target the latest stable 1.x release. Older 1.x
   minors/patches are not separate maintained branches; update to the latest
   compatible patch/minor after application testing.
 - Alpha/beta/RC versions are previews, not long-term support lines. Historical

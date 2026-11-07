@@ -1,8 +1,10 @@
 # Release channels and exact-archive qualification
 
-**1.0.0 is released on GitHub; npm publication is pending.**
-Use the attached verified archive or the published beta until registry readback
-confirms 1.0.0. No consumer dependency update is approved by this release.
+**1.0.0 is published on GitHub and npm under `latest`.**
+[Registry verification](evidence/npm-1.0.0.json) confirms identical archive bytes,
+a clean npm install and the alpha.3/beta.2/1.0 compatibility matrix. `alpha` and
+`beta` retain their previous versions. No consumer dependency update is approved
+by this release.
 Package versions and wire v1 are independent.
 
 ## Channels

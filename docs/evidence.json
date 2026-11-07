@@ -118,6 +118,6 @@
   "release_preparation": {
     "previousVersion": "0.1.0-beta.2",
     "runtimeUnchanged": true,
-    "note": "Version metadata carried forward for the unpublished 1.0.0 candidate; original measurement timestamps, environment and hashes are unchanged."
+    "note": "Version metadata carried forward during 1.0.0 qualification; original measurement timestamps, environment and hashes are unchanged. Publication verification is recorded separately in docs/evidence/npm-1.0.0.json."
   }
 }

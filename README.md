@@ -6,23 +6,24 @@ generate random references. It works in Node.js 22+ and browsers with Web Crypto
 
 [![CI](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml/badge.svg)](https://github.com/PerchAnton/refmint/actions/workflows/ci.yml)
 ![Runtime dependencies: 0](https://img.shields.io/badge/runtime_dependencies-0-087d5d)
-[![npm beta](https://img.shields.io/npm/v/refmint/beta)](https://www.npmjs.com/package/refmint/v/0.1.0-beta.2)
+[![npm](https://img.shields.io/npm/v/refmint)](https://www.npmjs.com/package/refmint/v/1.0.0)
 
 ```sh
-npm install --save-exact refmint@0.1.0-beta.2
+npm install --save-exact refmint@1.0.0
 ```
 
-[Beta release and checksum](https://github.com/PerchAnton/refmint/releases/tag/v0.1.0-beta.2) ·
-[API compatibility and frozen v1 format](docs/beta-contract.md) · [Verified npm installation](docs/evidence/release-beta2.json).
+[1.0.0 release and checksum](https://github.com/PerchAnton/refmint/releases/tag/v1.0.0) ·
+[API compatibility and frozen v1 format](docs/stable-contract.md) · [Verified npm installation](docs/evidence/npm-1.0.0.json).
 
 [Stable 1.0 API contract](docs/stable-contract.md) ·
 [Upgrade checks from alpha.3](docs/migration-alpha3-to-1.md) ·
 [Release channels](docs/releasing.md) · [Support policy](docs/support.md).
-**[1.0.0 is released on GitHub](https://github.com/PerchAnton/refmint/releases/tag/v1.0.0)**
-with the exact verified package archive. **npm publication is still pending**;
-the installation above intentionally selects the published beta.
-[Release verification](docs/evidence/release-1.0.0.json). The compatibility matrix
-checks alpha.3, beta.2 and the exact 1.0.0 archive.
+**1.0.0 is published on npm under `latest`**; plain `npm install refmint` selects
+the stable release. `alpha` remains 0.1.0-alpha.3 and `beta` remains 0.1.0-beta.2.
+The npm archive matches the qualified GitHub archive byte for byte.
+[Source qualification](docs/evidence/release-1.0.0.json) and
+[registry verification](docs/evidence/npm-1.0.0.json) cover the clean install, types
+and all nine alpha.3/beta.2/1.0 writer-reader pairs.
 
 **Try an invoice lookup.** The [sample PDF](https://github.com/PerchAnton/refmint/blob/v0.1.0-beta.2/examples/workflows/sample-invoice.pdf)
 shows `INV-2026-000042`, the short alias `D1042` and the 21-character printed
@@ -53,10 +54,10 @@ existing workflow, a simple alias and RefMint with real participants before maki
 that claim; retain failures and report manual entry separately from copy/paste.
 [Measurement protocol](docs/manual-entry-study.md).
 
-The package is in beta. Frozen v1 wire encoding is narrower than stable APIs,
-support or application readiness. [Criteria for a stable release](docs/stability.md)
-are separate from the decision to adopt: a stable release alone would not create
-a need for integration.
+RefMint 1.0 has a [stable API contract](docs/stable-contract.md) and unchanged
+frozen v1 wire encoding. [Release qualification](docs/stability.md) is separate
+from application readiness and the decision to adopt: a stable release alone
+does not create a need for integration.
 
 [Workflow results](docs/workflow-results.md) include invoice and fleet fixtures.
 The fleet reference has 49 printed characters versus an eight-character hostname.
@@ -65,15 +66,15 @@ If people already find records reliably with your current search, keep it.
 The GitHub package archive remains available as an alternative:
 
 ```sh
-npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v0.1.0-beta.2/refmint-0.1.0-beta.2.tgz
+npm install --allow-remote=root https://github.com/PerchAnton/refmint/releases/download/v1.0.0/refmint-1.0.0.tgz
 ```
 
-npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-0.1.0-beta.2.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
+npm 12 requires explicit permission for URL dependencies. Pass `--allow-remote=root` on later `npm install` / `npm ci` runs for a project that keeps this URL dependency, too; the flag does not change global settings. Alternatively, download the `.tgz` asset and run `npm install ./refmint-1.0.0.tgz`. [npm's URL dependency setting](https://docs.npmjs.com/cli/v12/commands/npm-install/#allow-remote).
 
 The release also includes `SHA256SUMS`, package verification and a registry consumer check. To run the tagged browser demo with Node.js 22+ and pnpm 11.25.0:
 
 ```sh
-git clone --branch v0.1.0-beta.2 https://github.com/PerchAnton/refmint.git
+git clone --branch v1.0.0 https://github.com/PerchAnton/refmint.git
 cd refmint
 pnpm install --frozen-lockfile --ignore-scripts
 pnpm check
@@ -83,7 +84,7 @@ pnpm demo
 
 Open **http://127.0.0.1:4173**. The example runs locally, keeps one sample ticket in memory, and demonstrates three outcomes: found, mistyped and valid-but-unknown. It sends no references to a remote service.
 
-To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. Timing results below come from alpha.2. The runtime hashes match the beta. See the [comparison method](docs/comparison.md) for what was measured.
+To build your own package archive, run `pnpm pack --pack-destination artifacts`, then install that `.tgz` with your package manager. Timing results below come from alpha.2. The runtime hashes match 1.0.0; the measurements remain historical. See the [comparison method](docs/comparison.md) for what was measured.
 
 ## One namespace, one storage format
 

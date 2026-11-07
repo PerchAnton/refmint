@@ -9,8 +9,9 @@
   "compatibility_tests": 21,
   "writer_reader_pairs": 9,
   "ci": "7/7 success",
-  "npm_published": false,
-  "npm_next_step": "Owner deferred CLI authentication to another computer; publish this exact archive with latest and verify registry bytes.",
+  "npm_published": true,
   "wire_v1_changed": false,
-  "github_release": "https://github.com/PerchAnton/refmint/releases/tag/v1.0.0"
+  "github_release": "https://github.com/PerchAnton/refmint/releases/tag/v1.0.0",
+  "npm_verified_at": "2026-11-07T20:21:12.757568+00:00",
+  "npm_verification": "npm-1.0.0.json"
 }

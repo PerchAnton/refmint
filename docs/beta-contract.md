@@ -45,12 +45,13 @@ new prerelease, explicit migration notes and regression evidence; never replace
 an existing version. Internal modules, example UI and benchmark timings are outside
 this contract. A stable 1.0 support/deprecation policy is a separate decision.
 
-## Preparing the stable API
+## Stable API continuation
 
 The [1.0 API contract](stable-contract.md) and [alpha.3 migration guide](migration-alpha3-to-1.md)
 carry these existing guarantees forward. The installed-archive check now compares
-alpha.3, beta.2 and the unpublished candidate, without changing package version or
-wire v1. Publication and consumer-native acceptance remain separate steps.
+alpha.3, beta.2 and published 1.0.0, without changing wire v1.
+[Registry verification](evidence/npm-1.0.0.json) confirms publication;
+consumer-native acceptance remains a separate step.
 
 ## What beta does not prove
 

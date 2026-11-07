@@ -1,0 +1,65 @@
+{
+  "published_at": "2026-11-07T20:13:39.766Z",
+  "sha256": "a46948a31e08a57b09c217c5352b85ca7a47810cd3e1da2166a811bbeeb6567c",
+  "integrity": "sha512-FMxCnFpZ90d3avL9ADw1ecx3QbQhiz+VmvMEbhvGnVikyQo7coes2rZ6cW7LYOeJNePt4d1yL9V19zGB4iB10g==",
+  "bytes": 58590,
+  "identical_to_github_release": true,
+  "tags_before": {
+    "latest": "0.1.0-alpha.2",
+    "alpha": "0.1.0-alpha.3",
+    "beta": "0.1.0-beta.2"
+  },
+  "tags_after": {
+    "latest": "1.0.0",
+    "alpha": "0.1.0-alpha.3",
+    "beta": "0.1.0-beta.2"
+  },
+  "checked_at": "2026-11-07T20:21:12.757568+00:00",
+  "version": "1.0.0",
+  "registry": "https://registry.npmjs.org",
+  "tarball": "https://registry.npmjs.org/refmint/-/refmint-1.0.0.tgz",
+  "source_commit": "447545781ed89bfbc69f77673eb194c0e560037b",
+  "qualified_source": "9ec884403a97e00074716d15a359b687ed7dd884",
+  "tree": "938112d4abdc10edab50b8ffecc54f1e5be1a8d9",
+  "source_ci": "https://github.com/PerchAnton/refmint/actions/runs/42407067174",
+  "source_ci_checks_passed": 7,
+  "canonical_tarball_download": "PASS",
+  "npm_latest_clean_install": "PASS",
+  "consumer": {
+    "version": "1.0.0",
+    "installed_from": "https://registry.npmjs.org/refmint/-/refmint-1.0.0.tgz",
+    "integrity": "sha512-FMxCnFpZ90d3avL9ADw1ecx3QbQhiz+VmvMEbhvGnVikyQo7coes2rZ6cW7LYOeJNePt4d1yL9V19zGB4iB10g==",
+    "esm_and_codec_entry_points": "PASS",
+    "random_reference_round_trip": "PASS",
+    "v1_known_code_and_integer_round_trip": "PASS",
+    "invalid_code_rejected": true,
+    "private_import_blocked": true,
+    "runtime_dependencies": 0
+  },
+  "package_check": {
+    "command": "pnpm test:package <npm-downloaded-refmint-1.0.0.tgz>",
+    "source_tag": "v1.0.0",
+    "exit_code": 0,
+    "compatibility_tests": 21,
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0,
+    "writer_reader_pairs": 9,
+    "versions": [
+      "0.1.0-alpha.3",
+      "0.1.0-beta.2",
+      "1.0.0"
+    ],
+    "typescript_consumers": "PASS",
+    "offline_archive_install": "PASS",
+    "node": "24.22.1",
+    "npm": "11.19.1",
+    "pnpm": "11.25.0",
+    "typescript": "5.9.3",
+    "platform": "darwin arm64"
+  },
+  "archive_rebuilt": false,
+  "wire_v1_changed": false,
+  "consumer_dependency_updates": false,
+  "publication_propagation": "Initial metadata and canonical tarball reads returned old tags/404 while npm processed the release. After the negative cache expired, the canonical URL and ordinary npm install both passed. One publish only."
+}
