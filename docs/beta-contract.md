@@ -45,6 +45,13 @@ new prerelease, explicit migration notes and regression evidence; never replace
 an existing version. Internal modules, example UI and benchmark timings are outside
 this contract. A stable 1.0 support/deprecation policy is a separate decision.
 
+## Preparing the stable API
+
+The [1.0 API contract](stable-contract.md) and [alpha.3 migration guide](migration-alpha3-to-1.md)
+carry these existing guarantees forward. The installed-archive check now compares
+alpha.3, beta.2 and the unpublished candidate, without changing package version or
+wire v1. Publication and consumer-native acceptance remain separate steps.
+
 ## What beta does not prove
 
 The [existing workflow comparison](workflows.md) is synthetic. The

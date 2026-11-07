@@ -58,7 +58,7 @@ After a valid checksum: check namespace; require two header symbols; check versi
 
 ## Compatibility commitment
 
-The v1 layout, canonical encoding and accepted presentation forms defined here are frozen. Changes to that wire contract require a new version and reader; they must not change v1 output. Package APIs may continue to evolve during alpha. Explicit versioning does not authorize removal of v1 readers from deployed applications.
+The v1 layout, canonical encoding and accepted presentation forms defined here are frozen. Changes to that wire contract require a new version and reader; they must not change v1 output. The [API contract for 1.0 preparation](stable-contract.md) is separate from this wire contract. Package version 1.0 does not change wire v1. Explicit versioning does not authorize removal of v1 readers from deployed applications.
 
 The alpha.1 random-reference format remains available through `createReferences`, with its generation, parsing and error-result shapes preserved. Its HRP grammar prohibits underscores. The new HRP requires one, so the formats are structurally disjoint even when the namespace and data lengths happen to match. Each API rejects the other's format. Do not fall back from a failed v1 parse to guessing a legacy ID or another version.
 

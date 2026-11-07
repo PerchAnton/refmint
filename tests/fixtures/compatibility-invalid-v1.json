@@ -1,0 +1,75 @@
+{
+  "description": "Malformed v1 payloads with valid checksums generated independently by bech32@2.0.0; alpha.3 rejection confirmed. Not valid application identifiers.",
+  "cases": [
+    {
+      "description": "missing headers",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1c7es4d",
+      "error": "length"
+    },
+    {
+      "description": "missing kind",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pxt2k6y",
+      "error": "length"
+    },
+    {
+      "description": "unknown version",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1zqph4gl8h",
+      "error": "version"
+    },
+    {
+      "description": "unknown kind",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pfpasl6yf",
+      "error": "kind"
+    },
+    {
+      "description": "empty payload",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pqe5hae0",
+      "error": "length"
+    },
+    {
+      "description": "too many symbols",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pqpppppppppppppps5jmtc",
+      "error": "length"
+    },
+    {
+      "description": "uint64 overflow",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pqsqqqqqqqqqqqqd5y586",
+      "error": "overflow"
+    },
+    {
+      "description": "nonminimal integer",
+      "prefix": "btk",
+      "kind": "uint64",
+      "reference": "btk_1pqqp8729fd",
+      "error": "non_canonical"
+    },
+    {
+      "description": "UUID high bits set",
+      "prefix": "btk",
+      "kind": "uuid",
+      "reference": "btk_1ppgqqqqqqqqqqqqqqqqqqqqqqqqqrc6m4x",
+      "error": "overflow"
+    },
+    {
+      "description": "short UUID",
+      "prefix": "btk",
+      "kind": "uuid",
+      "reference": "btk_1ppqqqqqqqqqqqqqqqqqqqqqqqqqu3wzd5",
+      "error": "length"
+    }
+  ]
+}

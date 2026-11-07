@@ -11,6 +11,14 @@ version and reader. This is not a promise that the API, error diagnostics,
 supported environments or support policy will never change. Applications must
 retain the readers needed for references they have already issued.
 
+## API and compatibility preparation
+
+The [1.0 API contract](stable-contract.md) fixes the surface being prepared.
+`pnpm test:package` now compares its exact archive with integrity-pinned alpha.3
+and beta.2 in both directions, including TypeScript consumers and historical
+Billetsys codes. See [upgrade and rollback checks](migration-alpha3-to-1.md).
+This work does not publish 1.0 or complete the remaining gates below.
+
 ## Criteria before a stable release
 
 - Review and freeze the public API and error behavior; document any migration from

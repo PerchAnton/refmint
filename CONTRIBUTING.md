@@ -12,6 +12,17 @@ For the existing-ID format or comparison, run `pnpm compare` after the build and
 
 The build keeps JSDoc in declarations and removes comments only from emitted JS. Keep the full-root and codec-only size figures separate; include compression costs. After runtime changes, refresh the historical comparison with `pnpm compare:previous PATH_TO_PREVIOUS_DIST FULL_COMMIT_SHA` as described in [comparison methods](docs/comparison.md#before-and-after-optimization). The recorded previous baseline is `daaffe813fd0351752bd158314917267acddc1b6`. Do not compare historical timings collected on different machines as a before/after speedup.
 
+## API compatibility
+
+Preserve the [1.0 preparation contract](docs/stable-contract.md). Run
+`pnpm test:compatibility` to compare the packed candidate against SHA-512-pinned
+alpha.3 and beta.2; `pnpm test:package` runs the same matrix on its exact archive.
+The two historical downloads require network access, fail closed on integrity
+errors, and install offline with ignored scripts and no runtime dependencies.
+Do not replace their pins or regenerate historical vectors to hide a break.
+Keep the TypeScript consumer and both writer/reader directions covered.
+Temporary consumers and archives are removed even after failures.
+
 ## Publishing a prerelease
 
 Use a clean, reviewed commit and verify that its CI passed. Keep the version, changelog and evidence version in sync. A published npm name/version cannot be reused. For the beta candidate, keep both `publishConfig.tag` and the explicit publication tag set to `beta`. Do not move the existing `alpha` or `latest` tags.

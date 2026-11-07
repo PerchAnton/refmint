@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Fix the public API contract for 1.0 preparation and document alpha.3 upgrade/rollback without changing wire v1. No stable version is published by this change.
+- Check the exact candidate archive against integrity-pinned npm alpha.3 and beta.2: all nine writer/reader pairs, historical and Billetsys vectors, errors, exports and strict TypeScript consumers.
+- Reject canonical-reader regressions for case/whitespace as well as grouping, and verify the documented exception classes across all three packages.
+
 ## 0.1.0-beta.2
 
 - Record the twelve measured tasks from the single-participant manual-entry pilot. In this pilot the participant entered both the existing number and the short alias faster than RefMint.
