@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-27T13:21:13.955Z",
-  "version": "0.1.0-beta.2",
+  "version": "1.0.0",
   "environment": {
     "node": "v24.19.0",
     "platform": "darwin",
@@ -114,5 +114,10 @@
   "carried_forward": {
     "reason": "Runtime JavaScript bytes are unchanged; original alpha.2 measurement timestamps, environment and samples are retained.",
     "verified_date": "2026-11-05"
+  },
+  "release_preparation": {
+    "previousVersion": "0.1.0-beta.2",
+    "runtimeUnchanged": true,
+    "note": "Version metadata carried forward for the unpublished 1.0.0 candidate; original measurement timestamps, environment and hashes are unchanged."
   }
 }
