@@ -23,15 +23,14 @@ Do not replace their pins or regenerate historical vectors to hide a break.
 Keep the TypeScript consumer and both writer/reader directions covered.
 Temporary consumers and archives are removed even after failures.
 
-## Publishing a prerelease
+## Preparing and publishing a release
 
-Use a clean, reviewed commit and verify that its CI passed. Keep the version, changelog and evidence version in sync. A published npm name/version cannot be reused. For the beta candidate, keep both `publishConfig.tag` and the explicit publication tag set to `beta`. Do not move the existing `alpha` or `latest` tags.
-
-1. Run `pnpm check`, `pnpm test:demo`, `pnpm test:comparison`, `pnpm test:workflows` and `pnpm test:package`; the matching CI must also cover browsers, PDF extraction/lookup and the supported Node/OS matrix.
-2. Pack with `pnpm pack --pack-destination artifacts`. Record the commit, package SHA-256 and npm SHA-512 integrity. Inspect the file inventory and install this exact archive into an isolated consumer before publication.
-3. Authenticate to `https://registry.npmjs.org` with `npm login --auth-type=web`. Enter passwords and second-factor challenges only in npm's login flow. Never commit credentials or put them in an issue/PR. Direct publication requires account 2FA or another authentication method supported by npm; prefer the interactive account flow for the first release.
-4. Run `npm publish ./artifacts/refmint-VERSION.tgz --dry-run --ignore-scripts --tag beta --access public --registry=https://registry.npmjs.org`, substituting the actual version. Inspect the name, version, files and integrity. Then publish the same archive by removing only `--dry-run`.
-5. Read the public registry metadata back. Check the version, `beta` tag and tarball integrity, then install `refmint@beta` in a fresh consumer and exercise both `refmint` and `refmint/codec`. Download the registry tarball and compare it with the published archive. Keep the proof with the release record.
+Follow [the release procedure](docs/releasing.md) and [support policy](docs/support.md).
+Stable versions use `latest`; alpha uses `alpha`; beta/RC uses `beta`. Both
+`publishConfig.tag` and the explicit publication tag must agree. The package gate
+checks the channel. Use `pnpm test:package /absolute/path/to/candidate.tgz` to
+qualify an existing final archive without rebuilding it. Publication is a separate
+owner decision on a clean, reviewed commit with successful CI.
 
 The first npm alpha.2 archive has updated README, changelog and contributor documentation. All other files match the original GitHub alpha.2 archive; the original tag, download and checksums remain intact. Future releases should prepare registry instructions before creating either archive.
 

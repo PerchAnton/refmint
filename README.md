@@ -16,8 +16,11 @@ npm install --save-exact refmint@0.1.0-beta.2
 [API compatibility and frozen v1 format](docs/beta-contract.md) · [Verified npm installation](docs/evidence/release-beta2.json).
 
 [API contract for 1.0 preparation](docs/stable-contract.md) ·
-[Upgrade checks from alpha.3](docs/migration-alpha3-to-1.md). The package remains in beta;
-the compatibility matrix compares published releases with an unpublished archive.
+[Upgrade checks from alpha.3](docs/migration-alpha3-to-1.md) ·
+[Release channels](docs/releasing.md) · [Support policy](docs/support.md).
+This checkout prepares an **unpublished 1.0.0 candidate**; the installation above
+still selects the published beta. The compatibility matrix compares both old
+releases with the exact candidate archive.
 
 **Try an invoice lookup.** The [sample PDF](https://github.com/PerchAnton/refmint/blob/v0.1.0-beta.2/examples/workflows/sample-invoice.pdf)
 shows `INV-2026-000042`, the short alias `D1042` and the 21-character printed

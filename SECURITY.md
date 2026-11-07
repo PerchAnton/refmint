@@ -6,4 +6,5 @@ Keep a unique database constraint, retry conflicts with a limit, authorize looku
 
 Do not attempt to repair an invalid code automatically: a guessed correction can select the wrong record. The parser only normalizes the presentation differences documented in SPEC.md.
 
-For a potential vulnerability, use GitHub's private vulnerability reporting if available, or contact the repository owner through their GitHub profile without disclosing exploit details in a public issue. Ordinary reproducible bugs belong in issues. The current beta has not had an independent security audit. See the [beta scope](docs/beta-contract.md) and [stability criteria](docs/stability.md); a beta label is not a security assurance.
+For a potential vulnerability, use GitHub's private vulnerability reporting if available, or contact the repository owner through their GitHub profile without disclosing exploit details in a public issue. Ordinary reproducible bugs belong in issues. The current package has not had an independent security audit. See the
+[maintenance and support policy](docs/support.md). See the [beta scope](docs/beta-contract.md) and [stability criteria](docs/stability.md); a beta label is not a security assurance.
