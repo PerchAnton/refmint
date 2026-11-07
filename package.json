@@ -1,6 +1,6 @@
 {
   "name": "refmint",
-  "version": "0.1.0-beta.2",
+  "version": "1.0.0",
   "description": "Generate public references or encode existing IDs with strict input diagnostics and a Bech32m checksum.",
   "type": "module",
   "license": "MIT OR Apache-2.0",
@@ -24,7 +24,7 @@
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
-    "tag": "beta"
+    "tag": "latest"
   },
   "exports": {
     ".": {

@@ -1,4 +1,4 @@
-# Beta scope and stability criteria
+# Stability criteria
 
 The [published beta](https://www.npmjs.com/package/refmint/v/0.1.0-beta.1) defines
 a [compatibility contract](beta-contract.md). Pin the exact version for a trial
@@ -17,7 +17,9 @@ The [1.0 API contract](stable-contract.md) fixes the surface being prepared.
 `pnpm test:package` now compares its exact archive with integrity-pinned alpha.3
 and beta.2 in both directions, including TypeScript consumers and historical
 Billetsys codes. See [upgrade and rollback checks](migration-alpha3-to-1.md).
-This work does not publish 1.0 or complete the remaining gates below.
+The 1.0.0 candidate also defines [support](support.md) and [release channels](releasing.md),
+including qualification of an existing final archive. It is not yet published;
+final acceptance and consumer rollout remain separate.
 
 ## Criteria before a stable release
 

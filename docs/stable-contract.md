@@ -1,7 +1,7 @@
 # Public API contract for 1.0 preparation
 
 This contract fixes the public surface being prepared for RefMint 1.0. The
-repository still builds an unpublished candidate with the current beta version;
+repository builds an unpublished 1.0.0 candidate;
 this document does not publish 1.0, move npm tags, or authorize a consumer upgrade.
 Changes under preparation must preserve this contract and the historical-release
 checks. Release and support readiness remain separate [gates](stability.md).
@@ -125,8 +125,8 @@ A necessary security correction needs a documented impact analysis, regression
 and migration or repair path; never conceal a compatibility failure by replacing
 old fixtures. Follow [SECURITY.md](../SECURITY.md) for disclosure. This contract
 does not promise an independent audit, calendar support period or response-time
-SLA. Those release/maintenance decisions remain explicit gates before stable
-publication. Neither a stable API nor its checksum proves authorization, record
+SLA. The [support policy](support.md) and [release procedure](releasing.md)
+apply before stable publication. Neither a stable API nor its checksum proves authorization, record
 existence, or a practical manual-entry advantage.
 
 ## Executable checks
@@ -153,7 +153,7 @@ pnpm test:compatibility /absolute/path/to/refmint-candidate.tgz
 ```
 
 The candidate's version must match the checkout; it is identified by its archive
-hash even while its manifest still says beta.2. Historical digests and vectors
+hash and its candidate manifest version. Historical digests and vectors
 must not be regenerated to accommodate changes. The matrix supplements, rather
 than replaces, independent Bech32m, boundary, browser, PDF and application tests.
 See the [alpha.3 migration guide](migration-alpha3-to-1.md).
