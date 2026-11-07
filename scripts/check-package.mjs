@@ -63,6 +63,9 @@ try {
   assert.match(await readFile(join(installed, 'dist/index.d.ts'), 'utf8'), /A validated canonical reference/, 'Retain declaration documentation');
   const evidence = JSON.parse(await readFile(join(installed, 'docs/evidence.json'), 'utf8'));
   assert.equal(evidence.version, source.version, 'Refresh evidence for this version');
+  // A supplied archive must not certify modified runtime bytes with its own edited hashes.
+  assert.deepEqual(evidence, JSON.parse(await readFile(join(root, 'docs/evidence.json'), 'utf8')),
+    'Archive evidence must match the reviewed checkout');
   assert.deepEqual(evidence.size.files.map(file => file.file).sort(), (await readdir(join(installed, 'dist'))).filter(file => file.endsWith('.js')).map(file => 'dist/' + file).sort());
   for (const file of evidence.size.files) {
     const bytes = await readFile(join(installed, file.file));

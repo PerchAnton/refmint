@@ -49,7 +49,8 @@ CI passed on that exact head, including Node/OS, browser and PDF jobs.
 
    The second command does **not** rebuild or repack. It installs that archive
    offline, checks metadata/channel, inventory, licenses, documentation, runtime
-   hashes, types and the alpha.3/beta.2/candidate matrix, then prints SHA-256 and
+   hashes against the reviewed checkout evidence, types and the
+   alpha.3/beta.2/candidate matrix, then prints SHA-256 and
    npm SHA-512 integrity. It checks the archive did not change during validation.
    Temporary consumers/stores are removed on success or failure. Keep the exact
    qualified archive for publication; if its bytes or source change, qualify again.
