@@ -204,3 +204,8 @@ checksum errors, input preservation and server-side validation with RefMint 1.0.
 JSON Forms includes React, Vue and Angular. Conform and Superforms also work
 without JavaScript. These are external consumer examples, not upstream adoptions
 or evidence of faster human entry.
+
+[Ten validation adapters](examples/validation-adapters/README.md) show optional
+checksum-aware reference fields with real Node and browser validation libraries.
+They preserve raw input and keep authorization separate; no entry-speed advantage
+is claimed.
