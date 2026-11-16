@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "allowJs": true
+  }
+}

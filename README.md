@@ -196,3 +196,11 @@ Boundary tests cover all **912** supported prefix/payload length pairs and **1,7
 ## License
 
 Original code: **MIT OR Apache-2.0**, at your option. Standard checksum/reference attribution and separately licensed test vectors are recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+### Form validation examples
+
+[Eight runnable form-library examples](https://github.com/PerchAnton/refmint/tree/main/examples/form-integrations#readme) show
+checksum errors, input preservation and server-side validation with RefMint 1.0.0.
+JSON Forms includes React, Vue and Angular. Conform and Superforms also work
+without JavaScript. These are external consumer examples, not upstream adoptions
+or evidence of faster human entry.
