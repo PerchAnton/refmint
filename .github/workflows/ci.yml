@@ -99,3 +99,9 @@ jobs:
       - run: npm run test:contracts
       - run: npm run build
       - run: npm test
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: form-library-browser-results
+          path: examples/form-integrations/artifacts/browser-results.json
+          if-no-files-found: error
