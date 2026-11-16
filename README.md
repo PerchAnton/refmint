@@ -54,7 +54,7 @@ existing workflow, a simple alias and RefMint with real participants before maki
 that claim; retain failures and report manual entry separately from copy/paste.
 [Measurement protocol](docs/manual-entry-study.md).
 
-[Order lookup pilot](examples/order-pilot/README.md): compare a UUID, a simple
+[Order lookup pilot](https://github.com/PerchAnton/refmint/tree/5f70aa5/examples/order-pilot): compare a UUID, a simple
 eight-character alias and RefMint with explicit record confirmation. Includes
 an application model for collisions, idempotent retries and owner checks;
 automated checks do not establish a human-entry advantage.
