@@ -54,6 +54,11 @@ existing workflow, a simple alias and RefMint with real participants before maki
 that claim; retain failures and report manual entry separately from copy/paste.
 [Measurement protocol](docs/manual-entry-study.md).
 
+[Order lookup pilot](examples/order-pilot/README.md): compare a UUID, a simple
+eight-character alias and RefMint with explicit record confirmation. Includes
+an application model for collisions, idempotent retries and owner checks;
+automated checks do not establish a human-entry advantage.
+
 RefMint 1.0 has a [stable API contract](docs/stable-contract.md) and unchanged
 frozen v1 wire encoding. [Release qualification](docs/stability.md) is separate
 from application readiness and the decision to adopt: a stable release alone

@@ -46,3 +46,14 @@ test('only demo assets are served, with correct types and no caching', async () 
   }
   assert.equal((await get('/', 'POST')).status, 404);
 });
+
+test('order pilot serves only its explicit assets and accepts no result uploads', async () => {
+  for (const [path, type] of [['/order-pilot/', 'text/html'], ['/order-pilot/app.mjs', 'text/javascript'], ['/order-pilot/model.mjs', 'text/javascript'], ['/order-pilot/style.css', 'text/css']]) {
+    const response = await get(path);
+    assert.equal(response.status, 200);
+    assert.ok(response.headers['content-type'].startsWith(type));
+    assert.equal(response.headers['cache-control'], 'no-store');
+  }
+  assert.equal((await get('/order-pilot/', 'POST')).status, 404);
+  assert.equal((await get('/order-pilot/results.json')).status, 404);
+});
