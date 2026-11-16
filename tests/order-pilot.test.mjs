@@ -72,3 +72,11 @@ test('paste-mode success without a paste is marked as a protocol deviation', () 
   const task = start(session, 0); search(session, display(task.route, task.record), 10); finish(session, 'confirm', 20);
   assert.equal(session.results.at(-1).eligible, false); assert.equal(session.results.at(-1).deviation, true);
 });
+
+test('pasting later cannot relabel an already typed lookup as a valid paste trial', () => {
+  const session = makeSession('P-test');
+  while (session.tasks[session.results.length].mode !== 'paste') { start(session, 0); finish(session, 'skip', 1); }
+  const task = start(session, 0); search(session, display(task.route, task.record), 10);
+  session.active.pastes = 1; search(session, display(task.route, task.record), 20); finish(session, 'confirm', 30);
+  assert.equal(session.results.at(-1).eligible, false); assert.equal(session.results.at(-1).deviation, true);
+});

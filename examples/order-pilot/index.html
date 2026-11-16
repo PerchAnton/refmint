@@ -9,7 +9,7 @@
 <section id="instructions" hidden><h2 id="task-title"></h2><p id="instruction"></p>
 <p><strong>Enter the code, not “Example order …”.</strong> Search, read the found order, then confirm it. You can skip a task.</p>
 <button id="start">Start this task</button></section>
-<section id="task" hidden><article class="card"><h2 id="record-label"></h2><p id="record-product"></p>
+<section id="task" hidden><h2 id="active-mode"></h2><p id="active-instruction"></p><article class="card"><h2 id="record-label"></h2><p id="record-product"></p>
 <div id="visual-card"><span>Code to enter</span><code id="code"></code><button id="copy" type="button">Copy code</button></div>
 <details id="reader-card" hidden><summary>Reader only: show the code</summary><code id="spoken-code"></code></details></article>
 <form id="lookup"><label>Code to look up <input id="query" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
@@ -18,6 +18,8 @@
 <p id="timer" aria-live="off"></p></section>
 <section id="result" hidden><h2>Session results</h2><p id="scope"></p><div class="table-scroll"><table><thead><tr><th>Mode</th><th>Code</th><th>Success / eligible</th><th>Median successful seconds</th><th>Query errors</th><th>Timeouts</th><th>Wrong confirmations</th><th>Excluded</th></tr></thead><tbody id="summary"></tbody></table></div>
 <label>What was confusing? (optional; no personal data)<textarea id="feedback"></textarea></label></section>
-<p><button id="export" hidden>Download JSON results</button></p>
+<p id="last-task-notice" role="status"></p>
+<p><button id="export" hidden>Download JSON results</button> <button id="show-json" hidden>Show JSON on this page</button></p>
+<label id="json-panel" hidden>JSON results (select and copy if downloading is unavailable)<textarea id="results-json" readonly rows="10"></textarea></label>
 <p id="error" role="alert"></p><p>Practices are excluded. Timing starts only when you press Start. Returning later interrupts an active task; it is not counted as success. Results from one person cannot establish a general advantage.</p>
 </main><script type="module" src="/order-pilot/app.mjs"></script></html>

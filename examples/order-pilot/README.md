@@ -2,7 +2,9 @@
 
 Compare a UUID, an eight-character alias and a RefMint random reference in a
 small, participant-operated lookup task. This is a new protocol, not a reanalysis
-of the earlier invoice pilot. **No human results have been collected for it.**
+of the earlier invoice pilot. [The first completed session](results-2026-11-16.md)
+provided five valid manual observations and exposed instruction problems; it
+does not establish a practical advantage.
 
 ```sh
 pnpm install --frozen-lockfile --ignore-scripts
@@ -14,6 +16,8 @@ Open <http://127.0.0.1:4173/order-pilot/>. Enter a participant code, not a name 
 email. The page uses fictional orders and stores results only in this browser's
 local storage. Download the JSON before clearing site data. To start a different
 participant, use a fresh browser profile or clear this site's storage.
+If downloading is unavailable, **Show JSON on this page** provides a selectable
+copy of the same results, including partial state and exclusions.
 
 ## What to do
 
@@ -31,7 +35,8 @@ or hiding the page interrupts the active task; partial results stay partial.
 Tasks time out after 90 seconds. Failed and timed-out measured tasks stay in the
 denominator; medians describe successful tasks only. Paste in a manual task is
 blocked and recorded as a deviation. A paste-mode success without a paste event
-is also excluded as a deviation.
+is also excluded as a deviation. A lookup submitted before any paste event
+remains a deviation even if the participant pastes later in the same task.
 
 Optional spoken tasks require a **second real person** to read the card without
 showing it to the participant. Select that option only when a reader is present.

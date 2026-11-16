@@ -15,7 +15,7 @@ function showResults() {
   $('scope').textContent = `${session.results.length} of ${session.tasks.length} tasks recorded. ${session.state === 'complete' ? 'Session complete.' : 'Partial results.'} Practice is excluded; medians include successful eligible tasks only.`;
 }
 function render() {
-  $('setup').hidden = !!session; $('export').hidden = !session;
+  $('setup').hidden = !!session; $('export').hidden = !session; $('show-json').hidden = !session;
   if (!session) return;
   $('progress').textContent = `${session.results.length} / ${session.tasks.length} tasks recorded`;
   $('task').hidden = !session.active; $('instructions').hidden = !!session.active || session.state === 'complete';
@@ -27,6 +27,9 @@ function render() {
       : 'A second person must read the code aloud. Do not open the reader card yourself. If no reader is available, skip this task.';
   }
   if (session.results.length) showResults();
+  const last = session.results.at(-1);
+  $('last-task-notice').textContent = last?.deviation
+    ? `Task ${session.results.length} was recorded but excluded: ${last.mode === 'paste' ? 'no paste event was detected before a lookup in this paste task.' : 'a paste was attempted in a typing task.'}` : '';
 }
 function complete(outcome) {
   finish(session, outcome, performance.now()); clearInterval(interval); persist(); render();
@@ -49,6 +52,9 @@ $('create').addEventListener('click', () => {
 });
 $('start').addEventListener('click', () => {
   const task = start(session, performance.now());
+  $('active-mode').textContent = `${task.practice ? 'Practice' : 'Measured task'}: ${task.route} / ${task.mode}`;
+  $('active-instruction').textContent = $('instruction').textContent;
+  $('json-panel').hidden = true;
   $('record-label').textContent = task.record.label; $('record-product').textContent = task.record.product;
   $('code').textContent = display(task.route, task.record); $('spoken-code').textContent = display(task.route, task.record);
   $('visual-card').hidden = task.mode === 'spoken'; $('reader-card').hidden = task.mode !== 'spoken'; $('reader-card').open = false;
@@ -81,14 +87,20 @@ $('lookup').addEventListener('submit', event => {
   $('response').textContent = result.status === 'found' ? `Found ${result.record.label}: ${result.record.product}. Confirm only if it matches the requested order.`
     : result.status === 'invalid' ? `Invalid code (${result.error}). Enter the whole code printed on the card, not the order label.`
     : 'No matching order. Check the code and try again.';
+  if (session.tasks[session.results.length].mode === 'paste' && session.active.pastes === 0) {
+    $('response').textContent += ' This is a paste task: no paste event was detected before this lookup. This deviation is recorded and the task will be excluded, even if you paste later.';
+  }
 });
 $('confirm').addEventListener('click', () => { if (session?.active) complete('confirm'); });
 $('skip').addEventListener('click', () => { if (session?.active) complete('skip'); });
 $('feedback').addEventListener('input', () => { session.feedback = $('feedback').value; persist(); });
+function jsonResults() {
+  return JSON.stringify({ ...session, summary: summarize(session), exportedAt: new Date().toISOString(),
+    scope: 'Single-participant synthetic lookup pilot. No production or general advantage claim.' }, null, 2);
+}
+$('show-json').addEventListener('click', () => { $('results-json').value = jsonResults(); $('json-panel').hidden = false; });
 $('export').addEventListener('click', () => {
-  const data = { ...session, summary: summarize(session), exportedAt: new Date().toISOString(),
-    scope: 'Single-participant synthetic lookup pilot. No production or general advantage claim.' };
-  const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+  const url = URL.createObjectURL(new Blob([jsonResults()], { type: 'application/json' }));
   const link = document.createElement('a'); link.href = url; link.download = `order-pilot-${session.participant}.json`; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });

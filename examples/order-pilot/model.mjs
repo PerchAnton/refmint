@@ -101,6 +101,9 @@ export function search(session, input, now) {
   if (!session.active) throw new Error('no active task');
   if (!Number.isFinite(now) || now < session.active.startedMs) throw new Error('invalid monotonic time');
   const active = session.active, task = session.tasks[session.results.length]; active.attempts++;
+  // A later paste cannot retroactively turn an earlier typed lookup into a
+  // valid paste trial. Keep the deviation even if the participant corrects it.
+  if (task.mode === 'paste' && active.pastes === 0) active.deviation = true;
   const parsed = parse(task.route, input);
   active.found = null;
   if (!parsed.ok) { active.invalid++; return { status: 'invalid', error: parsed.error }; }
