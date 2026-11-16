@@ -205,7 +205,7 @@ JSON Forms includes React, Vue and Angular. Conform and Superforms also work
 without JavaScript. These are external consumer examples, not upstream adoptions
 or evidence of faster human entry.
 
-[Ten validation adapters](examples/validation-adapters/README.md) show optional
+[Ten validation adapters](https://github.com/PerchAnton/refmint/tree/b5d885d6dcc71fdafa71c12c9522ef78cd263def/examples/validation-adapters#readme) show optional
 checksum-aware reference fields with real Node and browser validation libraries.
 They preserve raw input and keep authorization separate; no entry-speed advantage
 is claimed.
