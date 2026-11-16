@@ -199,7 +199,7 @@ Original code: **MIT OR Apache-2.0**, at your option. Standard checksum/referenc
 
 ### Form validation examples
 
-[Eight runnable form-library examples](https://github.com/PerchAnton/refmint/tree/main/examples/form-integrations#readme) show
+[Fifteen runnable form-library examples](https://github.com/PerchAnton/refmint/tree/main/examples/form-integrations#readme) show
 checksum errors, input preservation and server-side validation with RefMint 1.0.0.
 JSON Forms includes React, Vue and Angular. Conform and Superforms also work
 without JavaScript. These are external consumer examples, not upstream adoptions

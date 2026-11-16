@@ -79,7 +79,7 @@ jobs:
       - run: pnpm test:browser
 
   form-examples:
-    name: Eight form libraries / Chromium
+    name: Fifteen form libraries / Chromium
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -95,6 +95,7 @@ jobs:
           node-version: 24
           package-manager-cache: false
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm --prefix uniforms ci --ignore-scripts --no-audit --no-fund
       - run: npm run test:contracts
       - run: npm run build
       - run: npm test

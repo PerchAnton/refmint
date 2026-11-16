@@ -1,8 +1,8 @@
-# Reference fields in eight form libraries
+# Reference fields in fifteen form libraries
 
 These runnable examples validate an optional public order reference with
 **RefMint 1.0.0 from npm**, using each library's own validation hook. JSON Forms
-has three renderers, so the eight libraries have ten browser routes.
+has three renderers, so the fifteen libraries have seventeen browser routes.
 
 The narrow use case is a person entering a code from a printed label or message.
 A shape-only regular expression accepts the selected one-character typo; the
@@ -18,6 +18,7 @@ From this directory:
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
+npm --prefix uniforms ci --ignore-scripts --no-audit --no-fund
 npm run dev
 ```
 
@@ -27,7 +28,8 @@ Open <http://127.0.0.1:5187/>. For the Superforms example, run in a second termi
 npm run dev:superforms
 ```
 
-Open <http://127.0.0.1:5188/>. Both servers bind only to the local machine. They
+Open <http://127.0.0.1:5188/>. For Uniforms, run `npm --prefix uniforms run dev`
+in another terminal and open <http://127.0.0.1:5189/>. All three servers bind only to the local machine. They
 use synthetic in-memory records and are development examples, not deployable
 account or authentication services.
 
@@ -52,6 +54,19 @@ turned off. The other examples need JavaScript to render their forms.
 | Formly | [main.ts](formly/main.ts), 11.2.0 / Angular 22.2.6 | Field validator expression and message | Application-level validation; no custom keyword or dependency in Formly itself. |
 | JSON Forms | [React](jsonforms-react/main.tsx), [Vue](jsonforms-vue/App.vue), [Angular](jsonforms-angular/main.ts), all 3.8.0 | Shared Ajv `order-reference` format | The same schema and fixtures run through three real renderers. Ajv must receive the custom format. |
 | Jedison | [main.mjs](jedison/main.mjs), 1.31.1 | Custom constraint returning an `error` | A blocking checksum error, rather than a warning, prevents the invalid lookup. |
+| RJSF | [main.tsx](rjsf/main.tsx), 6.11.1 | `customizeValidator` with Ajv custom format | Explicit format registration rejects the typo, while the submitted field remains raw. |
+| Formik | [main.tsx](formik/main.tsx), 2.4.9 | `Field.validate` | Correction and Reset use Formik state; validation blocks the lookup. |
+| React Final Form | [main.tsx](final-form/main.tsx), 7.0.1 / Final Form 5.0.1 | Field validator before async submit | A late lookup response cannot replace the result after the field was edited. |
+| Uniforms | [main.tsx](uniforms/main.tsx), 4.0.0 / React 18.3.1 | `JSONSchemaBridge` and Ajv validator | Error details flow through the actual bridge. React 18 is isolated to satisfy Uniforms' peer range. |
+| Mantine | [main.tsx](mantine/main.tsx), form 9.8.1 | `useForm.validate` | Semantic validation and Reset without adding an ID format to Mantine. |
+| Formily | [main.tsx](formily/main.tsx), 2.3.7 | Field validator and feedback messages | Raw input stays available when the field's checksum feedback blocks submit. |
+| PrimeVue | [App.vue](primevue/App.vue), 4.5.5 | Forms' Zod resolver | The MIT-licensed v4 example uses the form's own valid-submit result. No v5 license is required. |
+
+The seven additional recipes use [latest-lookup.mjs](shared/latest-lookup.mjs).
+Editing or resetting increments a local request revision and clears the displayed
+result. Only the latest request can publish success or failure. This protects the
+example UI from an old response; it is separate from server authorization and
+does not cancel a request already received by the server.
 
 These are external consumer recipes. They do not add a dependency to any of the
 upstream libraries or change their validators. The Angular examples use JIT
@@ -93,17 +108,17 @@ npm test
 
 For an already installed Chromium-compatible browser, set `REFMINT_TEST_CHROME`
 to its executable path instead of installing another browser. The lockfile pins
-all package versions. `npm test` starts and stops both local servers itself;
+all package versions. `npm test` starts and stops all three local servers itself;
 close manually started servers on these ports first.
 
-The browser suite uses one worker and **zero retries**. It checks all ten routes:
+The browser suite uses one worker and **zero retries**. It checks all seventeen routes:
 invalid input, correction, namespace rejection, clearing stale results and real
-clipboard paste. It also checks the two Reset controls, both native POST flows
+clipboard paste. It also checks six Reset controls, seven delayed-response cases, both native POST flows
 without JavaScript, and direct API requests that bypass client validation.
 Contract tests cover invalid types, shape-vs-checksum behavior, shared Ajv/Zod
 fixtures and separate not-found/authorization results.
 
-The build compiles the eight Vite pages and the Superforms server bundle. Conform
+The build compiles fourteen main Vite pages, the isolated Uniforms page and the Superforms server bundle. Conform
 SSR is exercised by browser tests through Vite's development server; this is not
 a Conform production deployment recipe. The form examples' CI job runs Chromium;
 there is no claim of Firefox, WebKit, screen-reader, production-load or human
