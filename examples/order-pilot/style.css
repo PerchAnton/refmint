@@ -1,0 +1,9 @@
+:root { font: 18px/1.5 system-ui,sans-serif; color: #17304b; background: #f4f7fa; }
+main { max-width: 900px; margin: 2rem auto; padding: 1rem; } h1 { line-height: 1.2; }
+section,.card { border: 1px solid #bccad8; background: white; border-radius: 12px; padding: 1.2rem; margin: 1rem 0; }
+label { display: block; margin: .7rem 0; } input:not([type=checkbox]),textarea { box-sizing: border-box; width: 100%; padding: .7rem; font: inherit; }
+button { font: inherit; padding: .65rem 1rem; background: #174e7c; color: white; border: 0; border-radius: 6px; margin: .3rem .3rem .3rem 0; cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; } code { display: block; font-size: 1.25rem; overflow-wrap: anywhere; padding: .8rem 0; }
+:focus-visible { outline: 3px solid #d47700; outline-offset: 3px; } [hidden] { display: none !important; }
+.table-scroll { overflow-x: auto; } table { border-collapse: collapse; width: 100%; font-size: .9rem; } td,th { text-align: left; padding: .5rem; border-bottom: 1px solid #bccad8; }
+#error { color: #a21d25; } #response { min-height: 1.5rem; }
