@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { good, bad, wrong } from './reference.mjs';
-for (const library of ['rvf', 'atoms', 'webawesome']) test(`${library}: real form validation and stale success`, async ({ page }) => {
+for (const library of ['rvf', 'atoms', 'webawesome', 'rsuite']) test(`${library}: real form validation and stale success`, async ({ page }) => {
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   await page.goto(`/?library=${library}`);
   const input = page.getByRole('textbox', { name: library === 'webawesome' ? 'Reference *' : 'Reference', exact: true });

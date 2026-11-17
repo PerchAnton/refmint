@@ -135,7 +135,7 @@ jobs:
           if-no-files-found: error
 
   reference-rules:
-    name: Six reference rules / Node and Chromium
+    name: Seven reference rules / Node and Chromium
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:

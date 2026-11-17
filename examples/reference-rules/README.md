@@ -1,4 +1,4 @@
-# Reference rules in six validation and form libraries
+# Reference rules in seven validation and form libraries
 
 These consumers cover a narrow case: an application already uses a human-facing
 ORDER lookup reference and wants to reject a checksum typo or the wrong namespace.
@@ -11,6 +11,7 @@ enough, this is not a reason to add a reference field.
 | Runtypes 7.0.5 | `String.withConstraint` and `inspect` | Six native cases |
 | Valibot 1.5.0 | `pipe(string(), check(...))` and `safeParse` | Six native cases; schema also used by RVF |
 | Typia 15.4.1 | Compiled `createValidate<Request>()`, followed by codec diagnostics | Ten native cases |
+| RSuite 6.2.5 | `Schema.Model`, `StringType.addRule`, real `Form` submit | Browser |
 | RVF 8.1.4 | Standard Schema, `useForm`, field errors, actual submit handler | Browser |
 | form-atoms 3.3.3 | `fieldAtom.validate`, `useInputField`, `formAtom` submit | Browser |
 | Web Awesome 3.14.0 | `wa-input.setCustomValidity`, `wa-invalid`, native form validation | Browser |
@@ -56,8 +57,8 @@ not a database lookup. A server must validate again, check record existence and
 permission, and enforce its own rate limits. See [the lookup boundary](../form-integrations/README.md)
 for a separate example with stale-response handling.
 
-Local checks: 22 native cases and three browser journeys in both development and
+Local checks: 22 native cases and four browser journeys in both development and
 production builds passed on Node 24.22.1 / Chrome 157, with browser retries disabled.
-These are consumer checks, not the six projects' full suites. They neither prove
+These are consumer checks, not the seven projects' full suites. They neither prove
 adoption nor a human entry-speed advantage. No new upstream dependency or built-in
 validation rule is requested.

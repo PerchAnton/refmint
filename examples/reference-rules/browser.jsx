@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { useForm as useRvfForm } from '@rvf/react';
 import { fieldAtom, formAtom, useForm, useInputField } from 'form-atoms';
 import { Provider } from 'jotai';
+import { Form, Schema } from 'rsuite';
+import 'rsuite/dist/rsuite.css';
 import { formSchema } from './schemas.mjs';
 import { good, valid, message } from './reference.mjs';
 
@@ -28,6 +30,17 @@ function Atoms() {
     <button type="submit">Check reference</button><p role="status">{status}</p>
   </form>;
 }
+const suiteModel = Schema.Model({ reference: Schema.Types.StringType().isRequired(message).addRule(valid, message) });
+function Suite() {
+  const [status, setStatus] = useState('');
+  const [errors, setErrors] = useState({});
+  return <Form model={suiteModel} formDefaultValue={{ reference: '' }} checkTrigger="submit"
+    onChange={() => setStatus('')} onCheck={setErrors} onSubmit={() => setStatus(accepted)}>
+    <Form.Group controlId="suite-reference"><Form.Label>Reference</Form.Label>
+      <Form.Control name="reference" errorMessage={null} /></Form.Group>
+    <p role="alert">{errors.reference || ''}</p><button type="submit">Check reference</button><p role="status">{status}</p>
+  </Form>;
+}
 const library = new URL(location.href).searchParams.get('library') || 'rvf';
 if (library === 'webawesome') {
   await import('@awesome.me/webawesome/dist/styles/webawesome.css');
@@ -42,5 +55,5 @@ if (library === 'webawesome') {
   form.addEventListener('submit', event => { event.preventDefault(); if (input.checkValidity()) { alert.textContent = ''; status.textContent = accepted; } });
   update();
 } else {
-  createRoot(document.querySelector('#app')).render(library === 'atoms' ? <Provider><Atoms /></Provider> : <Rvf />);
+  createRoot(document.querySelector('#app')).render(library === 'atoms' ? <Provider><Atoms /></Provider> : library === 'rsuite' ? <Suite /> : <Rvf />);
 }
