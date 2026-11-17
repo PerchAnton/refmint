@@ -205,6 +205,10 @@ JSON Forms includes React, Vue and Angular. Conform and Superforms also work
 without JavaScript. These are external consumer examples, not upstream adoptions
 or evidence of faster human entry.
 
+[Six more reference rules](https://github.com/PerchAnton/refmint/tree/refmint/more-form-consumers/examples/reference-rules#readme)
+cover Runtypes, Valibot, Typia, RVF, form-atoms and Web Awesome. They preserve raw
+input and distinguish request shape, checksum validity and authorization.
+
 [Ten validation adapters](https://github.com/PerchAnton/refmint/tree/b5d885d6dcc71fdafa71c12c9522ef78cd263def/examples/validation-adapters#readme) show optional
 checksum-aware reference fields with real Node and browser validation libraries.
 They preserve raw input and keep authorization separate; no entry-speed advantage
