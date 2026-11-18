@@ -1,3 +1,5 @@
+import Jedison from "jedison";
+import { orderReferenceConstraint } from "../jedison/constraint.mjs";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -62,4 +64,22 @@ test("Ajv and Zod agree on accepted reference fixtures", () => {
       validate({ reference }),
       schema.safeParse({ reference }).success,
     );
+});
+
+test("jedison applies the schema message for the order-reference constraint", () => {
+  const message = "Check the order number on your receipt.";
+  const editor = new Jedison.Create({
+    schema: {
+      type: "string",
+      "order-reference": true,
+      "x-messages": { "order-reference": message },
+    },
+    constraints: { "order-reference": orderReferenceConstraint },
+    data: mistyped,
+  });
+  const errors = editor.getErrors();
+  assert.equal(errors.length, 1);
+  assert.deepEqual(errors[0].messages, [message]);
+  editor.setValue(printed);
+  assert.deepEqual(editor.getErrors(), []);
 });
