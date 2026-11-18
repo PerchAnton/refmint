@@ -1,0 +1,76 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172e3c;
+  background: #f4f7fa;
+}
+body {
+  max-width: 860px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.5;
+}
+h1 {
+  font-size: 1.8rem;
+}
+a {
+  color: #185e8c;
+}
+main,
+.card {
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #ccdae3;
+  border-radius: 0.6rem;
+  margin: 1rem 0;
+}
+input,
+button {
+  font: inherit;
+  padding: 0.65rem;
+  margin: 0.4rem 0;
+}
+input {
+  display: block;
+  min-width: 20rem;
+  max-width: 100%;
+  border: 1px solid #789;
+}
+button {
+  cursor: pointer;
+  background: #e8f2f8;
+  border: 1px solid #7d9db2;
+  border-radius: 0.3rem;
+}
+label {
+  font-weight: 600;
+}
+[role="alert"],
+.error,
+.jedi-error-message {
+  color: #a42b22;
+}
+code,
+pre {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.sample-code {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+output {
+  display: block;
+  padding: 0.7rem 0;
+}
+nav a {
+  display: inline-block;
+  margin: 0.3rem 0.7rem 0.3rem 0;
+}
+.hint {
+  color: #526675;
+}
+
+/* Keep submit buttons still when validation messages appear or disappear on blur. */
+.reference-field {
+  min-height: 9rem;
+}
