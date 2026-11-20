@@ -1,5 +1,6 @@
 import Jedison from "jedison";
-import { referenceError, submitReference } from "../shared/reference.mjs";
+import { orderReferenceConstraint } from "./constraint.mjs";
+import { submitReference } from "../shared/reference.mjs";
 const app = document.querySelector("#app");
 app.innerHTML =
   '<form novalidate><div id="field" class="reference-field"></div><button>Submit reference</button></form><output data-testid="result"></output>';
@@ -9,14 +10,7 @@ const editor = new Jedison.Create({
   data: "",
   showErrors: "always",
   schema: { type: "string", title: "Order reference", "order-reference": true },
-  constraints: {
-    "order-reference": (context) => {
-      const message = referenceError(context.value);
-      return message
-        ? [{ type: "error", path: context.path, messages: [message] }]
-        : [];
-    },
-  },
+  constraints: { "order-reference": orderReferenceConstraint },
 });
 app.querySelector("form").addEventListener("submit", async (event) => {
   event.preventDefault();
