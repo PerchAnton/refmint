@@ -79,7 +79,7 @@ jobs:
       - run: pnpm test:browser
 
   form-examples:
-    name: Eight form libraries / Chromium
+    name: Fifteen form libraries / Chromium
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -95,6 +95,69 @@ jobs:
           node-version: 24
           package-manager-cache: false
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm --prefix uniforms ci --ignore-scripts --no-audit --no-fund
       - run: npm run test:contracts
       - run: npm run build
       - run: npm test
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: form-library-browser-results
+          path: examples/form-integrations/artifacts/browser-results.json
+          if-no-files-found: error
+
+  validation-adapters:
+    name: Ten validation adapters / Node and Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea
+      options: --user 1001 --init --ipc=host
+    defaults:
+      run:
+        working-directory: examples/validation-adapters
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '24.22.1'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:browser
+      - run: REFMINT_PREVIEW=1 npm run test:browser
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: validation-adapter-browser-results
+          path: examples/validation-adapters/artifacts/browser*.json
+          if-no-files-found: error
+
+  reference-rules:
+    name: Seven reference rules / Node and Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea
+      options: --user 1001 --init --ipc=host
+    defaults:
+      run:
+        working-directory: examples/reference-rules
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '24.22.1'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:browser
+      - run: REFMINT_PREVIEW=1 npm run test:browser
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: reference-rule-browser-results
+          path: examples/reference-rules/artifacts/browser*.json
+          if-no-files-found: error

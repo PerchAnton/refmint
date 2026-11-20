@@ -199,8 +199,17 @@ Original code: **MIT OR Apache-2.0**, at your option. Standard checksum/referenc
 
 ### Form validation examples
 
-[Eight runnable form-library examples](https://github.com/PerchAnton/refmint/tree/main/examples/form-integrations#readme) show
+[Fifteen runnable form-library examples](https://github.com/PerchAnton/refmint/tree/main/examples/form-integrations#readme) show
 checksum errors, input preservation and server-side validation with RefMint 1.0.0.
 JSON Forms includes React, Vue and Angular. Conform and Superforms also work
 without JavaScript. These are external consumer examples, not upstream adoptions
 or evidence of faster human entry.
+
+[Seven more reference rules](https://github.com/PerchAnton/refmint/tree/310b30ce85535530c6ede14432afb55e38c96cd1/examples/reference-rules#readme)
+cover Runtypes, Valibot, Typia, RVF, form-atoms, RSuite and Web Awesome. They preserve raw
+input and distinguish request shape, checksum validity and authorization.
+
+[Ten validation adapters](https://github.com/PerchAnton/refmint/tree/b5d885d6dcc71fdafa71c12c9522ef78cd263def/examples/validation-adapters#readme) show optional
+checksum-aware reference fields with real Node and browser validation libraries.
+They preserve raw input and keep authorization separate; no entry-speed advantage
+is claimed.

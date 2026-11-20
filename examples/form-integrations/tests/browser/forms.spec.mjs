@@ -8,6 +8,13 @@ import {
   forbidden,
 } from "../../shared/reference.mjs";
 const routes = [
+  "uniforms",
+  "rjsf",
+  "formik",
+  "final-form",
+  "mantine",
+  "formily",
+  "primevue",
   "vueform",
   "autoform",
   "formwerk",
@@ -20,7 +27,7 @@ const routes = [
   "superforms",
 ];
 const url = (name) =>
-  name === "superforms"
+  name === "uniforms" ? "http://127.0.0.1:5189/" : name === "superforms"
     ? "http://127.0.0.1:5188/"
     : `http://127.0.0.1:5187/${name}/`;
 for (const name of routes) {

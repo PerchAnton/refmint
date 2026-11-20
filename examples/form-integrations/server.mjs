@@ -41,7 +41,7 @@ const http = httpServer(async (req, res) => {
       res.end(
         shell(
           "Reference fields in real form libraries",
-          `<nav>${examples.map((p) => `<a href="/${p}/">${p}</a>`).join("")}<a href="http://127.0.0.1:5188/">superforms</a></nav><p>The examples use RefMint 1.0.0 from npm. They preserve the entered text on errors and recheck every submitted value on the server. Existing IDs and authorization remain application responsibilities.</p>`,
+          `<nav>${examples.map((p) => `<a href="/${p}/">${p}</a>`).join("")}<a href="http://127.0.0.1:5188/">superforms</a><a href="http://127.0.0.1:5189/">uniforms (React 18)</a></nav><p>The examples use RefMint 1.0.0 from npm. They preserve the entered text on errors and recheck every submitted value on the server. Existing IDs and authorization remain application responsibilities.</p>`,
         ),
       );
       return;
